@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>갤러리 - 유관순정신계승사업회</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sub-pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Gallery Page Specific Styles */
+        .gallery-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.2rem;
+            border: 1px solid #e5e5e5;
+            background: #fff;
+            color: #666;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-navy);
+            color: #fff;
+            border-color: var(--primary-navy);
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f8f9fa;
+            border: 1px solid #e5e5e5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-gold);
+        }
+
+        .gallery-item-image {
+            aspect-ratio: 4/3;
+            background: rgba(197, 160, 89, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover .gallery-item-image img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item-image .placeholder-icon {
+            font-size: 4rem;
+            color: rgba(197, 160, 89, 0.3);
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 25, 47, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item-overlay i {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+        }
+
+        .gallery-item-info {
+            padding: 1rem;
+        }
+
+        .gallery-item-category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--primary-navy);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 20px;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-item-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.3rem;
+        }
+
+        .gallery-item-date {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .gallery-item-count {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.3rem 0.7rem;
+            background: var(--primary-navy);
+            color: #fff;
+            font-size: 0.8rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* Featured Album */
+        .featured-album {
+            margin-bottom: 3rem;
+        }
+
+        .featured-album-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--primary-navy), var(--primary-navy-light));
+            border-radius: 16px;
+            border: 1px solid var(--primary-navy);
+        }
+
+        .featured-album-images {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 0.5rem;
+            aspect-ratio: 1;
+        }
+
+        .featured-album-images .preview-image {
+            border-radius: 8px;
+            overflow: hidden;
+            background: rgba(197, 160, 89, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .featured-album-images .preview-image:first-child {
+            grid-column: 1 / 3;
+            grid-row: 1 / 2;
+        }
+
+        .featured-album-images .preview-image i {
+            font-size: 2rem;
+            color: rgba(197, 160, 89, 0.3);
+        }
+
+        .featured-album-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--accent-gold);
+            color: var(--primary-navy);
+            font-size: 0.8rem;
+            font-weight: 700;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            width: fit-content;
+        }
+
+        .featured-album-content h3 {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .featured-album-content p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .featured-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .featured-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .featured-meta i {
+            color: var(--accent-gold);
+        }
+
+        /* Category Sections */
+        .category-section {
+            margin-bottom: 3rem;
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+        }
+
+        .category-header h3 {
+            color: var(--primary-navy);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-header a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .category-header a:hover {
+            color: var(--primary-navy);
+        }
+
+        /* Gallery Stats */
+        .gallery-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #e5e5e5;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .lightbox-placeholder {
+            width: 80vw;
+            height: 60vh;
+            max-width: 900px;
+            background: rgba(197, 160, 89, 0.1);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .lightbox-placeholder i {
+            font-size: 5rem;
+            color: rgba(197, 160, 89, 0.3);
+        }
+
+        .lightbox-placeholder span {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.1rem;
+        }
+
+        .lightbox-info {
+            text-align: center;
+            padding: 1.5rem 0;
+        }
+
+        .lightbox-title {
+            font-size: 1.3rem;
+            color: var(--text-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .lightbox-meta {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 10001;
+        }
+
+        .lightbox-close:hover {
+            color: var(--accent-gold);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(197, 160, 89, 0.2);
+            border: none;
+            color: var(--text-white);
+            font-size: 1.5rem;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 50%;
+        }
+
+        .lightbox-nav:hover {
+            background: var(--accent-gold);
+            color: var(--primary-navy);
+        }
+
+        .lightbox-prev {
+            left: 1rem;
+        }
+
+        .lightbox-next {
+            right: 1rem;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Video Gallery */
+        .video-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .video-item {
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f8f9fa;
+            border: 1px solid #e5e5e5;
+            transition: all 0.3s ease;
+        }
+
+        .video-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-gold);
+        }
+
+        .video-thumbnail {
+            aspect-ratio: 16/9;
+            background: rgba(197, 160, 89, 0.1);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-thumbnail .play-btn {
+            width: 70px;
+            height: 70px;
+            background: rgba(197, 160, 89, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .video-thumbnail .play-btn i {
+            font-size: 1.8rem;
+            color: var(--primary-navy);
+            margin-left: 5px;
+        }
+
+        .video-item:hover .play-btn {
+            transform: scale(1.1);
+            background: var(--accent-gold);
+        }
+
+        .video-info {
+            padding: 1rem;
+        }
+
+        .video-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.3rem;
+        }
+
+        .video-meta {
+            font-size: 0.85rem;
+            color: #888;
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .pagination button {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #e5e5e5;
+            background: #fff;
+            color: #666;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pagination button:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .pagination button.active {
+            background: var(--primary-navy);
+            color: #fff;
+            border-color: var(--primary-navy);
+        }
+
+        .pagination button.nav-btn {
+            width: auto;
+            padding: 0 1rem;
+        }
+
+        @media (max-width: 992px) {
+            .featured-album-card {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .gallery-item-title {
+                font-size: 0.9rem;
+            }
+
+            .featured-album-content h3 {
+                font-size: 1.4rem;
+            }
+
+            .lightbox-nav {
+                padding: 0.7rem;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link -->
+    <a href="#main-content" class="skip-link">본문으로 건너뛰기</a>
+
+    <!-- Header -->
+    <header id="header" class="header">
+        <div class="header-inner">
+            <a href="../index.html" class="logo">
+                <span class="logo-main">유관순정신계승사업회</span>
+                <span class="logo-sub">Yu Gwan-sun Memorial Association</span>
+            </a>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item has-dropdown">
+                        <a href="../about/greeting.html" class="nav-link">사업회 소개</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../about/greeting.html">인사말</a></li>
+                            <li><a href="../about/organization.html">조직도</a></li>
+                            <li><a href="../about/history.html">연혁</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../contest/index.html" class="nav-link">웅변대회</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../contest/index.html">대회 소개</a></li>
+                            <li><a href="../contest/apply.html">참가 신청</a></li>
+                            <li><a href="../contest/guidelines.html">참가 요강</a></li>
+                            <li><a href="../contest/winners.html">역대 수상자</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../projects/honor-upgrade.html" class="nav-link">핵심 사업</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../projects/honor-upgrade.html">서훈 등급 상향</a></li>
+                            <li><a href="../projects/education.html">교육 사업</a></li>
+                            <li><a href="../projects/memorial.html">추모 사업</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../global/network.html" class="nav-link">글로벌</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../global/network.html">해외 네트워크</a></li>
+                            <li><a href="../global/exchange.html">국제 교류</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="notice.html" class="nav-link active">아카이브</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="notice.html">공지사항</a></li>
+                            <li><a href="news.html">보도자료</a></li>
+                            <li><a href="gallery.html" class="active">갤러리</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../join/donation.html" class="nav-link">후원 및 참여</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../join/donation.html">후원 안내</a></li>
+                            <li><a href="../join/volunteer.html">자원봉사</a></li>
+                            <li><a href="../join/membership.html">회원 가입</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-list">
+                <li class="mobile-nav-item">
+                    <a href="../about/greeting.html" class="mobile-nav-link">사업회 소개</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../contest/index.html" class="mobile-nav-link">웅변대회</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../projects/honor-upgrade.html" class="mobile-nav-link">핵심 사업</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../global/network.html" class="mobile-nav-link">글로벌</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="notice.html" class="mobile-nav-link active">아카이브</a>
+                    <ul class="mobile-dropdown">
+                        <li><a href="notice.html">공지사항</a></li>
+                        <li><a href="news.html">보도자료</a></li>
+                        <li><a href="gallery.html" class="active">갤러리</a></li>
+                    </ul>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../join/donation.html" class="mobile-nav-link">후원 및 참여</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-bg">
+            <div class="page-hero-overlay"></div>
+        </div>
+        <div class="page-hero-content">
+            <div class="breadcrumb">
+                <a href="../index.html">홈</a>
+                <span class="separator">/</span>
+                <a href="notice.html">아카이브</a>
+                <span class="separator">/</span>
+                <span class="current">갤러리</span>
+            </div>
+            <h1 class="page-title">갤러리</h1>
+            <p class="page-subtitle">유관순정신계승사업회의 활동 사진과 영상 기록</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content" class="sub-page-content">
+        <div class="content-wrapper with-sidebar">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <h3 class="sidebar-title">아카이브</h3>
+                    <ul class="sidebar-menu">
+                        <li><a href="notice.html">공지사항</a></li>
+                        <li><a href="news.html">보도자료</a></li>
+                        <li><a href="gallery.html" class="active">갤러리</a></li>
+                    </ul>
+                </nav>
+
+                <div class="sidebar-cta">
+                    <h4>소식 받기</h4>
+                    <p>사업회의 새로운 소식을 이메일로 받아보세요.</p>
+                    <a href="../join/membership.html" class="btn btn-gold">회원 가입</a>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <div class="main-content-area">
+                <div class="content-header">
+                    <h2>사진 및 영상 갤러리</h2>
+                    <p>유관순정신계승사업회의 주요 행사와 활동을 사진과 영상으로 만나보세요.</p>
+                </div>
+
+                <!-- Gallery Stats -->
+                <div class="gallery-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-images"></i>
+                        <div class="stat-number">2,500+</div>
+                        <div class="stat-label">사진</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-folder"></i>
+                        <div class="stat-number">180+</div>
+                        <div class="stat-label">앨범</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-video"></i>
+                        <div class="stat-number">85+</div>
+                        <div class="stat-label">영상</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-calendar"></i>
+                        <div class="stat-number">20년</div>
+                        <div class="stat-label">기록</div>
+                    </div>
+                </div>
+
+                <!-- Featured Album -->
+                <div class="featured-album">
+                    <div class="featured-album-card">
+                        <div class="featured-album-images">
+                            <div class="preview-image">
+                                <i class="fas fa-image"></i>
+                            </div>
+                            <div class="preview-image">
+                                <i class="fas fa-image"></i>
+                            </div>
+                            <div class="preview-image">
+                                <i class="fas fa-image"></i>
+                            </div>
+                        </div>
+                        <div class="featured-album-content">
+                            <span class="featured-badge"><i class="fas fa-star"></i> 최신 앨범</span>
+                            <h3>제23회 전국 유관순 열사 웅변대회</h3>
+                            <p>
+                                2025년 8월, 천안시 문화회관에서 개최된 제23회 전국 유관순 열사 웅변대회의
+                                생생한 현장 모습입니다. 전국 각지에서 모인 150여 명의 청소년들이
+                                유관순 열사의 정신을 되새기며 열정적인 웅변을 펼쳤습니다.
+                            </p>
+                            <div class="featured-meta">
+                                <span><i class="fas fa-images"></i> 156장</span>
+                                <span><i class="fas fa-calendar"></i> 2025.08.12</span>
+                                <span><i class="fas fa-eye"></i> 2,340회</span>
+                            </div>
+                            <a href="#" class="btn btn-gold">
+                                앨범 보기 <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter Buttons -->
+                <div class="gallery-filters">
+                    <button class="filter-btn active" data-filter="all">전체</button>
+                    <button class="filter-btn" data-filter="contest">웅변대회</button>
+                    <button class="filter-btn" data-filter="memorial">추모행사</button>
+                    <button class="filter-btn" data-filter="education">교육활동</button>
+                    <button class="filter-btn" data-filter="global">국제교류</button>
+                    <button class="filter-btn" data-filter="meeting">회의/행사</button>
+                </div>
+
+                <!-- Photo Gallery Section -->
+                <div class="category-section">
+                    <div class="category-header">
+                        <h3><i class="fas fa-camera"></i> 사진 갤러리</h3>
+                        <a href="#">전체보기 <i class="fas fa-chevron-right"></i></a>
+                    </div>
+
+                    <div class="gallery-grid">
+                        <!-- Contest Photos -->
+                        <div class="gallery-item" data-filter="contest" data-title="제23회 웅변대회 시상식" data-date="2025.08.12" data-count="48">
+                            <div class="gallery-item-image">
+                                <i class="fas fa-image placeholder-icon"></i>
+                                <div class="gallery-item-overlay">
+                                    <i class="fas fa-search-plus"></i>
+                                </div>
+                            </div>
+                            <span class="gallery-item-count"><i class="fas fa-images"></i> 48</span>
+                            <div class="gallery-item-info">
+                                <span class="gallery-item-category">웅변대회</span>
+                                <h4 class="gallery-item-title">제23회 웅변대회 시상식</h4>
+                                <p class="gallery-item-date">2025.08.12</p>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-filter="contest" data-title="제23회 웅변대회 본선" data-date="2025.08.12" data-count="72">
+                            <div class="gallery-item-image">
+                                <i class="fas fa-image placeholder-icon"></i>
+                                <div class="gallery-item-overlay">
+                                    <i class="fas fa-search-plus"></i>
+                                </div>
+                            </div>
+                            <span class="gallery-item-count"><i class="fas fa-images"></i> 72</span>
+                            <div class="gallery-item-info">
+                                <span class="gallery-item-category">웅변대회</span>
+                                <h4 class="gallery-item-title">제23회 웅변대회 본선</h4>
+                                <p class="gallery-item-date">2025.08.12</p>
+                            </div>
+                        </div>
+
+                        <!-- Memorial Photos -->
+                        <div class="gallery-item" data-filter="memorial" data-title="순국 105주기 추모식" data-date="2025.09.28" data-count="65">
+                            <div class="gallery-item-image">
+                                <i class="fas fa-image placeholder-icon"></i>
+                                <div class="gallery-item-overlay">
+                                    <i class="fas fa-search-plus"></i>
+                                </div>
+                            </div>
+                            <span class="gallery-item-count"><i class="fas fa-images"></i> 65</span>
+                            <div class="gallery-item-info">
+                                <span class="gallery-item-category">추모행사</span>
+                                <h4 class="gallery-item-title">순국 105주기 추모식</h4>
+                                <p class="gallery-item-date">2025.09.28</p>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-filter="memorial" data-title="탄신 119주년 기념식" data-date="2025.04.01" data-count="58">
+                            <div class="gallery-item-image">
+                                <i class="fas fa-image placeholder-icon"></i>
+                                <div class="gallery-item-overlay">
+                                    <i class="fas fa-search-plus"></i>
+                                </div>
+                            </div>
+                            <span class="gallery-item-count"><i class="fas fa-images"></i> 58</span>
+                            <div class="gallery-item-info">
+                                <span class="gallery-item-category">추모행사</span>
+                                <h4 class="gallery-item-title">탄신 119주년 기념식</h4>
+                                <p class="gallery-item-date">2025.04.01</p>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-filter="memorial" data-title="3.1절 106주년 기념행사" data-date="2025.03.01" data-count="89">
+                            <div class="gallery-item-image">
+                                <i class="fas fa-image placeholder-icon"></i>
+                                <div class="gallery-item-overlay">
+                                    <i class="fas fa-search-plus"></i>
+                                </div>
+                            </div>
+                            <span class="gallery-item-count"><i class="fas fa-images"></i> 89</span>
+                            <div class="gallery-item-info">
+                                <span class="gallery-item-category">추모행사</span>
+                                <h4 class="gallery-item-title">3.1절 106주년 기념행사</h4>
+                                <p class="gallery-item-date">2025.03.01</p>
+                            </div>
+                        </div>
+
+                        <!-- Education Photos -->
+                        <div class="gallery-item" data-filter="education" data-title="충남 학생 역사교실" data-date="2025.06.15" data-count="42">
+                            <div class="gallery-item-image">
+                                <i class="fas fa-image placeholder-icon"></i>
+                                <div class="gallery-item-overlay">
+                                    <i class="fas fa-search-plus"></i>
+                                </div>
+                            </div>
+                            <span class="gallery-item-count"><i class="fas fa-images"></i> 42</span>
+                            <div class="gallery-item-info">
+                                <span class="gallery-item-category">교육활동</span>
+                                <h4 class="gallery-item-title">충남 학생 역사교실</h4>
+                                <p class="gallery-item-date">2025.06.15</p>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-filter="education" data-title="교사 연수 프로그램" data-date="2025.01.20" data-count="35">
+                            <div class="gallery-item-image">
+                                <i class="fas fa-image placeholder-icon"></i>
+                                <div class="gallery-item-overlay">
+                                    <i class="fas fa-search-plus"></i>
+                                </div>
+                            </div>
+                            <span class="gallery-item-count"><i class="fas fa-images"></i> 35</span>
+                            <div class="gallery-item-info">
+                                <span class="gallery-item-category">교육활동</span>
+                                <h4 class="gallery-item-title">교사 연수 프로그램</h4>
+                                <p class="gallery-item-date">2025.01.20</p>
+                            </div>
+                        </div>
+
+                        <!-- Global Photos -->
+                        <div class="gallery-item" data-filter="global" data-title="LA 한인타운 특별전시" data-date="2024.11.20" data-count="76">
+                            <div class="gallery-item-image">
+                                <i class="fas fa-image placeholder-icon"></i>
+                                <div class="gallery-item-overlay">
+                                    <i class="fas fa-search-plus"></i>
+                                </div>
+                            </div>
+                            <span class="gallery-item-count"><i class="fas fa-images"></i> 76</span>
+                            <div class="gallery-item-info">
+                                <span class="gallery-item-category">국제교류</span>
+                                <h4 class="gallery-item-title">LA 한인타운 특별전시</h4>
+                                <p class="gallery-item-date">2024.11.20</p>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-filter="global" data-title="일본 대학생 방한 프로그램" data-date="2023.07.15" data-count="54">
+                            <div class="gallery-item-image">
+                                <i class="fas fa-image placeholder-icon"></i>
+                                <div class="gallery-item-overlay">
+                                    <i class="fas fa-search-plus"></i>
+                                </div>
+                            </div>
+                            <span class="gallery-item-count"><i class="fas fa-images"></i> 54</span>
+                            <div class="gallery-item-info">
+                                <span class="gallery-item-category">국제교류</span>
+                                <h4 class="gallery-item-title">일본 대학생 방한 프로그램</h4>
+                                <p class="gallery-item-date">2023.07.15</p>
+                            </div>
+                        </div>
+
+                        <!-- Meeting Photos -->
+                        <div class="gallery-item" data-filter="meeting" data-title="2025년 정기총회" data-date="2025.02.15" data-count="28">
+                            <div class="gallery-item-image">
+                                <i class="fas fa-image placeholder-icon"></i>
+                                <div class="gallery-item-overlay">
+                                    <i class="fas fa-search-plus"></i>
+                                </div>
+                            </div>
+                            <span class="gallery-item-count"><i class="fas fa-images"></i> 28</span>
+                            <div class="gallery-item-info">
+                                <span class="gallery-item-category">회의/행사</span>
+                                <h4 class="gallery-item-title">2025년 정기총회</h4>
+                                <p class="gallery-item-date">2025.02.15</p>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-filter="meeting" data-title="이사회 및 간담회" data-date="2024.12.10" data-count="22">
+                            <div class="gallery-item-image">
+                                <i class="fas fa-image placeholder-icon"></i>
+                                <div class="gallery-item-overlay">
+                                    <i class="fas fa-search-plus"></i>
+                                </div>
+                            </div>
+                            <span class="gallery-item-count"><i class="fas fa-images"></i> 22</span>
+                            <div class="gallery-item-info">
+                                <span class="gallery-item-category">회의/행사</span>
+                                <h4 class="gallery-item-title">이사회 및 간담회</h4>
+                                <p class="gallery-item-date">2024.12.10</p>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-filter="contest" data-title="제22회 웅변대회" data-date="2024.08.10" data-count="120">
+                            <div class="gallery-item-image">
+                                <i class="fas fa-image placeholder-icon"></i>
+                                <div class="gallery-item-overlay">
+                                    <i class="fas fa-search-plus"></i>
+                                </div>
+                            </div>
+                            <span class="gallery-item-count"><i class="fas fa-images"></i> 120</span>
+                            <div class="gallery-item-info">
+                                <span class="gallery-item-category">웅변대회</span>
+                                <h4 class="gallery-item-title">제22회 웅변대회</h4>
+                                <p class="gallery-item-date">2024.08.10</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <button class="nav-btn"><i class="fas fa-chevron-left"></i> 이전</button>
+                        <button class="active">1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <button>4</button>
+                        <button>5</button>
+                        <button class="nav-btn">다음 <i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Video Gallery Section -->
+                <div class="category-section">
+                    <div class="category-header">
+                        <h3><i class="fas fa-video"></i> 영상 갤러리</h3>
+                        <a href="#">전체보기 <i class="fas fa-chevron-right"></i></a>
+                    </div>
+
+                    <div class="video-gallery">
+                        <div class="video-item">
+                            <div class="video-thumbnail">
+                                <div class="play-btn">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <h4 class="video-title">제23회 웅변대회 하이라이트</h4>
+                                <p class="video-meta">
+                                    <span><i class="fas fa-clock"></i> 15:32</span>
+                                    <span><i class="fas fa-eye"></i> 3,250회</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="video-item">
+                            <div class="video-thumbnail">
+                                <div class="play-btn">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <h4 class="video-title">유관순 열사 다큐멘터리</h4>
+                                <p class="video-meta">
+                                    <span><i class="fas fa-clock"></i> 45:20</span>
+                                    <span><i class="fas fa-eye"></i> 12,840회</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="video-item">
+                            <div class="video-thumbnail">
+                                <div class="play-btn">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <h4 class="video-title">3.1절 106주년 기념행사 영상</h4>
+                                <p class="video-meta">
+                                    <span><i class="fas fa-clock"></i> 28:15</span>
+                                    <span><i class="fas fa-eye"></i> 5,620회</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="video-item">
+                            <div class="video-thumbnail">
+                                <div class="play-btn">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <h4 class="video-title">대한민국장 서훈 기념 영상</h4>
+                                <p class="video-meta">
+                                    <span><i class="fas fa-clock"></i> 12:48</span>
+                                    <span><i class="fas fa-eye"></i> 8,920회</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="video-item">
+                            <div class="video-thumbnail">
+                                <div class="play-btn">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <h4 class="video-title">VR 역사체험 소개 영상</h4>
+                                <p class="video-meta">
+                                    <span><i class="fas fa-clock"></i> 5:30</span>
+                                    <span><i class="fas fa-eye"></i> 2,150회</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="video-item">
+                            <div class="video-thumbnail">
+                                <div class="play-btn">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <h4 class="video-title">LA 특별전시 현장 스케치</h4>
+                                <p class="video-meta">
+                                    <span><i class="fas fa-clock"></i> 8:45</span>
+                                    <span><i class="fas fa-eye"></i> 1,890회</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Related Links -->
+                <section class="related-links">
+                    <h3>관련 페이지</h3>
+                    <div class="link-cards">
+                        <a href="notice.html" class="link-card">
+                            <span class="link-icon">📢</span>
+                            <span class="link-title">공지사항</span>
+                            <span class="link-desc">사업회 소식</span>
+                        </a>
+                        <a href="news.html" class="link-card">
+                            <span class="link-icon">📰</span>
+                            <span class="link-title">보도자료</span>
+                            <span class="link-desc">언론 보도</span>
+                        </a>
+                        <a href="../contest/index.html" class="link-card">
+                            <span class="link-icon">🎤</span>
+                            <span class="link-title">웅변대회</span>
+                            <span class="link-desc">대회 정보</span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightbox-close">&times;</button>
+        <button class="lightbox-nav lightbox-prev" id="lightbox-prev">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="lightbox-content">
+            <div class="lightbox-placeholder">
+                <i class="fas fa-image"></i>
+                <span id="lightbox-title">이미지 제목</span>
+            </div>
+            <div class="lightbox-info">
+                <p class="lightbox-meta" id="lightbox-meta">2025.08.12</p>
+            </div>
+        </div>
+        <button class="lightbox-nav lightbox-next" id="lightbox-next">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="lightbox-counter" id="lightbox-counter">1 / 48</div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-info">
+                    <h3 class="footer-logo">유관순정신계승사업회</h3>
+                    <p class="footer-address">
+                        (31232) 충청남도 천안시 동남구 유관순길 38<br>
+                        Tel: 041-564-1919 | Fax: 041-564-1920<br>
+                        Email: yugwansun@memorial.or.kr
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-link-group">
+                        <h4>바로가기</h4>
+                        <ul>
+                            <li><a href="../about/greeting.html">사업회 소개</a></li>
+                            <li><a href="../contest/index.html">웅변대회</a></li>
+                            <li><a href="../projects/honor-upgrade.html">핵심 사업</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-link-group">
+                        <h4>참여</h4>
+                        <ul>
+                            <li><a href="../join/donation.html">후원하기</a></li>
+                            <li><a href="../join/volunteer.html">자원봉사</a></li>
+                            <li><a href="../join/membership.html">회원가입</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2026 유관순정신계승사업회. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script>
+
+        // Gallery Filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.filter === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxClose = document.getElementById('lightbox-close');
+        const lightboxTitle = document.getElementById('lightbox-title');
+        const lightboxMeta = document.getElementById('lightbox-meta');
+        const lightboxCounter = document.getElementById('lightbox-counter');
+        const lightboxPrev = document.getElementById('lightbox-prev');
+        const lightboxNext = document.getElementById('lightbox-next');
+
+        let currentIndex = 0;
+        let visibleItems = [];
+
+        function openLightbox(index) {
+            visibleItems = Array.from(galleryItems).filter(item => item.style.display !== 'none');
+            currentIndex = index;
+            updateLightbox();
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function updateLightbox() {
+            const item = visibleItems[currentIndex];
+            lightboxTitle.textContent = item.dataset.title;
+            lightboxMeta.textContent = item.dataset.date;
+            lightboxCounter.textContent = `${currentIndex + 1} / ${item.dataset.count}`;
+        }
+
+        function showPrev() {
+            currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length;
+            updateLightbox();
+        }
+
+        function showNext() {
+            currentIndex = (currentIndex + 1) % visibleItems.length;
+            updateLightbox();
+        }
+
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                const visibleIndex = Array.from(galleryItems)
+                    .filter(i => i.style.display !== 'none')
+                    .indexOf(item);
+                openLightbox(visibleIndex);
+            });
+        });
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxPrev.addEventListener('click', showPrev);
+        lightboxNext.addEventListener('click', showNext);
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') showPrev();
+            if (e.key === 'ArrowRight') showNext();
+        });
+
+        // Pagination (demo)
+        const paginationBtns = document.querySelectorAll('.pagination button:not(.nav-btn)');
+        paginationBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                paginationBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Scroll animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.gallery-item, .video-item, .stat-card').forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = 'all 0.5s ease';
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>

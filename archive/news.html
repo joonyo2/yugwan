@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>보도자료 - 유관순정신계승사업회</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sub-pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* News Page Specific Styles */
+        .news-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 1px solid #e5e5e5;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: var(--primary-navy);
+            font-size: 0.9rem;
+        }
+
+        .filter-select {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e5e5e5;
+            border-radius: 6px;
+            background: #fff;
+            color: #333;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            border: 2px solid #e5e5e5;
+            border-radius: 6px;
+            background: #fff;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        .search-box button {
+            padding: 0.5rem 1rem;
+            background: var(--primary-navy);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-box button:hover {
+            background: var(--primary-navy-light);
+        }
+
+        /* News List */
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .news-item {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 1px solid #e5e5e5;
+            transition: all 0.3s ease;
+        }
+
+        .news-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-gold);
+        }
+
+        .news-thumbnail {
+            width: 200px;
+            height: 140px;
+            flex-shrink: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: rgba(197, 160, 89, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .news-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .news-thumbnail .placeholder-icon {
+            font-size: 3rem;
+            color: rgba(197, 160, 89, 0.3);
+        }
+
+        .news-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+            font-size: 0.85rem;
+        }
+
+        .news-source {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.25rem 0.75rem;
+            background: var(--primary-navy);
+            color: #fff;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .news-date {
+            color: #888;
+        }
+
+        .news-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+            transition: color 0.3s ease;
+        }
+
+        .news-item:hover .news-title {
+            color: var(--accent-gold);
+        }
+
+        .news-excerpt {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            flex: 1;
+        }
+
+        .news-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-navy);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: gap 0.3s ease;
+        }
+
+        .news-link:hover {
+            gap: 0.8rem;
+            color: var(--accent-gold);
+        }
+
+        /* Featured News */
+        .featured-news {
+            margin-bottom: 3rem;
+        }
+
+        .featured-news .news-item {
+            flex-direction: column;
+            background: linear-gradient(135deg, var(--primary-navy), var(--primary-navy-light));
+            border-color: var(--primary-navy);
+        }
+
+        .featured-news .news-title {
+            color: #fff;
+        }
+
+        .featured-news .news-excerpt {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .featured-news .news-date {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .featured-news .news-link {
+            color: var(--accent-gold);
+        }
+
+        .featured-news .news-thumbnail {
+            width: 100%;
+            height: 300px;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--accent-gold);
+            color: var(--primary-navy);
+            font-weight: 700;
+            font-size: 0.8rem;
+            border-radius: 4px;
+        }
+
+        .featured-news .news-title {
+            font-size: 1.6rem;
+        }
+
+        /* Media Sources Section */
+        .media-sources {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 1px solid #e5e5e5;
+        }
+
+        .media-sources h3 {
+            color: var(--primary-navy);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .media-logos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .media-logo {
+            padding: 1rem 1.5rem;
+            background: #fff;
+            border-radius: 8px;
+            color: #666;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid #e5e5e5;
+        }
+
+        .media-logo:hover {
+            background: var(--primary-navy);
+            color: #fff;
+            border-color: var(--primary-navy);
+        }
+
+        /* Statistics */
+        .news-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #e5e5e5;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+        }
+
+        .pagination button {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #e5e5e5;
+            background: #fff;
+            color: #666;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pagination button:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .pagination button.active {
+            background: var(--primary-navy);
+            color: #fff;
+            border-color: var(--primary-navy);
+        }
+
+        .pagination button.nav-btn {
+            width: auto;
+            padding: 0 1rem;
+        }
+
+        /* Year Archive */
+        .year-archive {
+            margin-top: 3rem;
+        }
+
+        .year-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .year-tab {
+            padding: 0.5rem 1.2rem;
+            border: 1px solid #e5e5e5;
+            background: #fff;
+            color: #666;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .year-tab:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .year-tab.active {
+            background: var(--primary-navy);
+            color: #fff;
+            border-color: var(--primary-navy);
+        }
+
+        @media (max-width: 768px) {
+            .news-item {
+                flex-direction: column;
+            }
+
+            .news-thumbnail {
+                width: 100%;
+                height: 180px;
+            }
+
+            .news-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .news-filters {
+                flex-direction: column;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .featured-news .news-thumbnail {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link -->
+    <a href="#main-content" class="skip-link">본문으로 건너뛰기</a>
+
+    <!-- Header -->
+    <header id="header" class="header">
+        <div class="header-inner">
+            <a href="../index.html" class="logo">
+                <span class="logo-main">유관순정신계승사업회</span>
+                <span class="logo-sub">Yu Gwan-sun Memorial Association</span>
+            </a>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item has-dropdown">
+                        <a href="../about/greeting.html" class="nav-link">사업회 소개</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../about/greeting.html">인사말</a></li>
+                            <li><a href="../about/organization.html">조직도</a></li>
+                            <li><a href="../about/history.html">연혁</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../contest/index.html" class="nav-link">웅변대회</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../contest/index.html">대회 소개</a></li>
+                            <li><a href="../contest/apply.html">참가 신청</a></li>
+                            <li><a href="../contest/guidelines.html">참가 요강</a></li>
+                            <li><a href="../contest/winners.html">역대 수상자</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../projects/honor-upgrade.html" class="nav-link">핵심 사업</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../projects/honor-upgrade.html">서훈 등급 상향</a></li>
+                            <li><a href="../projects/education.html">교육 사업</a></li>
+                            <li><a href="../projects/memorial.html">추모 사업</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../global/network.html" class="nav-link">글로벌</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../global/network.html">해외 네트워크</a></li>
+                            <li><a href="../global/exchange.html">국제 교류</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="notice.html" class="nav-link active">아카이브</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="notice.html">공지사항</a></li>
+                            <li><a href="news.html" class="active">보도자료</a></li>
+                            <li><a href="gallery.html">갤러리</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../join/donation.html" class="nav-link">후원 및 참여</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../join/donation.html">후원 안내</a></li>
+                            <li><a href="../join/volunteer.html">자원봉사</a></li>
+                            <li><a href="../join/membership.html">회원 가입</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-list">
+                <li class="mobile-nav-item">
+                    <a href="../about/greeting.html" class="mobile-nav-link">사업회 소개</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../contest/index.html" class="mobile-nav-link">웅변대회</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../projects/honor-upgrade.html" class="mobile-nav-link">핵심 사업</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../global/network.html" class="mobile-nav-link">글로벌</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="notice.html" class="mobile-nav-link active">아카이브</a>
+                    <ul class="mobile-dropdown">
+                        <li><a href="notice.html">공지사항</a></li>
+                        <li><a href="news.html" class="active">보도자료</a></li>
+                        <li><a href="gallery.html">갤러리</a></li>
+                    </ul>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../join/donation.html" class="mobile-nav-link">후원 및 참여</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-bg">
+            <div class="page-hero-overlay"></div>
+        </div>
+        <div class="page-hero-content">
+            <div class="breadcrumb">
+                <a href="../index.html">홈</a>
+                <span class="separator">/</span>
+                <a href="notice.html">아카이브</a>
+                <span class="separator">/</span>
+                <span class="current">보도자료</span>
+            </div>
+            <h1 class="page-title">보도자료</h1>
+            <p class="page-subtitle">유관순정신계승사업회의 활동을 전하는 언론 보도 모음</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content" class="sub-page-content">
+        <div class="content-wrapper with-sidebar">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <h3 class="sidebar-title">아카이브</h3>
+                    <ul class="sidebar-menu">
+                        <li><a href="notice.html">공지사항</a></li>
+                        <li><a href="news.html" class="active">보도자료</a></li>
+                        <li><a href="gallery.html">갤러리</a></li>
+                    </ul>
+                </nav>
+
+                <div class="sidebar-cta">
+                    <h4>소식 받기</h4>
+                    <p>사업회의 새로운 소식을 이메일로 받아보세요.</p>
+                    <a href="../join/membership.html" class="btn btn-gold">회원 가입</a>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <div class="main-content-area">
+                <div class="content-header">
+                    <h2>언론 보도 자료</h2>
+                    <p>유관순정신계승사업회의 활동과 관련된 언론 보도를 한눈에 확인하실 수 있습니다.</p>
+                </div>
+
+                <!-- Statistics -->
+                <div class="news-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-newspaper"></i>
+                        <div class="stat-number">350+</div>
+                        <div class="stat-label">보도 기사</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-tv"></i>
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">방송 보도</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-building"></i>
+                        <div class="stat-number">80+</div>
+                        <div class="stat-label">매체 수</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-calendar"></i>
+                        <div class="stat-number">20년</div>
+                        <div class="stat-label">보도 기록</div>
+                    </div>
+                </div>
+
+                <!-- Year Archive Tabs -->
+                <div class="year-archive">
+                    <div class="year-tabs">
+                        <button class="year-tab active" data-year="all">전체</button>
+                        <button class="year-tab" data-year="2026">2026</button>
+                        <button class="year-tab" data-year="2025">2025</button>
+                        <button class="year-tab" data-year="2024">2024</button>
+                        <button class="year-tab" data-year="2023">2023</button>
+                        <button class="year-tab" data-year="2022">2022</button>
+                        <button class="year-tab" data-year="2021">2021</button>
+                        <button class="year-tab" data-year="2020">2020</button>
+                        <button class="year-tab" data-year="2019">2019</button>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="news-filters">
+                    <div class="filter-group">
+                        <label for="source-filter">매체</label>
+                        <select id="source-filter" class="filter-select">
+                            <option value="all">전체</option>
+                            <option value="tv">TV 방송</option>
+                            <option value="newspaper">신문</option>
+                            <option value="online">온라인</option>
+                            <option value="radio">라디오</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="topic-filter">주제</label>
+                        <select id="topic-filter" class="filter-select">
+                            <option value="all">전체</option>
+                            <option value="contest">웅변대회</option>
+                            <option value="memorial">추모행사</option>
+                            <option value="honor">서훈 관련</option>
+                            <option value="global">국제교류</option>
+                            <option value="education">교육사업</option>
+                        </select>
+                    </div>
+                    <div class="search-box">
+                        <input type="text" placeholder="검색어를 입력하세요" id="news-search">
+                        <button type="button"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+
+                <!-- Featured News -->
+                <div class="featured-news">
+                    <h3 style="color: var(--accent-gold); margin-bottom: 1.5rem; font-size: 1.2rem;">
+                        <i class="fas fa-star"></i> 주요 보도
+                    </h3>
+                    <div class="news-item" style="position: relative;">
+                        <div class="featured-badge">FEATURED</div>
+                        <div class="news-thumbnail">
+                            <i class="fas fa-newspaper placeholder-icon"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-source"><i class="fas fa-tv"></i> KBS</span>
+                                <span class="news-date">2025.10.15</span>
+                            </div>
+                            <h4 class="news-title">유관순 열사 순국 105주기, 전국 곳곳에서 추모 물결</h4>
+                            <p class="news-excerpt">
+                                유관순 열사 순국 105주기를 맞아 전국 각지에서 추모 행사가 열렸습니다.
+                                유관순정신계승사업회 주관으로 서대문형무소에서 열린 추모식에는 정부 관계자, 독립유공자 후손,
+                                시민 등 500여 명이 참석해 열사의 숭고한 희생을 기렸습니다. 이번 행사에서는 특별히
+                                23회 전국 유관순 열사 웅변대회 수상자들이 추모 낭독을 진행하여 감동을 더했습니다.
+                            </p>
+                            <a href="#" class="news-link">
+                                기사 전문 보기 <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News List -->
+                <div class="news-list">
+                    <!-- 2025 News -->
+                    <div class="news-item" data-year="2025" data-source="newspaper" data-topic="contest">
+                        <div class="news-thumbnail">
+                            <i class="fas fa-newspaper placeholder-icon"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-source"><i class="fas fa-newspaper"></i> 조선일보</span>
+                                <span class="news-date">2025.08.12</span>
+                            </div>
+                            <h4 class="news-title">제23회 유관순 열사 웅변대회 성황리 개최... 역대 최다 참가</h4>
+                            <p class="news-excerpt">
+                                천안시 문화회관에서 열린 제23회 전국 유관순 열사 웅변대회에 전국에서
+                                150여 명의 청소년이 참가해 열띤 경쟁을 펼쳤다. 올해로 23회를 맞은
+                                이번 대회는 역대 최다 참가 신청을 기록했다.
+                            </p>
+                            <a href="#" class="news-link">
+                                기사 전문 보기 <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="news-item" data-year="2025" data-source="tv" data-topic="memorial">
+                        <div class="news-thumbnail">
+                            <i class="fas fa-newspaper placeholder-icon"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-source"><i class="fas fa-tv"></i> MBC</span>
+                                <span class="news-date">2025.04.01</span>
+                            </div>
+                            <h4 class="news-title">"자주독립의 정신 되새기다"... 유관순 열사 탄신 기념식</h4>
+                            <p class="news-excerpt">
+                                유관순 열사 탄신 119주년을 맞아 열사의 고향 천안에서 성대한 기념식이
+                                거행되었습니다. 유관순정신계승사업회가 주관한 이날 행사에는 정치인,
+                                교육자, 시민 등 800여 명이 참석했습니다.
+                            </p>
+                            <a href="#" class="news-link">
+                                기사 전문 보기 <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="news-item" data-year="2025" data-source="online" data-topic="education">
+                        <div class="news-thumbnail">
+                            <i class="fas fa-newspaper placeholder-icon"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-source"><i class="fas fa-globe"></i> 연합뉴스</span>
+                                <span class="news-date">2025.03.01</span>
+                            </div>
+                            <h4 class="news-title">3.1절 106주년, 전국 학교에서 유관순 열사 교육 확대</h4>
+                            <p class="news-excerpt">
+                                3.1절 106주년을 맞아 유관순정신계승사업회가 개발한 교육 콘텐츠가
+                                전국 1,200여 개 학교에서 활용되고 있다. 사업회는 올해 처음으로
+                                VR 콘텐츠를 도입해 학생들이 역사를 생생하게 체험할 수 있게 했다.
+                            </p>
+                            <a href="#" class="news-link">
+                                기사 전문 보기 <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="news-item" data-year="2024" data-source="newspaper" data-topic="global">
+                        <div class="news-thumbnail">
+                            <i class="fas fa-newspaper placeholder-icon"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-source"><i class="fas fa-newspaper"></i> 중앙일보</span>
+                                <span class="news-date">2024.11.20</span>
+                            </div>
+                            <h4 class="news-title">유관순 열사 정신, 미주 한인사회에 전파... LA서 특별 전시</h4>
+                            <p class="news-excerpt">
+                                미국 로스앤젤레스 한인타운에서 유관순정신계승사업회 주관의 특별 전시가
+                                열렸다. '자유를 향한 함성'이라는 주제로 열린 이번 전시에는
+                                현지 한인 및 미국인 3,000여 명이 방문했다.
+                            </p>
+                            <a href="#" class="news-link">
+                                기사 전문 보기 <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="news-item" data-year="2024" data-source="tv" data-topic="contest">
+                        <div class="news-thumbnail">
+                            <i class="fas fa-newspaper placeholder-icon"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-source"><i class="fas fa-tv"></i> SBS</span>
+                                <span class="news-date">2024.08.15</span>
+                            </div>
+                            <h4 class="news-title">광복절 특집: 웅변으로 되살아난 유관순 열사의 정신</h4>
+                            <p class="news-excerpt">
+                                광복절 79주년을 맞아 SBS에서 유관순 열사 웅변대회를 조명하는 특집
+                                프로그램을 방영했다. 프로그램에서는 역대 대상 수상자들의 인터뷰와
+                                함께 대회가 청소년 인성 교육에 미친 영향을 다뤘다.
+                            </p>
+                            <a href="#" class="news-link">
+                                기사 전문 보기 <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="news-item" data-year="2024" data-source="newspaper" data-topic="honor">
+                        <div class="news-thumbnail">
+                            <i class="fas fa-newspaper placeholder-icon"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-source"><i class="fas fa-newspaper"></i> 동아일보</span>
+                                <span class="news-date">2024.03.01</span>
+                            </div>
+                            <h4 class="news-title">"대한민국장 서훈 5주년" 유관순 열사 재조명</h4>
+                            <p class="news-excerpt">
+                                유관순 열사가 대한민국장을 서훈받은 지 5년이 되는 해를 맞아
+                                서훈 상향 운동의 역사를 돌아보는 기획 기사가 보도되었다.
+                                15년간 지속된 사업회의 노력이 상세히 소개되었다.
+                            </p>
+                            <a href="#" class="news-link">
+                                기사 전문 보기 <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="news-item" data-year="2023" data-source="radio" data-topic="memorial">
+                        <div class="news-thumbnail">
+                            <i class="fas fa-newspaper placeholder-icon"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-source"><i class="fas fa-microphone"></i> KBS 라디오</span>
+                                <span class="news-date">2023.09.28</span>
+                            </div>
+                            <h4 class="news-title">유관순 열사 순국 103주기 특별 라디오 다큐</h4>
+                            <p class="news-excerpt">
+                                KBS 라디오에서 유관순 열사 순국 103주기를 맞아 2시간 분량의
+                                특별 다큐멘터리를 방송했다. 유관순정신계승사업회 이사장과
+                                역사학자들이 출연해 열사의 생애와 정신적 유산을 조명했다.
+                            </p>
+                            <a href="#" class="news-link">
+                                기사 전문 보기 <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="news-item" data-year="2023" data-source="online" data-topic="global">
+                        <div class="news-thumbnail">
+                            <i class="fas fa-newspaper placeholder-icon"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-source"><i class="fas fa-globe"></i> 한겨레</span>
+                                <span class="news-date">2023.07.15</span>
+                            </div>
+                            <h4 class="news-title">일본 대학생들, 유관순 열사 발자취 따라 한국 방문</h4>
+                            <p class="news-excerpt">
+                                일본 와세다대학 학생 20명이 유관순정신계승사업회의 초청으로
+                                한국을 방문했다. 학생들은 천안, 서대문형무소 등을 방문하며
+                                한일 역사의 아픈 과거를 직시하는 시간을 가졌다.
+                            </p>
+                            <a href="#" class="news-link">
+                                기사 전문 보기 <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="news-item" data-year="2022" data-source="tv" data-topic="education">
+                        <div class="news-thumbnail">
+                            <i class="fas fa-newspaper placeholder-icon"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-source"><i class="fas fa-tv"></i> JTBC</span>
+                                <span class="news-date">2022.08.15</span>
+                            </div>
+                            <h4 class="news-title">디지털 시대의 역사 교육, 유관순 열사를 VR로 만나다</h4>
+                            <p class="news-excerpt">
+                                유관순정신계승사업회가 개발한 VR 역사 교육 콘텐츠가 화제다.
+                                학생들은 VR 기기를 통해 1919년 아우내 장터의 만세 운동을
+                                체험하며 역사를 생생하게 배울 수 있게 됐다.
+                            </p>
+                            <a href="#" class="news-link">
+                                기사 전문 보기 <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="news-item" data-year="2019" data-source="newspaper" data-topic="honor">
+                        <div class="news-thumbnail">
+                            <i class="fas fa-newspaper placeholder-icon"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="news-source"><i class="fas fa-newspaper"></i> 경향신문</span>
+                                <span class="news-date">2019.03.01</span>
+                            </div>
+                            <h4 class="news-title">[속보] 유관순 열사, 대한민국장 서훈... 15년 숙원 이뤄</h4>
+                            <p class="news-excerpt">
+                                정부가 3.1운동 100주년을 맞아 유관순 열사에게 대한민국장을
+                                추서했다. 독립유공자 서훈 등급 중 최고 등급인 대한민국장 서훈은
+                                유관순정신계승사업회의 15년간의 노력이 결실을 맺은 것이다.
+                            </p>
+                            <a href="#" class="news-link">
+                                기사 전문 보기 <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="nav-btn"><i class="fas fa-chevron-left"></i> 이전</button>
+                    <button class="active">1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button>4</button>
+                    <button>5</button>
+                    <button class="nav-btn">다음 <i class="fas fa-chevron-right"></i></button>
+                </div>
+
+                <!-- Media Sources -->
+                <div class="media-sources">
+                    <h3><i class="fas fa-broadcast-tower"></i> 주요 보도 매체</h3>
+                    <div class="media-logos">
+                        <div class="media-logo">KBS</div>
+                        <div class="media-logo">MBC</div>
+                        <div class="media-logo">SBS</div>
+                        <div class="media-logo">JTBC</div>
+                        <div class="media-logo">조선일보</div>
+                        <div class="media-logo">중앙일보</div>
+                        <div class="media-logo">동아일보</div>
+                        <div class="media-logo">한겨레</div>
+                        <div class="media-logo">경향신문</div>
+                        <div class="media-logo">연합뉴스</div>
+                        <div class="media-logo">YTN</div>
+                        <div class="media-logo">채널A</div>
+                    </div>
+                </div>
+
+                <!-- Related Links -->
+                <section class="related-links">
+                    <h3>관련 페이지</h3>
+                    <div class="link-cards">
+                        <a href="notice.html" class="link-card">
+                            <span class="link-icon">📢</span>
+                            <span class="link-title">공지사항</span>
+                            <span class="link-desc">사업회 소식</span>
+                        </a>
+                        <a href="gallery.html" class="link-card">
+                            <span class="link-icon">📸</span>
+                            <span class="link-title">갤러리</span>
+                            <span class="link-desc">행사 사진</span>
+                        </a>
+                        <a href="../contest/index.html" class="link-card">
+                            <span class="link-icon">🎤</span>
+                            <span class="link-title">웅변대회</span>
+                            <span class="link-desc">대회 정보</span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-info">
+                    <h3 class="footer-logo">유관순정신계승사업회</h3>
+                    <p class="footer-address">
+                        (31232) 충청남도 천안시 동남구 유관순길 38<br>
+                        Tel: 041-564-1919 | Fax: 041-564-1920<br>
+                        Email: yugwansun@memorial.or.kr
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-link-group">
+                        <h4>바로가기</h4>
+                        <ul>
+                            <li><a href="../about/greeting.html">사업회 소개</a></li>
+                            <li><a href="../contest/index.html">웅변대회</a></li>
+                            <li><a href="../projects/honor-upgrade.html">핵심 사업</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-link-group">
+                        <h4>참여</h4>
+                        <ul>
+                            <li><a href="../join/donation.html">후원하기</a></li>
+                            <li><a href="../join/volunteer.html">자원봉사</a></li>
+                            <li><a href="../join/membership.html">회원가입</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2026 유관순정신계승사업회. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script>
+
+        // Year tab filtering
+        const yearTabs = document.querySelectorAll('.year-tab');
+        const newsItems = document.querySelectorAll('.news-list .news-item');
+
+        yearTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                yearTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const year = tab.dataset.year;
+
+                newsItems.forEach(item => {
+                    if (year === 'all' || item.dataset.year === year) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Source and topic filtering
+        const sourceFilter = document.getElementById('source-filter');
+        const topicFilter = document.getElementById('topic-filter');
+
+        function applyFilters() {
+            const source = sourceFilter.value;
+            const topic = topicFilter.value;
+            const activeYear = document.querySelector('.year-tab.active').dataset.year;
+
+            newsItems.forEach(item => {
+                const matchYear = activeYear === 'all' || item.dataset.year === activeYear;
+                const matchSource = source === 'all' || item.dataset.source === source;
+                const matchTopic = topic === 'all' || item.dataset.topic === topic;
+
+                if (matchYear && matchSource && matchTopic) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        sourceFilter.addEventListener('change', applyFilters);
+        topicFilter.addEventListener('change', applyFilters);
+
+        // Search functionality
+        const searchInput = document.getElementById('news-search');
+        const searchButton = searchInput.nextElementSibling;
+
+        function searchNews() {
+            const query = searchInput.value.toLowerCase().trim();
+
+            newsItems.forEach(item => {
+                const title = item.querySelector('.news-title').textContent.toLowerCase();
+                const excerpt = item.querySelector('.news-excerpt').textContent.toLowerCase();
+
+                if (query === '' || title.includes(query) || excerpt.includes(query)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        searchButton.addEventListener('click', searchNews);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchNews();
+            }
+        });
+
+        // Pagination (demo)
+        const paginationBtns = document.querySelectorAll('.pagination button:not(.nav-btn)');
+        paginationBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                paginationBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Scroll animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.news-item, .stat-card').forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = 'all 0.5s ease';
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>

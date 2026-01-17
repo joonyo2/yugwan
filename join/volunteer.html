@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자원봉사 - 유관순정신계승사업회</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sub-pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Volunteer Page Specific Styles */
+        .volunteer-intro {
+            text-align: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 16px;
+            border: 1px solid #e5e5e5;
+            margin-bottom: 3rem;
+        }
+
+        .volunteer-intro h3 {
+            font-size: 1.8rem;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+        }
+
+        .volunteer-intro p {
+            color: #555;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .volunteer-intro .quote {
+            margin-top: 1.5rem;
+            padding: 1rem 2rem;
+            background: #fff;
+            border-left: 4px solid var(--accent-gold);
+            font-style: italic;
+            color: var(--primary-navy);
+        }
+
+        /* Stats */
+        .volunteer-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #e5e5e5;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Volunteer Programs */
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .program-card {
+            padding: 2rem;
+            background: #fff;
+            border-radius: 16px;
+            border: 1px solid #e5e5e5;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .program-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-gold);
+        }
+
+        .program-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #d4b366 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .program-icon i {
+            font-size: 2rem;
+            color: #fff;
+        }
+
+        .program-card h4 {
+            font-size: 1.3rem;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .program-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+        }
+
+        .program-badge.recruit {
+            background: rgba(46, 204, 113, 0.15);
+            color: #27ae60;
+        }
+
+        .program-badge.ongoing {
+            background: rgba(52, 152, 219, 0.15);
+            color: #2980b9;
+        }
+
+        .program-badge.upcoming {
+            background: rgba(241, 196, 15, 0.15);
+            color: #d68910;
+        }
+
+        .program-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .program-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .program-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .program-detail i {
+            color: var(--accent-gold);
+            width: 20px;
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            margin-bottom: 3rem;
+        }
+
+        .benefits-section h3 {
+            color: var(--primary-navy);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .benefit-card {
+            padding: 1.5rem;
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #e5e5e5;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-gold);
+        }
+
+        .benefit-card i {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card h4 {
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .benefit-card p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            margin-bottom: 3rem;
+        }
+
+        .testimonials-section h3 {
+            color: var(--primary-navy);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .testimonial-card {
+            padding: 1.5rem;
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #e5e5e5;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .testimonial-content {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .testimonial-content::before {
+            content: '"';
+            font-size: 2rem;
+            color: var(--accent-gold);
+            line-height: 0;
+            vertical-align: -0.4em;
+            margin-right: 0.3rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #d4b366 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .author-avatar i {
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
+        .author-info h5 {
+            color: var(--primary-navy);
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info p {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        /* Application Form Section */
+        .apply-section {
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 16px;
+            border: 1px solid #e5e5e5;
+            margin-bottom: 3rem;
+        }
+
+        .apply-section h3 {
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .apply-section > p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group label .required {
+            color: #e74c3c;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.8rem 1rem;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            color: #333;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent-gold);
+        }
+
+        .checkbox-item label {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        .form-consent {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #e5e5e5;
+        }
+
+        .form-consent p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .submit-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            background: var(--accent-gold);
+            color: var(--primary-navy);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            background: #d4b366;
+            transform: translateY(-2px);
+        }
+
+        /* Process Section */
+        .process-section {
+            margin-bottom: 3rem;
+        }
+
+        .process-section h3 {
+            color: var(--primary-navy);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 35px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: #e5e5e5;
+            z-index: 0;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+        }
+
+        .step-number {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #d4b366 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+        }
+
+        .process-step h4 {
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .process-step p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-bottom: 3rem;
+        }
+
+        .faq-section h3 {
+            color: var(--primary-navy);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .faq-item {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 1.5rem;
+            cursor: pointer;
+            color: var(--primary-navy);
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #f8f9fa;
+        }
+
+        .faq-question i {
+            color: var(--accent-gold);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+
+        .faq-answer-content {
+            padding: 0 1.5rem 1.5rem;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* Contact Info */
+        .contact-section {
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 1px solid #e5e5e5;
+            text-align: center;
+        }
+
+        .contact-section h3 {
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #555;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+        }
+
+        @media (max-width: 992px) {
+            .program-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .volunteer-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .process-steps::before {
+                display: none;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link -->
+    <a href="#main-content" class="skip-link">본문으로 건너뛰기</a>
+
+    <!-- Header -->
+    <header id="header" class="header">
+        <div class="header-inner">
+            <a href="../index.html" class="logo">
+                <span class="logo-main">유관순정신계승사업회</span>
+                <span class="logo-sub">Yu Gwan-sun Memorial Association</span>
+            </a>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item has-dropdown">
+                        <a href="../about/greeting.html" class="nav-link">사업회 소개</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../about/greeting.html">인사말</a></li>
+                            <li><a href="../about/organization.html">조직도</a></li>
+                            <li><a href="../about/history.html">연혁</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../contest/index.html" class="nav-link">웅변대회</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../contest/index.html">대회 소개</a></li>
+                            <li><a href="../contest/apply.html">참가 신청</a></li>
+                            <li><a href="../contest/guidelines.html">참가 요강</a></li>
+                            <li><a href="../contest/winners.html">역대 수상자</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../projects/honor-upgrade.html" class="nav-link">핵심 사업</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../projects/honor-upgrade.html">서훈 등급 상향</a></li>
+                            <li><a href="../projects/education.html">교육 사업</a></li>
+                            <li><a href="../projects/memorial.html">추모 사업</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../global/network.html" class="nav-link">글로벌</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../global/network.html">해외 네트워크</a></li>
+                            <li><a href="../global/exchange.html">국제 교류</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../archive/notice.html" class="nav-link">아카이브</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../archive/notice.html">공지사항</a></li>
+                            <li><a href="../archive/news.html">보도자료</a></li>
+                            <li><a href="../archive/gallery.html">갤러리</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="donation.html" class="nav-link active">후원 및 참여</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="donation.html">후원 안내</a></li>
+                            <li><a href="volunteer.html" class="active">자원봉사</a></li>
+                            <li><a href="membership.html">회원 가입</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-list">
+                <li class="mobile-nav-item">
+                    <a href="../about/greeting.html" class="mobile-nav-link">사업회 소개</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../contest/index.html" class="mobile-nav-link">웅변대회</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../projects/honor-upgrade.html" class="mobile-nav-link">핵심 사업</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../global/network.html" class="mobile-nav-link">글로벌</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../archive/notice.html" class="mobile-nav-link">아카이브</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="donation.html" class="mobile-nav-link active">후원 및 참여</a>
+                    <ul class="mobile-dropdown">
+                        <li><a href="donation.html">후원 안내</a></li>
+                        <li><a href="volunteer.html" class="active">자원봉사</a></li>
+                        <li><a href="membership.html">회원 가입</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-bg">
+            <div class="page-hero-overlay"></div>
+        </div>
+        <div class="page-hero-content">
+            <div class="breadcrumb">
+                <a href="../index.html">홈</a>
+                <span class="separator">/</span>
+                <a href="donation.html">후원 및 참여</a>
+                <span class="separator">/</span>
+                <span class="current">자원봉사</span>
+            </div>
+            <h1 class="page-title">자원봉사</h1>
+            <p class="page-subtitle">유관순 열사의 정신을 함께 계승하는 봉사활동에 참여하세요</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content" class="sub-page-content">
+        <div class="content-wrapper with-sidebar">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <h3 class="sidebar-title">후원 및 참여</h3>
+                    <ul class="sidebar-menu">
+                        <li><a href="donation.html" class="sidebar-link">후원 안내</a></li>
+                        <li><a href="volunteer.html" class="sidebar-link active">자원봉사</a></li>
+                        <li><a href="membership.html" class="sidebar-link">회원 가입</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content Area -->
+            <div class="main-content-area">
+                <div class="content-header">
+                    <h2>자원봉사 안내</h2>
+                    <p>유관순정신계승사업회와 함께 역사 교육과 독립정신 계승에 동참해주세요.</p>
+                </div>
+
+                <!-- Volunteer Intro -->
+                <div class="volunteer-intro">
+                    <h3>함께하는 봉사, 함께 만드는 역사</h3>
+                    <p>
+                        유관순정신계승사업회는 열사의 숭고한 정신을 계승하고 널리 알리기 위해 다양한 봉사 프로그램을
+                        운영하고 있습니다. 여러분의 소중한 시간과 재능이 대한민국의 역사를 지키고 미래 세대에게
+                        올바른 역사 의식을 심어주는 데 큰 힘이 됩니다.
+                    </p>
+                    <div class="quote">
+                        "나라를 위해 목숨을 바친 분들을 기억하는 것, 그것이 우리가 할 수 있는 최소한의 보답입니다."
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="volunteer-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-hands-helping"></i>
+                        <div class="stat-number">850+</div>
+                        <div class="stat-label">등록 봉사자</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-clock"></i>
+                        <div class="stat-number">15,000+</div>
+                        <div class="stat-label">누적 봉사시간</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <div class="stat-number">120+</div>
+                        <div class="stat-label">연간 활동횟수</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-number">50,000+</div>
+                        <div class="stat-label">수혜 인원</div>
+                    </div>
+                </div>
+
+                <!-- Volunteer Programs -->
+                <div class="program-section">
+                    <h3 style="color: var(--primary-navy); margin-bottom: 1.5rem; font-size: 1.3rem;">
+                        <i class="fas fa-project-diagram"></i> 봉사 프로그램
+                    </h3>
+
+                    <div class="program-grid">
+                        <div class="program-card">
+                            <div class="program-icon">
+                                <i class="fas fa-microphone-alt"></i>
+                            </div>
+                            <h4>웅변대회 운영 봉사</h4>
+                            <span class="program-badge recruit">모집중</span>
+                            <p>
+                                전국 유관순 열사 웅변대회의 원활한 진행을 돕는 봉사활동입니다.
+                                참가자 안내, 심사 보조, 무대 관리 등 다양한 역할을 수행합니다.
+                            </p>
+                            <div class="program-details">
+                                <div class="program-detail">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>매년 8월 (대회 전후 약 3일)</span>
+                                </div>
+                                <div class="program-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>천안시 문화회관</span>
+                                </div>
+                                <div class="program-detail">
+                                    <i class="fas fa-user-friends"></i>
+                                    <span>모집 인원: 30명</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="program-card">
+                            <div class="program-icon">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <h4>역사 교육 도우미</h4>
+                            <span class="program-badge ongoing">상시모집</span>
+                            <p>
+                                학교와 지역사회를 방문하여 유관순 열사와 독립운동 역사를 알리는
+                                교육 프로그램을 지원합니다. 교육 자료 준비 및 현장 진행을 돕습니다.
+                            </p>
+                            <div class="program-details">
+                                <div class="program-detail">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>연중 수시 (학기 중)</span>
+                                </div>
+                                <div class="program-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>전국 학교 및 교육기관</span>
+                                </div>
+                                <div class="program-detail">
+                                    <i class="fas fa-user-friends"></i>
+                                    <span>수시 모집</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="program-card">
+                            <div class="program-icon">
+                                <i class="fas fa-praying-hands"></i>
+                            </div>
+                            <h4>추모행사 지원 봉사</h4>
+                            <span class="program-badge upcoming">모집예정</span>
+                            <p>
+                                3.1절, 순국일 등 주요 추모행사의 준비와 진행을 돕는 봉사입니다.
+                                행사장 설치, 참석자 안내, 기념식 진행 보조 등을 담당합니다.
+                            </p>
+                            <div class="program-details">
+                                <div class="program-detail">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>3.1절, 4.1, 9.28 등</span>
+                                </div>
+                                <div class="program-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>천안, 서울 등</span>
+                                </div>
+                                <div class="program-detail">
+                                    <i class="fas fa-user-friends"></i>
+                                    <span>행사별 20~50명</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="program-card">
+                            <div class="program-icon">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <h4>외국어 번역 봉사</h4>
+                            <span class="program-badge ongoing">상시모집</span>
+                            <p>
+                                유관순 열사의 이야기를 세계에 알리기 위한 번역 봉사입니다.
+                                교육 자료, 웹사이트 콘텐츠, 홍보물 등을 영어, 일어, 중국어 등으로 번역합니다.
+                            </p>
+                            <div class="program-details">
+                                <div class="program-detail">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>재택 근무 가능</span>
+                                </div>
+                                <div class="program-detail">
+                                    <i class="fas fa-globe"></i>
+                                    <span>영어, 일어, 중국어 등</span>
+                                </div>
+                                <div class="program-detail">
+                                    <i class="fas fa-user-friends"></i>
+                                    <span>수시 모집</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="program-card">
+                            <div class="program-icon">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <h4>사진/영상 촬영 봉사</h4>
+                            <span class="program-badge ongoing">상시모집</span>
+                            <p>
+                                사업회의 각종 행사를 사진과 영상으로 기록하는 봉사입니다.
+                                DSLR, 드론 촬영 가능자 우대하며, 편집 능력이 있으면 더욱 좋습니다.
+                            </p>
+                            <div class="program-details">
+                                <div class="program-detail">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>주요 행사 시</span>
+                                </div>
+                                <div class="program-detail">
+                                    <i class="fas fa-tools"></i>
+                                    <span>개인 장비 지참 권장</span>
+                                </div>
+                                <div class="program-detail">
+                                    <i class="fas fa-user-friends"></i>
+                                    <span>수시 모집</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="program-card">
+                            <div class="program-icon">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <h4>IT/디자인 봉사</h4>
+                            <span class="program-badge ongoing">상시모집</span>
+                            <p>
+                                웹사이트 관리, SNS 콘텐츠 제작, 홍보물 디자인 등 디지털 분야의
+                                재능을 활용한 봉사입니다. 재택 근무가 가능합니다.
+                            </p>
+                            <div class="program-details">
+                                <div class="program-detail">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>재택 근무 가능</span>
+                                </div>
+                                <div class="program-detail">
+                                    <i class="fas fa-laptop"></i>
+                                    <span>웹, 디자인, SNS 등</span>
+                                </div>
+                                <div class="program-detail">
+                                    <i class="fas fa-user-friends"></i>
+                                    <span>수시 모집</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Benefits -->
+                <div class="benefits-section">
+                    <h3><i class="fas fa-gift"></i> 봉사자 혜택</h3>
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <i class="fas fa-certificate"></i>
+                            <h4>봉사 인증서 발급</h4>
+                            <p>공식 봉사활동 인증서를 발급해드립니다. 학교, 직장 제출용으로 활용 가능합니다.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <i class="fas fa-clock"></i>
+                            <h4>봉사시간 인정</h4>
+                            <p>1365 자원봉사 포털 연계로 공식 봉사시간이 인정됩니다.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h4>역사 교육 기회</h4>
+                            <p>독립운동 역사에 대한 심화 교육 프로그램에 참여할 수 있습니다.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <i class="fas fa-ticket-alt"></i>
+                            <h4>행사 우선 초대</h4>
+                            <p>사업회 주요 행사 및 기념식에 우선 초대됩니다.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <i class="fas fa-users"></i>
+                            <h4>네트워킹 기회</h4>
+                            <p>역사 교육에 관심 있는 다양한 분들과 교류할 수 있습니다.</p>
+                        </div>
+                        <div class="benefit-card">
+                            <i class="fas fa-award"></i>
+                            <h4>우수 봉사자 표창</h4>
+                            <p>연간 우수 봉사자를 선정하여 표창과 함께 기념품을 드립니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Process -->
+                <div class="process-section">
+                    <h3><i class="fas fa-list-ol"></i> 참여 절차</h3>
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <h4>신청서 작성</h4>
+                            <p>아래 양식을 통해<br>봉사 신청</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <h4>담당자 연락</h4>
+                            <p>신청 확인 후<br>개별 연락</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <h4>오리엔테이션</h4>
+                            <p>봉사 안내 및<br>교육 참여</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <h4>봉사 활동</h4>
+                            <p>프로그램별<br>활동 참여</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">5</div>
+                            <h4>인증서 발급</h4>
+                            <p>활동 완료 후<br>인증서 수령</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Application Form -->
+                <div class="apply-section">
+                    <h3><i class="fas fa-edit"></i> 봉사 신청</h3>
+                    <p>아래 양식을 작성하여 자원봉사에 신청해주세요. 담당자가 확인 후 연락드리겠습니다.</p>
+
+                    <form id="volunteer-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>이름 <span class="required">*</span></label>
+                                <input type="text" name="name" required placeholder="홍길동">
+                            </div>
+                            <div class="form-group">
+                                <label>연락처 <span class="required">*</span></label>
+                                <input type="tel" name="phone" required placeholder="010-0000-0000">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>이메일 <span class="required">*</span></label>
+                                <input type="email" name="email" required placeholder="example@email.com">
+                            </div>
+                            <div class="form-group">
+                                <label>생년월일</label>
+                                <input type="date" name="birth">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>직업/소속</label>
+                                <input type="text" name="occupation" placeholder="학생, 직장인, 프리랜서 등">
+                            </div>
+                            <div class="form-group">
+                                <label>거주 지역</label>
+                                <select name="region">
+                                    <option value="">선택하세요</option>
+                                    <option value="seoul">서울</option>
+                                    <option value="gyeonggi">경기</option>
+                                    <option value="chungnam">충남</option>
+                                    <option value="chungbuk">충북</option>
+                                    <option value="other">기타</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>참여 희망 프로그램 <span class="required">*</span></label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="prog1" name="programs" value="contest">
+                                    <label for="prog1">웅변대회 운영</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="prog2" name="programs" value="education">
+                                    <label for="prog2">역사 교육 도우미</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="prog3" name="programs" value="memorial">
+                                    <label for="prog3">추모행사 지원</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="prog4" name="programs" value="translation">
+                                    <label for="prog4">외국어 번역</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="prog5" name="programs" value="media">
+                                    <label for="prog5">사진/영상 촬영</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="prog6" name="programs" value="it">
+                                    <label for="prog6">IT/디자인</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>봉사 가능 요일</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="day1" name="days" value="weekday">
+                                    <label for="day1">평일</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="day2" name="days" value="weekend">
+                                    <label for="day2">주말</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="day3" name="days" value="flexible">
+                                    <label for="day3">유동적</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>특기 및 경험</label>
+                            <textarea name="skills" placeholder="관련 경험이나 특기가 있으시면 작성해주세요."></textarea>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>지원 동기</label>
+                            <textarea name="motivation" placeholder="자원봉사에 참여하고자 하는 동기를 간단히 작성해주세요."></textarea>
+                        </div>
+
+                        <div class="form-consent">
+                            <p>
+                                <strong>개인정보 수집 및 이용 동의</strong><br>
+                                유관순정신계승사업회는 자원봉사 신청을 위해 위 개인정보를 수집하며,
+                                봉사활동 관리 목적으로만 사용됩니다. 수집된 정보는 봉사활동 종료 후 1년간 보관 후 파기됩니다.
+                            </p>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="consent" name="consent" required>
+                                <label for="consent">개인정보 수집 및 이용에 동의합니다. <span class="required">*</span></label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> 봉사 신청하기
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Testimonials -->
+                <div class="testimonials-section">
+                    <h3><i class="fas fa-quote-left"></i> 봉사자 후기</h3>
+                    <div class="testimonial-grid">
+                        <div class="testimonial-card">
+                            <p class="testimonial-content">
+                                웅변대회 봉사를 하면서 청소년들의 열정과 애국심에 깊은 감동을 받았습니다.
+                                단순한 봉사를 넘어 저 자신도 역사의식을 다시 되새기는 소중한 시간이었습니다.
+                            </p>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="author-info">
+                                    <h5>김민수</h5>
+                                    <p>대학생 | 웅변대회 운영 봉사</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <p class="testimonial-content">
+                                번역 봉사로 유관순 열사의 이야기를 영어로 옮기면서, 이 분의 희생이
+                                더 많은 세계인들에게 알려지길 바라는 마음이 커졌습니다.
+                            </p>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="author-info">
+                                    <h5>이영희</h5>
+                                    <p>통번역사 | 외국어 번역 봉사</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <p class="testimonial-content">
+                                학교에서 아이들에게 역사를 가르치는 교육 봉사가 정말 보람찼습니다.
+                                아이들의 눈빛이 빛나는 걸 보면 힘든 줄 모르고 활동하게 됩니다.
+                            </p>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="author-info">
+                                    <h5>박지현</h5>
+                                    <p>교사 | 역사 교육 도우미</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <p class="testimonial-content">
+                                3.1절 추모행사 봉사를 통해 우리 역사의 소중함을 느꼈습니다.
+                                함께 봉사하는 분들과의 유대감도 큰 보람이 됩니다.
+                            </p>
+                            <div class="testimonial-author">
+                                <div class="author-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="author-info">
+                                    <h5>최준혁</h5>
+                                    <p>회사원 | 추모행사 지원 봉사</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ -->
+                <div class="faq-section">
+                    <h3><i class="fas fa-question-circle"></i> 자주 묻는 질문</h3>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>봉사 참여에 나이 제한이 있나요?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    만 14세 이상이면 누구나 참여 가능합니다. 단, 미성년자의 경우
+                                    보호자 동의서가 필요하며, 일부 프로그램은 성인만 참여 가능합니다.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>봉사 시간은 1365에 인정되나요?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    네, 유관순정신계승사업회는 1365 자원봉사 포털과 연계되어 있어
+                                    모든 봉사 시간이 공식 인정됩니다. 봉사 활동 후 시간 등록을 요청해주세요.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>교통비나 식비가 지원되나요?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    대부분의 현장 봉사 프로그램에서는 식사가 제공됩니다.
+                                    교통비는 원거리에서 오시는 분들께 일부 지원해드리고 있습니다.
+                                    자세한 사항은 각 프로그램 담당자에게 문의해주세요.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>단체로 봉사 참여도 가능한가요?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    네, 학교, 기업, 동아리 등 단체 봉사도 환영합니다.
+                                    10인 이상 단체의 경우 별도로 프로그램을 조율해드릴 수 있으니
+                                    미리 연락 주시기 바랍니다.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact -->
+                <div class="contact-section">
+                    <h3><i class="fas fa-headset"></i> 봉사 문의</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>041-564-1005</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>volunteer@yugwansun.or.kr</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <span>평일 09:00 - 18:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Related Links -->
+                <div class="related-links" style="margin-top: 3rem;">
+                    <h3 style="color: var(--primary-navy); margin-bottom: 1rem;">관련 페이지</h3>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <a href="donation.html" class="btn btn-outline" style="padding: 0.8rem 1.5rem;">
+                            <i class="fas fa-heart"></i> 후원 안내
+                        </a>
+                        <a href="membership.html" class="btn btn-outline" style="padding: 0.8rem 1.5rem;">
+                            <i class="fas fa-user-plus"></i> 회원 가입
+                        </a>
+                        <a href="../contest/overview.html" class="btn btn-outline" style="padding: 0.8rem 1.5rem;">
+                            <i class="fas fa-microphone"></i> 웅변대회
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <span class="footer-logo-main">유관순정신계승사업회</span>
+                        <span class="footer-logo-sub">Yu Gwan-sun Memorial Association</span>
+                    </div>
+                    <p class="footer-desc">
+                        유관순 열사의 숭고한 독립정신을 계승하고,
+                        대한민국의 역사를 올바르게 알리기 위해 노력합니다.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>빠른 링크</h4>
+                    <ul class="footer-links">
+                        <li><a href="../about/greeting.html">사업회 소개</a></li>
+                        <li><a href="../contest/index.html">웅변대회</a></li>
+                        <li><a href="../projects/honor-upgrade.html">핵심 사업</a></li>
+                        <li><a href="../archive/notice.html">공지사항</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>연락처</h4>
+                    <address class="footer-contact">
+                        <p><strong>주소:</strong> 충청남도 천안시 동남구 유관순길 38</p>
+                        <p><strong>전화:</strong> 041-564-1919</p>
+                        <p><strong>팩스:</strong> 041-564-1920</p>
+                        <p><strong>이메일:</strong> yugwansun@korea.kr</p>
+                    </address>
+                </div>
+                <div class="footer-col">
+                    <h4>소셜 미디어</h4>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><span>📘</span></a>
+                        <a href="#" aria-label="Instagram"><span>📷</span></a>
+                        <a href="#" aria-label="YouTube"><span>🎬</span></a>
+                        <a href="#" aria-label="Blog"><span>📝</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 유관순정신계승사업회. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                const isActive = item.classList.contains('active');
+
+                // Close all other items
+                document.querySelectorAll('.faq-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+
+                // Toggle current item
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Form submission
+        document.getElementById('volunteer-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get checked programs
+            const programs = document.querySelectorAll('input[name="programs"]:checked');
+            if (programs.length === 0) {
+                alert('참여 희망 프로그램을 하나 이상 선택해주세요.');
+                return;
+            }
+
+            alert('봉사 신청이 완료되었습니다.\n담당자가 확인 후 연락드리겠습니다.\n감사합니다!');
+            this.reset();
+        });
+
+        // Scroll animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.program-card, .benefit-card, .testimonial-card, .stat-card, .process-step').forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = 'all 0.5s ease';
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인사말 - 사업회 소개 | 유관순정신계승사업회</title>
+    <meta name="description" content="유관순정신계승사업회 이사장 인사말입니다. 유관순 열사의 숭고한 정신을 계승하고 선양하는 사업회의 비전을 소개합니다.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sub-pages.css">
+
+    <style>
+        /* Greeting Page Specific Styles */
+        .greeting-section {
+            padding: 60px 0;
+        }
+
+        .greeting-header {
+            display: flex;
+            gap: 60px;
+            margin-bottom: 50px;
+            align-items: flex-start;
+        }
+
+        .chairman-photo {
+            flex-shrink: 0;
+            width: 280px;
+        }
+
+        .chairman-photo-frame {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .chairman-photo-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 3px solid var(--accent-gold);
+            border-radius: 12px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .chairman-photo img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            display: block;
+        }
+
+        .chairman-info {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .chairman-title {
+            font-size: 0.95rem;
+            color: var(--accent-gold);
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .chairman-name {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            font-weight: 700;
+        }
+
+        .greeting-intro {
+            flex: 1;
+        }
+
+        .greeting-quote {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            color: var(--primary-navy);
+            line-height: 1.6;
+            margin-bottom: 30px;
+            padding-left: 25px;
+            border-left: 4px solid var(--accent-gold);
+        }
+
+        .greeting-subtitle {
+            font-size: 1.1rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .greeting-body {
+            max-width: 900px;
+        }
+
+        .greeting-paragraph {
+            font-size: 1.05rem;
+            line-height: 2;
+            color: #444;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        .greeting-paragraph:first-of-type::first-letter {
+            font-size: 3rem;
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: var(--accent-gold);
+            float: left;
+            line-height: 1;
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+
+        .greeting-highlight {
+            background: linear-gradient(180deg, transparent 60%, rgba(197, 160, 89, 0.3) 60%);
+            padding: 0 2px;
+        }
+
+        .greeting-signature {
+            margin-top: 50px;
+            text-align: right;
+            padding-top: 30px;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .signature-date {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .signature-title {
+            font-size: 1rem;
+            color: var(--accent-gold);
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .signature-name {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            font-weight: 700;
+        }
+
+        /* Vision & Mission Section */
+        .vision-mission {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+            padding-top: 60px;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .vm-card {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vm-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-gold-light));
+        }
+
+        .vm-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 20px;
+        }
+
+        .vm-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            margin-bottom: 15px;
+        }
+
+        .vm-content {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* Core Values */
+        .core-values {
+            margin-top: 60px;
+            padding: 50px;
+            background: linear-gradient(135deg, var(--primary-navy), var(--primary-navy-light));
+            border-radius: 20px;
+        }
+
+        .core-values-title {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .value-item {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .value-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .value-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .value-name {
+            font-size: 1.1rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .value-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .greeting-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .chairman-photo {
+                width: 220px;
+            }
+
+            .greeting-quote {
+                border-left: none;
+                padding-left: 0;
+                border-top: 4px solid var(--accent-gold);
+                padding-top: 25px;
+            }
+
+            .vision-mission {
+                grid-template-columns: 1fr;
+            }
+
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .greeting-quote {
+                font-size: 1.4rem;
+            }
+
+            .core-values {
+                padding: 30px 20px;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .value-item {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link -->
+    <a href="#main-content" class="skip-link">본문으로 건너뛰기</a>
+
+    <!-- Header -->
+    <header id="header" class="header">
+        <div class="header-inner">
+            <a href="../index.html" class="logo">
+                <span class="logo-main">유관순정신계승사업회</span>
+                <span class="logo-sub">Yu Gwan-sun Memorial Association</span>
+            </a>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item has-dropdown">
+                        <a href="greeting.html" class="nav-link active">사업회 소개</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="greeting.html" class="active">인사말</a></li>
+                            <li><a href="organization.html">조직도</a></li>
+                            <li><a href="history.html">연혁</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../contest/index.html" class="nav-link">웅변대회</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../contest/index.html">대회 소개</a></li>
+                            <li><a href="../contest/apply.html">참가 신청</a></li>
+                            <li><a href="../contest/guidelines.html">참가 요강</a></li>
+                            <li><a href="../contest/winners.html">역대 수상자</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../projects/honor-upgrade.html" class="nav-link">핵심 사업</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../projects/honor-upgrade.html">서훈 등급 상향</a></li>
+                            <li><a href="../projects/education.html">교육 사업</a></li>
+                            <li><a href="../projects/memorial.html">추모 사업</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../global/network.html" class="nav-link">글로벌</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../global/network.html">해외 네트워크</a></li>
+                            <li><a href="../global/exchange.html">국제 교류</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../archive/notice.html" class="nav-link">아카이브</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../archive/notice.html">공지사항</a></li>
+                            <li><a href="../archive/news.html">보도자료</a></li>
+                            <li><a href="../archive/gallery.html">갤러리</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../join/donation.html" class="nav-link">후원 및 참여</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../join/donation.html">후원 안내</a></li>
+                            <li><a href="../join/volunteer.html">자원봉사</a></li>
+                            <li><a href="../join/membership.html">회원 가입</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-list">
+                <li class="mobile-nav-item">
+                    <a href="greeting.html" class="mobile-nav-link active">사업회 소개</a>
+                    <ul class="mobile-dropdown">
+                        <li><a href="greeting.html" class="active">인사말</a></li>
+                        <li><a href="organization.html">조직도</a></li>
+                        <li><a href="history.html">연혁</a></li>
+                    </ul>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../contest/index.html" class="mobile-nav-link">웅변대회</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../projects/honor-upgrade.html" class="mobile-nav-link">핵심 사업</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../global/network.html" class="mobile-nav-link">글로벌</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../archive/notice.html" class="mobile-nav-link">아카이브</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../join/donation.html" class="mobile-nav-link">후원 및 참여</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-bg">
+            <div class="page-hero-overlay"></div>
+        </div>
+        <div class="page-hero-content">
+            <div class="breadcrumb">
+                <a href="../index.html">홈</a>
+                <span class="separator">/</span>
+                <a href="greeting.html">사업회 소개</a>
+                <span class="separator">/</span>
+                <span class="current">인사말</span>
+            </div>
+            <h1 class="page-title">인사말</h1>
+            <p class="page-subtitle">유관순 열사의 정신을 계승하고 선양합니다</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content" class="sub-page-content">
+        <div class="content-wrapper with-sidebar">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <h3 class="sidebar-title">사업회 소개</h3>
+                    <ul class="sidebar-menu">
+                        <li><a href="greeting.html" class="active">인사말</a></li>
+                        <li><a href="organization.html">조직도</a></li>
+                        <li><a href="history.html">연혁</a></li>
+                    </ul>
+                </nav>
+
+                <div class="sidebar-cta">
+                    <h4>함께해 주세요</h4>
+                    <p>유관순 열사의 정신을 계승하는 뜻깊은 일에 동참해 주세요.</p>
+                    <a href="../join/membership.html" class="btn btn-gold">회원 가입</a>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <div class="main-content-area">
+                <section class="greeting-section">
+                    <!-- Greeting Header -->
+                    <div class="greeting-header">
+                        <div class="chairman-photo">
+                            <div class="chairman-photo-frame">
+                                <!-- 증명사진 실루엣 플레이스홀더 -->
+                                <svg viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%; background: #e9ecef;">
+                                    <!-- 배경 -->
+                                    <rect width="200" height="250" fill="#e9ecef"/>
+                                    <!-- 몸통 실루엣 -->
+                                    <ellipse cx="100" cy="280" rx="80" ry="60" fill="#bdc3c7"/>
+                                    <!-- 머리 실루엣 -->
+                                    <circle cx="100" cy="90" r="50" fill="#bdc3c7"/>
+                                    <!-- 목 -->
+                                    <rect x="80" y="130" width="40" height="30" fill="#bdc3c7"/>
+                                    <!-- 어깨 -->
+                                    <ellipse cx="100" cy="200" rx="70" ry="45" fill="#bdc3c7"/>
+                                </svg>
+                            </div>
+                            <div class="chairman-info">
+                                <p class="chairman-title">유관순정신계승사업회 이사장</p>
+                                <p class="chairman-name">홍길동</p>
+                            </div>
+                        </div>
+
+                        <div class="greeting-intro">
+                            <p class="greeting-subtitle">Welcome Message</p>
+                            <p class="greeting-quote">
+                                "1919년 유관순 열사가 외쳤던<br>
+                                나라사랑의 외침이<br>
+                                2026년 오늘도 울려 퍼지길 바랍니다."
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Greeting Body -->
+                    <div class="greeting-body">
+                        <p class="greeting-paragraph">
+                            유관순정신계승사업회 홈페이지를 방문해 주신 여러분을 진심으로 환영합니다.
+                            우리 사업회는 <span class="greeting-highlight">대한민국 독립운동의 상징</span>인
+                            유관순 열사의 숭고한 정신을 계승하고 널리 선양하기 위해 2005년에 설립되었습니다.
+                        </p>
+
+                        <p class="greeting-paragraph">
+                            유관순 열사는 1919년 3월 1일 만세운동에 참여한 이후, 고향인 충남 천안 병천에서
+                            아우내 장터 만세운동을 주도하였습니다. 열여덟의 나이에 조국의 독립을 위해
+                            목숨을 바친 열사의 정신은 오늘날에도 우리 모두에게 깊은 감동과 교훈을 주고 있습니다.
+                        </p>
+
+                        <p class="greeting-paragraph">
+                            사업회는 설립 이후 20여 년간 유관순 열사의 정신을 계승하기 위한 다양한 사업을
+                            추진해 왔습니다. 특히 <span class="greeting-highlight">전국 유관순 웅변대회</span>를
+                            통해 청소년들에게 나라사랑 정신을 고취하고, 유관순 열사의 서훈 등급 상향을 위한
+                            국민운동을 전개하여 2019년 건국훈장 대한민국장 추서라는 쾌거를 이루어 냈습니다.
+                        </p>
+
+                        <p class="greeting-paragraph">
+                            또한 미국, 중국, 일본 등 해외 13개국에 지부를 설립하여 유관순 열사의 정신을
+                            세계에 알리고 있으며, 매년 추모제 및 학술 세미나 개최, 역사 교육 프로그램 운영 등
+                            다양한 활동을 펼치고 있습니다.
+                        </p>
+
+                        <p class="greeting-paragraph">
+                            유관순 열사가 외쳤던 "대한 독립 만세"의 함성은 단순한 역사 속 기록이 아닌,
+                            오늘을 살아가는 우리 모두가 기억하고 실천해야 할 <span class="greeting-highlight">살아있는 정신</span>입니다.
+                            사업회는 앞으로도 이 정신을 후세에 전하고 세계에 알리는 데 최선을 다하겠습니다.
+                        </p>
+
+                        <p class="greeting-paragraph">
+                            여러분의 관심과 성원을 부탁드리며, 유관순 열사의 정신을 함께 계승해 나가시길
+                            희망합니다. 감사합니다.
+                        </p>
+
+                        <!-- Signature -->
+                        <div class="greeting-signature">
+                            <p class="signature-date">2026년 1월</p>
+                            <p class="signature-title">유관순정신계승사업회 이사장</p>
+                            <p class="signature-name">홍길동</p>
+                        </div>
+                    </div>
+
+                    <!-- Vision & Mission -->
+                    <div class="vision-mission">
+                        <div class="vm-card">
+                            <div class="vm-icon">🎯</div>
+                            <h3 class="vm-title">비전 (Vision)</h3>
+                            <p class="vm-content">
+                                유관순 열사의 나라사랑 정신을 세계에 알리고, 대한민국 국민 모두가
+                                자긍심을 가지고 살아갈 수 있는 사회를 만들어 갑니다.
+                            </p>
+                        </div>
+                        <div class="vm-card">
+                            <div class="vm-icon">🌟</div>
+                            <h3 class="vm-title">미션 (Mission)</h3>
+                            <p class="vm-content">
+                                유관순 열사의 숭고한 독립정신과 애국정신을 계승하고 선양하여,
+                                청소년과 국민들에게 올바른 역사의식과 국가관을 정립합니다.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Core Values -->
+                    <div class="core-values">
+                        <h3 class="core-values-title">핵심 가치</h3>
+                        <div class="values-grid">
+                            <div class="value-item">
+                                <div class="value-icon">🇰🇷</div>
+                                <div class="value-name">애국</div>
+                                <div class="value-desc">나라를 사랑하는 마음을 실천합니다</div>
+                            </div>
+                            <div class="value-item">
+                                <div class="value-icon">📚</div>
+                                <div class="value-name">계승</div>
+                                <div class="value-desc">열사의 정신을 후세에 전합니다</div>
+                            </div>
+                            <div class="value-item">
+                                <div class="value-icon">🌏</div>
+                                <div class="value-name">선양</div>
+                                <div class="value-desc">세계에 열사의 정신을 알립니다</div>
+                            </div>
+                            <div class="value-item">
+                                <div class="value-icon">🤝</div>
+                                <div class="value-name">연대</div>
+                                <div class="value-desc">뜻을 함께하는 이들과 동행합니다</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Related Links -->
+                <section class="related-links">
+                    <h3>관련 페이지</h3>
+                    <div class="link-cards">
+                        <a href="organization.html" class="link-card">
+                            <span class="link-icon">👥</span>
+                            <span class="link-title">조직도</span>
+                            <span class="link-desc">사업회 조직 구성</span>
+                        </a>
+                        <a href="history.html" class="link-card">
+                            <span class="link-icon">📜</span>
+                            <span class="link-title">연혁</span>
+                            <span class="link-desc">20년의 발자취</span>
+                        </a>
+                        <a href="../join/membership.html" class="link-card">
+                            <span class="link-icon">✋</span>
+                            <span class="link-title">회원 가입</span>
+                            <span class="link-desc">함께해 주세요</span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-info">
+                    <h3 class="footer-logo">유관순정신계승사업회</h3>
+                    <p class="footer-address">
+                        (31232) 충청남도 천안시 동남구 유관순길 38<br>
+                        Tel: 041-564-1919 | Fax: 041-564-1920<br>
+                        Email: yugwansun@memorial.or.kr
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-link-group">
+                        <h4>바로가기</h4>
+                        <ul>
+                            <li><a href="greeting.html">사업회 소개</a></li>
+                            <li><a href="../contest/index.html">웅변대회</a></li>
+                            <li><a href="../projects/honor-upgrade.html">핵심 사업</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-link-group">
+                        <h4>참여</h4>
+                        <ul>
+                            <li><a href="../join/donation.html">후원하기</a></li>
+                            <li><a href="../join/volunteer.html">자원봉사</a></li>
+                            <li><a href="../join/membership.html">회원가입</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2026 유관순정신계승사업회. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+</body>
+</html>

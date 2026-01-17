@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>국제 교류 - 글로벌 | 유관순정신계승사업회</title>
+    <meta name="description" content="유관순정신계승사업회 국제 교류 활동. 해외 기관과의 협력, 국제 세미나, 청년 교류 프로그램을 소개합니다.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sub-pages.css">
+
+    <style>
+        /* Exchange Page Specific Styles */
+        .exchange-section {
+            padding: 60px 0;
+        }
+
+        /* Intro */
+        .exchange-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+
+        .exchange-intro-title {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            color: var(--primary-navy);
+            margin-bottom: 20px;
+        }
+
+        .exchange-intro-desc {
+            font-size: 1.05rem;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Programs Section */
+        .programs-section {
+            margin-bottom: 60px;
+        }
+
+        .programs-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .program-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .program-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .program-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-navy), var(--primary-navy-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+        }
+
+        .program-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent-gold);
+            color: var(--primary-navy);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .program-content {
+            padding: 25px;
+        }
+
+        .program-name {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--primary-navy);
+            margin-bottom: 10px;
+        }
+
+        .program-desc {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .program-details {
+            display: flex;
+            gap: 20px;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .program-detail {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Partners Section */
+        .partners-section {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 60px;
+        }
+
+        .partners-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .partner-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .partner-card:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .partner-logo {
+            width: 60px;
+            height: 60px;
+            background: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.5rem;
+        }
+
+        .partner-name {
+            font-size: 0.95rem;
+            color: var(--primary-navy);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .partner-country {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        /* Seminars Section */
+        .seminars-section {
+            margin-bottom: 60px;
+        }
+
+        .seminars-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .seminar-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .seminar-item {
+            display: flex;
+            gap: 25px;
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .seminar-item:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .seminar-date {
+            flex-shrink: 0;
+            width: 80px;
+            text-align: center;
+        }
+
+        .seminar-month {
+            font-size: 0.85rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .seminar-day {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--primary-navy);
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .seminar-year {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .seminar-info {
+            flex: 1;
+            border-left: 2px solid #e5e5e5;
+            padding-left: 25px;
+        }
+
+        .seminar-title {
+            font-size: 1.1rem;
+            color: var(--primary-navy);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .seminar-location {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .seminar-location span {
+            color: var(--accent-gold);
+        }
+
+        .seminar-topics {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        /* Youth Exchange */
+        .youth-section {
+            background: linear-gradient(135deg, var(--primary-navy), var(--primary-navy-light));
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 60px;
+        }
+
+        .youth-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: #fff !important;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .youth-subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8) !important;
+            margin-bottom: 40px;
+        }
+
+        .youth-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .youth-feature {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .youth-feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .youth-feature-name {
+            font-size: 1.1rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .youth-feature-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8) !important;
+            line-height: 1.6;
+        }
+
+        /* Gallery Preview */
+        .gallery-preview {
+            margin-bottom: 60px;
+        }
+
+        .gallery-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #ddd, #bbb);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(10, 25, 47, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item-text {
+            color: #fff !important;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* CTA */
+        .exchange-cta {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-light));
+            border-radius: 16px;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .exchange-cta-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            margin-bottom: 15px;
+        }
+
+        .exchange-cta-desc {
+            font-size: 1rem;
+            color: var(--primary-navy);
+            opacity: 0.8;
+            margin-bottom: 25px;
+        }
+
+        .exchange-cta .btn {
+            background: var(--primary-navy);
+            color: #fff !important;
+            padding: 14px 35px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .exchange-cta .btn:hover {
+            background: var(--secondary-navy);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .programs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .partners-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .youth-features {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .seminar-item {
+                flex-direction: column;
+            }
+
+            .seminar-date {
+                width: auto;
+                display: flex;
+                gap: 10px;
+                align-items: baseline;
+            }
+
+            .seminar-info {
+                border-left: none;
+                border-top: 2px solid #e5e5e5;
+                padding-left: 0;
+                padding-top: 15px;
+            }
+
+            .partners-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link -->
+    <a href="#main-content" class="skip-link">본문으로 건너뛰기</a>
+
+    <!-- Header -->
+    <header id="header" class="header">
+        <div class="header-inner">
+            <a href="../index.html" class="logo">
+                <span class="logo-main">유관순정신계승사업회</span>
+                <span class="logo-sub">Yu Gwan-sun Memorial Association</span>
+            </a>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item has-dropdown">
+                        <a href="../about/greeting.html" class="nav-link">사업회 소개</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../about/greeting.html">인사말</a></li>
+                            <li><a href="../about/organization.html">조직도</a></li>
+                            <li><a href="../about/history.html">연혁</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../contest/index.html" class="nav-link">웅변대회</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../contest/index.html">대회 소개</a></li>
+                            <li><a href="../contest/apply.html">참가 신청</a></li>
+                            <li><a href="../contest/guidelines.html">참가 요강</a></li>
+                            <li><a href="../contest/winners.html">역대 수상자</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../projects/honor-upgrade.html" class="nav-link">핵심 사업</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../projects/honor-upgrade.html">서훈 등급 상향</a></li>
+                            <li><a href="../projects/education.html">교육 사업</a></li>
+                            <li><a href="../projects/memorial.html">추모 사업</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="network.html" class="nav-link active">글로벌</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="network.html">해외 네트워크</a></li>
+                            <li><a href="exchange.html" class="active">국제 교류</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../archive/notice.html" class="nav-link">아카이브</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../archive/notice.html">공지사항</a></li>
+                            <li><a href="../archive/news.html">보도자료</a></li>
+                            <li><a href="../archive/gallery.html">갤러리</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../join/donation.html" class="nav-link">후원 및 참여</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../join/donation.html">후원 안내</a></li>
+                            <li><a href="../join/volunteer.html">자원봉사</a></li>
+                            <li><a href="../join/membership.html">회원 가입</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-list">
+                <li class="mobile-nav-item"><a href="../about/greeting.html" class="mobile-nav-link">사업회 소개</a></li>
+                <li class="mobile-nav-item"><a href="../contest/index.html" class="mobile-nav-link">웅변대회</a></li>
+                <li class="mobile-nav-item"><a href="../projects/honor-upgrade.html" class="mobile-nav-link">핵심 사업</a></li>
+                <li class="mobile-nav-item">
+                    <a href="network.html" class="mobile-nav-link active">글로벌</a>
+                    <ul class="mobile-dropdown">
+                        <li><a href="network.html">해외 네트워크</a></li>
+                        <li><a href="exchange.html" class="active">국제 교류</a></li>
+                    </ul>
+                </li>
+                <li class="mobile-nav-item"><a href="../archive/notice.html" class="mobile-nav-link">아카이브</a></li>
+                <li class="mobile-nav-item"><a href="../join/donation.html" class="mobile-nav-link">후원 및 참여</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-bg">
+            <div class="page-hero-overlay"></div>
+        </div>
+        <div class="page-hero-content">
+            <div class="breadcrumb">
+                <a href="../index.html">홈</a>
+                <span class="separator">/</span>
+                <a href="network.html">글로벌</a>
+                <span class="separator">/</span>
+                <span class="current">국제 교류</span>
+            </div>
+            <h1 class="page-title">국제 교류</h1>
+            <p class="page-subtitle">세계와 함께하는 유관순 정신의 확산</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content" class="sub-page-content">
+        <div class="content-wrapper with-sidebar">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <h3 class="sidebar-title">글로벌</h3>
+                    <ul class="sidebar-menu">
+                        <li><a href="network.html">해외 네트워크</a></li>
+                        <li><a href="exchange.html" class="active">국제 교류</a></li>
+                    </ul>
+                </nav>
+
+                <div class="sidebar-cta">
+                    <h4>교류 프로그램 참여</h4>
+                    <p>국제 교류 프로그램에 참여하고 싶으시다면 문의해 주세요.</p>
+                    <a href="mailto:global@yugwansun.or.kr" class="btn btn-gold">참여 문의</a>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <div class="main-content-area">
+                <section class="exchange-section">
+                    <!-- Intro -->
+                    <div class="exchange-intro">
+                        <h2 class="exchange-intro-title">국경을 넘어 전하는 독립 정신</h2>
+                        <p class="exchange-intro-desc">
+                            유관순정신계승사업회는 해외 역사 기관, 교육 단체, 한인 커뮤니티와의
+                            협력을 통해 유관순 열사의 정신을 세계에 알리고 있습니다.
+                            국제 세미나, 청년 교류, 공동 연구 등 다양한 프로그램을 운영합니다.
+                        </p>
+                    </div>
+
+                    <!-- Exchange Programs -->
+                    <div class="programs-section">
+                        <h2 class="programs-title">주요 교류 프로그램</h2>
+                        <div class="programs-grid">
+                            <div class="program-card">
+                                <div class="program-image">
+                                    🎓
+                                    <span class="program-badge">연중 운영</span>
+                                </div>
+                                <div class="program-content">
+                                    <h3 class="program-name">글로벌 역사 아카데미</h3>
+                                    <p class="program-desc">해외 대학 및 연구기관과 연계한 한국 독립운동사 강좌 및 학점 인정 프로그램</p>
+                                    <div class="program-details">
+                                        <span class="program-detail">📍 미국, 영국, 독일</span>
+                                        <span class="program-detail">👥 연간 200명</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="program-card">
+                                <div class="program-image">
+                                    🤝
+                                    <span class="program-badge">매년 개최</span>
+                                </div>
+                                <div class="program-content">
+                                    <h3 class="program-name">국제 평화 포럼</h3>
+                                    <p class="program-desc">세계 각국의 독립운동 및 평화운동 전문가가 참여하는 국제 학술 포럼</p>
+                                    <div class="program-details">
+                                        <span class="program-detail">📍 서울/해외 순회</span>
+                                        <span class="program-detail">👥 참가국 15개국</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="program-card">
+                                <div class="program-image">
+                                    ✈️
+                                    <span class="program-badge">하계 프로그램</span>
+                                </div>
+                                <div class="program-content">
+                                    <h3 class="program-name">청년 역사 탐방단</h3>
+                                    <p class="program-desc">해외 독립운동 유적지를 탐방하며 역사를 배우는 청년 대상 프로그램</p>
+                                    <div class="program-details">
+                                        <span class="program-detail">📍 중국, 러시아, 미국</span>
+                                        <span class="program-detail">👥 연간 50명</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="program-card">
+                                <div class="program-image">
+                                    📚
+                                    <span class="program-badge">상시 운영</span>
+                                </div>
+                                <div class="program-content">
+                                    <h3 class="program-name">공동 연구 프로젝트</h3>
+                                    <p class="program-desc">해외 연구기관과 공동으로 진행하는 독립운동사 연구 및 자료 발굴</p>
+                                    <div class="program-details">
+                                        <span class="program-detail">📍 13개국 협력</span>
+                                        <span class="program-detail">📄 연간 보고서 발간</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Partner Organizations -->
+                    <div class="partners-section">
+                        <h2 class="partners-title">협력 기관</h2>
+                        <div class="partners-grid">
+                            <div class="partner-card">
+                                <div class="partner-logo">🏛️</div>
+                                <p class="partner-name">스미스소니언 박물관</p>
+                                <p class="partner-country">미국</p>
+                            </div>
+                            <div class="partner-card">
+                                <div class="partner-logo">🎓</div>
+                                <p class="partner-name">베이징대학교 한국학연구소</p>
+                                <p class="partner-country">중국</p>
+                            </div>
+                            <div class="partner-card">
+                                <div class="partner-logo">📚</div>
+                                <p class="partner-name">도쿄대학 동양문화연구소</p>
+                                <p class="partner-country">일본</p>
+                            </div>
+                            <div class="partner-card">
+                                <div class="partner-logo">🏫</div>
+                                <p class="partner-name">런던대학 SOAS</p>
+                                <p class="partner-country">영국</p>
+                            </div>
+                            <div class="partner-card">
+                                <div class="partner-logo">🔬</div>
+                                <p class="partner-name">막스플랑크 역사연구소</p>
+                                <p class="partner-country">독일</p>
+                            </div>
+                            <div class="partner-card">
+                                <div class="partner-logo">🎭</div>
+                                <p class="partner-name">파리한국문화원</p>
+                                <p class="partner-country">프랑스</p>
+                            </div>
+                            <div class="partner-card">
+                                <div class="partner-logo">📖</div>
+                                <p class="partner-name">시드니대학 한국학과</p>
+                                <p class="partner-country">호주</p>
+                            </div>
+                            <div class="partner-card">
+                                <div class="partner-logo">🗃️</div>
+                                <p class="partner-name">블라디보스토크 역사기록관</p>
+                                <p class="partner-country">러시아</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- International Seminars -->
+                    <div class="seminars-section">
+                        <h2 class="seminars-title">2026년 국제 세미나 일정</h2>
+                        <div class="seminar-list">
+                            <div class="seminar-item">
+                                <div class="seminar-date">
+                                    <span class="seminar-month">MAR</span>
+                                    <span class="seminar-day">01</span>
+                                    <span class="seminar-year">2026</span>
+                                </div>
+                                <div class="seminar-info">
+                                    <h3 class="seminar-title">3.1운동 107주년 기념 국제 학술대회</h3>
+                                    <p class="seminar-location"><span>📍</span> 서울 프레스센터</p>
+                                    <p class="seminar-topics">주제: 동아시아 독립운동의 연대와 협력</p>
+                                </div>
+                            </div>
+                            <div class="seminar-item">
+                                <div class="seminar-date">
+                                    <span class="seminar-month">JUN</span>
+                                    <span class="seminar-day">15</span>
+                                    <span class="seminar-year">2026</span>
+                                </div>
+                                <div class="seminar-info">
+                                    <h3 class="seminar-title">한미 독립운동 공동 연구 발표회</h3>
+                                    <p class="seminar-location"><span>📍</span> LA 한인회관</p>
+                                    <p class="seminar-topics">주제: 미주 지역 독립운동 자료 발굴 성과</p>
+                                </div>
+                            </div>
+                            <div class="seminar-item">
+                                <div class="seminar-date">
+                                    <span class="seminar-month">SEP</span>
+                                    <span class="seminar-day">28</span>
+                                    <span class="seminar-year">2026</span>
+                                </div>
+                                <div class="seminar-info">
+                                    <h3 class="seminar-title">유관순 열사 순국 106주기 국제 추모 심포지엄</h3>
+                                    <p class="seminar-location"><span>📍</span> 천안 독립기념관</p>
+                                    <p class="seminar-topics">주제: 여성 독립운동가의 재조명</p>
+                                </div>
+                            </div>
+                            <div class="seminar-item">
+                                <div class="seminar-date">
+                                    <span class="seminar-month">NOV</span>
+                                    <span class="seminar-day">10</span>
+                                    <span class="seminar-year">2026</span>
+                                </div>
+                                <div class="seminar-info">
+                                    <h3 class="seminar-title">아시아 평화 포럼</h3>
+                                    <p class="seminar-location"><span>📍</span> 도쿄 국제회의장</p>
+                                    <p class="seminar-topics">주제: 역사 화해와 미래 협력</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Youth Exchange -->
+                    <div class="youth-section">
+                        <h2 class="youth-title">청년 국제 교류 프로그램</h2>
+                        <p class="youth-subtitle">다음 세대가 이어가는 역사의 가교</p>
+                        <div class="youth-features">
+                            <div class="youth-feature">
+                                <div class="youth-feature-icon">🌏</div>
+                                <h3 class="youth-feature-name">글로벌 리더십 캠프</h3>
+                                <p class="youth-feature-desc">13개국 청년들이 함께하는 역사 리더십 캠프로, 매년 여름 2주간 진행됩니다.</p>
+                            </div>
+                            <div class="youth-feature">
+                                <div class="youth-feature-icon">🎤</div>
+                                <h3 class="youth-feature-name">글로벌 웅변대회</h3>
+                                <p class="youth-feature-desc">해외 지부 예선을 거쳐 본선에 참가하는 글로벌 버전 웅변대회입니다.</p>
+                            </div>
+                            <div class="youth-feature">
+                                <div class="youth-feature-icon">✍️</div>
+                                <h3 class="youth-feature-name">역사 에세이 공모전</h3>
+                                <p class="youth-feature-desc">전 세계 청년 대상 한국 독립운동사 에세이 공모전을 개최합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Preview -->
+                    <div class="gallery-preview">
+                        <h2 class="gallery-title">국제 교류 갤러리</h2>
+                        <div class="gallery-grid">
+                            <div class="gallery-item">
+                                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=400&fit=crop" alt="국제 세미나">
+                                <div class="gallery-item-overlay">
+                                    <span class="gallery-item-text">2025 국제 세미나</span>
+                                </div>
+                            </div>
+                            <div class="gallery-item">
+                                <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=400&h=400&fit=crop" alt="청년 교류">
+                                <div class="gallery-item-overlay">
+                                    <span class="gallery-item-text">청년 리더십 캠프</span>
+                                </div>
+                            </div>
+                            <div class="gallery-item">
+                                <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=400&fit=crop" alt="협력 행사">
+                                <div class="gallery-item-overlay">
+                                    <span class="gallery-item-text">해외 지부 교류</span>
+                                </div>
+                            </div>
+                            <div class="gallery-item">
+                                <img src="https://images.unsplash.com/photo-1559223607-a43c990c692c?w=400&h=400&fit=crop" alt="역사 탐방">
+                                <div class="gallery-item-overlay">
+                                    <span class="gallery-item-text">역사 탐방단</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="exchange-cta">
+                        <h2 class="exchange-cta-title">국제 교류에 참여하세요</h2>
+                        <p class="exchange-cta-desc">세미나 참가, 연구 협력, 청년 프로그램 등 다양한 방법으로 함께할 수 있습니다.</p>
+                        <a href="mailto:global@yugwansun.or.kr" class="btn">참여 문의하기</a>
+                    </div>
+                </section>
+
+                <!-- Related Links -->
+                <section class="related-links">
+                    <h3>관련 페이지</h3>
+                    <div class="link-cards">
+                        <a href="network.html" class="link-card">
+                            <span class="link-icon">🌍</span>
+                            <span class="link-title">해외 네트워크</span>
+                            <span class="link-desc">13개국 지부 현황</span>
+                        </a>
+                        <a href="../contest/index.html" class="link-card">
+                            <span class="link-icon">📢</span>
+                            <span class="link-title">웅변대회</span>
+                            <span class="link-desc">영어 부문 참가</span>
+                        </a>
+                        <a href="../archive/gallery.html" class="link-card">
+                            <span class="link-icon">📸</span>
+                            <span class="link-title">갤러리</span>
+                            <span class="link-desc">행사 사진</span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-info">
+                    <h3 class="footer-logo">유관순정신계승사업회</h3>
+                    <p class="footer-address">
+                        (31232) 충청남도 천안시 동남구 유관순길 38<br>
+                        Tel: 041-564-1919 | Fax: 041-564-1920<br>
+                        Email: yugwansun@memorial.or.kr
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-link-group">
+                        <h4>바로가기</h4>
+                        <ul>
+                            <li><a href="../about/greeting.html">사업회 소개</a></li>
+                            <li><a href="../contest/index.html">웅변대회</a></li>
+                            <li><a href="../projects/honor-upgrade.html">핵심 사업</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-link-group">
+                        <h4>참여</h4>
+                        <ul>
+                            <li><a href="../join/donation.html">후원하기</a></li>
+                            <li><a href="../join/volunteer.html">자원봉사</a></li>
+                            <li><a href="../join/membership.html">회원가입</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2026 유관순정신계승사업회. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+</body>
+</html>

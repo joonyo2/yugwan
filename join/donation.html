@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>후원 안내 - 후원 및 참여 | 유관순정신계승사업회</title>
+    <meta name="description" content="유관순정신계승사업회 후원 안내입니다. 유관순 열사의 정신을 계승하는 뜻깊은 사업에 후원으로 참여해 주세요.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sub-pages.css">
+
+    <style>
+        /* Donation Page Specific Styles */
+        .donation-section {
+            padding: 60px 0;
+        }
+
+        /* Hero Banner */
+        .donation-hero {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-light));
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .donation-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 80%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+        }
+
+        .donation-hero-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .donation-hero-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--primary-navy);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .donation-hero-desc {
+            font-size: 1.1rem;
+            color: var(--primary-navy);
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Donation Types */
+        .donation-types {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .donation-type {
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .donation-type:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .donation-type.recommended {
+            border: 2px solid var(--accent-gold);
+        }
+
+        .donation-type.recommended::before {
+            content: '추천';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-gold);
+            color: var(--primary-navy);
+            padding: 5px 20px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .donation-type-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin: 0 auto 20px;
+        }
+
+        .donation-type-name {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            color: var(--primary-navy);
+            margin-bottom: 10px;
+        }
+
+        .donation-type-amount {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .donation-type-amount span {
+            font-size: 0.9rem;
+            color: #888;
+            font-weight: 400;
+        }
+
+        .donation-type-benefits {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px;
+            text-align: left;
+        }
+
+        .donation-type-benefits li {
+            padding: 8px 0;
+            font-size: 0.9rem;
+            color: #666;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .donation-type-benefits li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        .donation-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: var(--primary-navy);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .donation-btn:hover {
+            background: var(--primary-navy-light);
+        }
+
+        /* Account Info */
+        .account-section {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+
+        .account-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .account-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .account-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .account-bank-logo {
+            width: 60px;
+            height: 60px;
+            background: #f0f0f0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+        }
+
+        .account-info {
+            flex: 1;
+        }
+
+        .account-bank {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .account-number {
+            font-size: 1.2rem;
+            color: var(--primary-navy);
+            font-weight: 600;
+            font-family: monospace;
+            letter-spacing: 1px;
+        }
+
+        .account-holder {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 3px;
+        }
+
+        .copy-btn {
+            padding: 8px 16px;
+            background: var(--accent-gold);
+            color: var(--primary-navy);
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary-navy);
+            color: white;
+        }
+
+        /* Tax Benefits */
+        .tax-section {
+            margin-bottom: 60px;
+        }
+
+        .tax-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .tax-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .tax-card {
+            background: linear-gradient(135deg, var(--primary-navy), var(--primary-navy-light));
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .tax-card-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .tax-card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--accent-gold);
+        }
+
+        .tax-card-desc {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Usage Section */
+        .usage-section {
+            margin-bottom: 60px;
+        }
+
+        .usage-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .usage-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .usage-item {
+            text-align: center;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .usage-icon {
+            width: 60px;
+            height: 60px;
+            background: #f8f9fa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 15px;
+        }
+
+        .usage-percentage {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .usage-name {
+            font-size: 0.95rem;
+            color: var(--primary-navy);
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .contact-title {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            color: var(--primary-navy);
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-item-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .contact-item-text {
+            text-align: left;
+        }
+
+        .contact-item-label {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .contact-item-value {
+            font-size: 1rem;
+            color: var(--primary-navy);
+            font-weight: 500;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 60px;
+        }
+
+        .faq-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            color: var(--accent-gold);
+        }
+
+        .faq-question h4 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--primary-navy);
+        }
+
+        .faq-question span {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 0 0 20px;
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .faq-item.active .faq-question span {
+            transform: rotate(45deg);
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .donation-types {
+                grid-template-columns: 1fr;
+            }
+
+            .account-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tax-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .usage-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .donation-hero {
+                padding: 35px 25px;
+            }
+
+            .donation-hero-title {
+                font-size: 1.5rem;
+            }
+
+            .usage-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link -->
+    <a href="#main-content" class="skip-link">본문으로 건너뛰기</a>
+
+    <!-- Header -->
+    <header id="header" class="header">
+        <div class="header-inner">
+            <a href="../index.html" class="logo">
+                <span class="logo-main">유관순정신계승사업회</span>
+                <span class="logo-sub">Yu Gwan-sun Memorial Association</span>
+            </a>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item has-dropdown">
+                        <a href="../about/greeting.html" class="nav-link">사업회 소개</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../about/greeting.html">인사말</a></li>
+                            <li><a href="../about/organization.html">조직도</a></li>
+                            <li><a href="../about/history.html">연혁</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../contest/index.html" class="nav-link">웅변대회</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../contest/index.html">대회 소개</a></li>
+                            <li><a href="../contest/apply.html">참가 신청</a></li>
+                            <li><a href="../contest/guidelines.html">참가 요강</a></li>
+                            <li><a href="../contest/winners.html">역대 수상자</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../projects/honor-upgrade.html" class="nav-link">핵심 사업</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../projects/honor-upgrade.html">서훈 등급 상향</a></li>
+                            <li><a href="../projects/education.html">교육 사업</a></li>
+                            <li><a href="../projects/memorial.html">추모 사업</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../global/network.html" class="nav-link">글로벌</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../global/network.html">해외 네트워크</a></li>
+                            <li><a href="../global/exchange.html">국제 교류</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../archive/notice.html" class="nav-link">아카이브</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../archive/notice.html">공지사항</a></li>
+                            <li><a href="../archive/news.html">보도자료</a></li>
+                            <li><a href="../archive/gallery.html">갤러리</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="donation.html" class="nav-link active">후원 및 참여</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="donation.html" class="active">후원 안내</a></li>
+                            <li><a href="volunteer.html">자원봉사</a></li>
+                            <li><a href="membership.html">회원 가입</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-list">
+                <li class="mobile-nav-item">
+                    <a href="../about/greeting.html" class="mobile-nav-link">사업회 소개</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../contest/index.html" class="mobile-nav-link">웅변대회</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../projects/honor-upgrade.html" class="mobile-nav-link">핵심 사업</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../global/network.html" class="mobile-nav-link">글로벌</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../archive/notice.html" class="mobile-nav-link">아카이브</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="donation.html" class="mobile-nav-link active">후원 및 참여</a>
+                    <ul class="mobile-dropdown">
+                        <li><a href="donation.html" class="active">후원 안내</a></li>
+                        <li><a href="volunteer.html">자원봉사</a></li>
+                        <li><a href="membership.html">회원 가입</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-bg">
+            <div class="page-hero-overlay"></div>
+        </div>
+        <div class="page-hero-content">
+            <div class="breadcrumb">
+                <a href="../index.html">홈</a>
+                <span class="separator">/</span>
+                <a href="donation.html">후원 및 참여</a>
+                <span class="separator">/</span>
+                <span class="current">후원 안내</span>
+            </div>
+            <h1 class="page-title">후원 안내</h1>
+            <p class="page-subtitle">작은 정성이 모여 큰 역사가 됩니다</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content" class="sub-page-content">
+        <div class="content-wrapper with-sidebar">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <h3 class="sidebar-title">후원 및 참여</h3>
+                    <ul class="sidebar-menu">
+                        <li><a href="donation.html" class="active">후원 안내</a></li>
+                        <li><a href="volunteer.html">자원봉사</a></li>
+                        <li><a href="membership.html">회원 가입</a></li>
+                    </ul>
+                </nav>
+
+                <div class="sidebar-cta">
+                    <h4>문의하기</h4>
+                    <p>후원 관련 문의는 사무국으로 연락주세요.</p>
+                    <p style="font-size: 1.1rem; font-weight: 600; color: var(--primary-navy); margin-top: 10px;">041-564-1919</p>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <div class="main-content-area">
+                <section class="donation-section">
+                    <!-- Hero Banner -->
+                    <div class="donation-hero">
+                        <div class="donation-hero-icon">💝</div>
+                        <h2 class="donation-hero-title">유관순 열사의 정신을 함께 이어갑니다</h2>
+                        <p class="donation-hero-desc">
+                            여러분의 소중한 후원은 청소년 역사 교육, 웅변대회 개최,
+                            열사 추모 사업 등에 투명하게 사용됩니다.
+                        </p>
+                    </div>
+
+                    <!-- Donation Types -->
+                    <div class="donation-types">
+                        <div class="donation-type">
+                            <div class="donation-type-icon">🌱</div>
+                            <h3 class="donation-type-name">일시 후원</h3>
+                            <p class="donation-type-amount">자유 금액</p>
+                            <ul class="donation-type-benefits">
+                                <li>원하는 금액으로 자유롭게</li>
+                                <li>특별 행사 시 일시 후원</li>
+                                <li>기념일 후원 가능</li>
+                            </ul>
+                            <button class="donation-btn">일시 후원하기</button>
+                        </div>
+
+                        <div class="donation-type recommended">
+                            <div class="donation-type-icon">💛</div>
+                            <h3 class="donation-type-name">정기 후원</h3>
+                            <p class="donation-type-amount">월 10,000원<span> 부터</span></p>
+                            <ul class="donation-type-benefits">
+                                <li>매월 자동 출금</li>
+                                <li>연간 활동 보고서 제공</li>
+                                <li>기념품 및 행사 초청</li>
+                                <li>뉴스레터 정기 발송</li>
+                            </ul>
+                            <button class="donation-btn">정기 후원하기</button>
+                        </div>
+
+                        <div class="donation-type">
+                            <div class="donation-type-icon">🏆</div>
+                            <h3 class="donation-type-name">기업 후원</h3>
+                            <p class="donation-type-amount">협의</p>
+                            <ul class="donation-type-benefits">
+                                <li>CSR 활동 연계</li>
+                                <li>웅변대회 후원사 명칭</li>
+                                <li>행사 현장 홍보 부스</li>
+                                <li>맞춤형 협력 프로그램</li>
+                            </ul>
+                            <button class="donation-btn">기업 후원 문의</button>
+                        </div>
+                    </div>
+
+                    <!-- Account Info -->
+                    <div class="account-section">
+                        <h2 class="account-title">후원 계좌 안내</h2>
+                        <div class="account-grid">
+                            <div class="account-card">
+                                <div class="account-bank-logo">농협</div>
+                                <div class="account-info">
+                                    <p class="account-bank">농협은행</p>
+                                    <p class="account-number">301-0000-0000-00</p>
+                                    <p class="account-holder">유관순정신계승사업회</p>
+                                </div>
+                                <button class="copy-btn" onclick="copyAccount('301-0000-0000-00')">복사</button>
+                            </div>
+                            <div class="account-card">
+                                <div class="account-bank-logo">신한</div>
+                                <div class="account-info">
+                                    <p class="account-bank">신한은행</p>
+                                    <p class="account-number">110-000-000000</p>
+                                    <p class="account-holder">유관순정신계승사업회</p>
+                                </div>
+                                <button class="copy-btn" onclick="copyAccount('110-000-000000')">복사</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tax Benefits -->
+                    <div class="tax-section">
+                        <h2 class="tax-title">세제 혜택 안내</h2>
+                        <div class="tax-cards">
+                            <div class="tax-card">
+                                <div class="tax-card-icon">📋</div>
+                                <h3 class="tax-card-title">기부금 영수증 발급</h3>
+                                <p class="tax-card-desc">
+                                    연말정산 시 필요한 기부금 영수증을
+                                    국세청 연말정산 간소화 서비스로
+                                    자동 제공해 드립니다.
+                                </p>
+                            </div>
+                            <div class="tax-card">
+                                <div class="tax-card-icon">💰</div>
+                                <h3 class="tax-card-title">소득공제 혜택</h3>
+                                <p class="tax-card-desc">
+                                    지정기부금으로 개인은 소득금액의 30%,
+                                    법인은 10% 한도 내에서
+                                    세액공제 혜택을 받으실 수 있습니다.
+                                </p>
+                            </div>
+                            <div class="tax-card">
+                                <div class="tax-card-icon">✅</div>
+                                <h3 class="tax-card-title">투명한 회계</h3>
+                                <p class="tax-card-desc">
+                                    외부 회계감사를 통해 후원금 사용
+                                    내역을 투명하게 공개하며,
+                                    연간 보고서를 발행합니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Usage Section -->
+                    <div class="usage-section">
+                        <h2 class="usage-title">후원금 사용 내역</h2>
+                        <div class="usage-grid">
+                            <div class="usage-item">
+                                <div class="usage-icon">📢</div>
+                                <p class="usage-percentage">40%</p>
+                                <p class="usage-name">웅변대회 운영</p>
+                            </div>
+                            <div class="usage-item">
+                                <div class="usage-icon">📚</div>
+                                <p class="usage-percentage">25%</p>
+                                <p class="usage-name">교육 사업</p>
+                            </div>
+                            <div class="usage-item">
+                                <div class="usage-icon">🕯️</div>
+                                <p class="usage-percentage">20%</p>
+                                <p class="usage-name">추모 사업</p>
+                            </div>
+                            <div class="usage-item">
+                                <div class="usage-icon">🏢</div>
+                                <p class="usage-percentage">15%</p>
+                                <p class="usage-name">운영비</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact -->
+                    <div class="contact-section">
+                        <h3 class="contact-title">후원 문의</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-item-icon">📞</div>
+                                <div class="contact-item-text">
+                                    <p class="contact-item-label">전화</p>
+                                    <p class="contact-item-value">041-564-1919</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-item-icon">📧</div>
+                                <div class="contact-item-text">
+                                    <p class="contact-item-label">이메일</p>
+                                    <p class="contact-item-value">donate@yugwansun.or.kr</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-item-icon">⏰</div>
+                                <div class="contact-item-text">
+                                    <p class="contact-item-label">운영시간</p>
+                                    <p class="contact-item-value">평일 09:00~18:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ -->
+                    <div class="faq-section">
+                        <h2 class="faq-title">자주 묻는 질문</h2>
+                        <div class="faq-list">
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <h4>후원금은 어떻게 사용되나요?</h4>
+                                    <span>+</span>
+                                </div>
+                                <div class="faq-answer">
+                                    후원금은 전국 유관순 웅변대회 운영, 청소년 역사 교육 프로그램, 유관순 열사 추모 행사, 해외 지부 운영 등에 사용됩니다. 연간 사업 보고서를 통해 투명하게 공개하고 있습니다.
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <h4>기부금 영수증은 어떻게 받나요?</h4>
+                                    <span>+</span>
+                                </div>
+                                <div class="faq-answer">
+                                    후원 시 입력하신 주민등록번호(또는 사업자등록번호)로 국세청 연말정산 간소화 서비스에 자동 등록됩니다. 별도 영수증이 필요하신 경우 사무국으로 연락 주시면 발급해 드립니다.
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <h4>정기 후원 금액을 변경하거나 해지할 수 있나요?</h4>
+                                    <span>+</span>
+                                </div>
+                                <div class="faq-answer">
+                                    네, 언제든지 가능합니다. 사무국(041-564-1919)으로 연락하시거나 이메일(donate@yugwansun.or.kr)로 요청해 주시면 변경 또는 해지 처리해 드립니다.
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <h4>해외에서도 후원할 수 있나요?</h4>
+                                    <span>+</span>
+                                </div>
+                                <div class="faq-answer">
+                                    네, 가능합니다. 해외 송금의 경우 사무국으로 연락 주시면 안내해 드립니다. 해외 13개국에 지부가 있으니, 해당 지역 지부를 통해서도 후원하실 수 있습니다.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Related Links -->
+                <section class="related-links">
+                    <h3>관련 페이지</h3>
+                    <div class="link-cards">
+                        <a href="volunteer.html" class="link-card">
+                            <span class="link-icon">🤝</span>
+                            <span class="link-title">자원봉사</span>
+                            <span class="link-desc">봉사활동 참여</span>
+                        </a>
+                        <a href="membership.html" class="link-card">
+                            <span class="link-icon">✋</span>
+                            <span class="link-title">회원 가입</span>
+                            <span class="link-desc">함께해 주세요</span>
+                        </a>
+                        <a href="../about/greeting.html" class="link-card">
+                            <span class="link-icon">👋</span>
+                            <span class="link-title">사업회 소개</span>
+                            <span class="link-desc">우리는 누구인가</span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-info">
+                    <h3 class="footer-logo">유관순정신계승사업회</h3>
+                    <p class="footer-address">
+                        (31232) 충청남도 천안시 동남구 유관순길 38<br>
+                        Tel: 041-564-1919 | Fax: 041-564-1920<br>
+                        Email: yugwansun@memorial.or.kr
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-link-group">
+                        <h4>바로가기</h4>
+                        <ul>
+                            <li><a href="../about/greeting.html">사업회 소개</a></li>
+                            <li><a href="../contest/index.html">웅변대회</a></li>
+                            <li><a href="../projects/honor-upgrade.html">핵심 사업</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-link-group">
+                        <h4>참여</h4>
+                        <ul>
+                            <li><a href="donation.html">후원하기</a></li>
+                            <li><a href="volunteer.html">자원봉사</a></li>
+                            <li><a href="membership.html">회원가입</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2026 유관순정신계승사업회. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script>
+        // FAQ Accordion
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    // Close other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+        });
+
+        // Copy Account Number
+        function copyAccount(accountNumber) {
+            navigator.clipboard.writeText(accountNumber).then(() => {
+                alert('계좌번호가 복사되었습니다: ' + accountNumber);
+            }).catch(err => {
+                console.error('복사 실패:', err);
+            });
+        }
+    </script>
+</body>
+</html>

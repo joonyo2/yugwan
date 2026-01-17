@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>추모 사업 - 핵심 사업 | 유관순정신계승사업회</title>
+    <meta name="description" content="유관순정신계승사업회 추모 사업. 유관순 열사 추모제, 3.1절 기념행사, 순국 기념일 행사 등을 소개합니다.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sub-pages.css">
+
+    <style>
+        /* Memorial Page Specific Styles */
+        .memorial-section {
+            padding: 60px 0;
+        }
+
+        /* Hero */
+        .memorial-hero {
+            background: linear-gradient(135deg, rgba(10, 25, 47, 0.95), rgba(17, 34, 64, 0.9)),
+                        url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .memorial-hero-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .memorial-hero-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: #fff !important;
+            margin-bottom: 15px;
+        }
+
+        .memorial-hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--accent-gold) !important;
+            margin-bottom: 10px;
+        }
+
+        .memorial-hero-dates {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        /* Annual Events */
+        .events-section {
+            margin-bottom: 60px;
+        }
+
+        .events-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .events-timeline {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            padding: 30px 0;
+        }
+
+        .events-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--primary-navy), var(--accent-gold));
+            transform: translateY(-50%);
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            width: calc(25% - 20px);
+            text-align: center;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .event-date {
+            display: inline-block;
+            background: var(--accent-gold);
+            color: var(--primary-navy);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .event-name {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            color: var(--primary-navy);
+            margin-bottom: 10px;
+        }
+
+        .event-desc {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Main Ceremony */
+        .ceremony-section {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 60px;
+        }
+
+        .ceremony-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .ceremony-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            margin-bottom: 10px;
+        }
+
+        .ceremony-subtitle {
+            color: #666;
+        }
+
+        .ceremony-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .ceremony-info h4 {
+            font-size: 1.1rem;
+            color: var(--primary-navy);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-gold);
+        }
+
+        .ceremony-details {
+            list-style: none;
+            padding: 0;
+        }
+
+        .ceremony-details li {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .ceremony-details li:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            width: 100px;
+            flex-shrink: 0;
+            font-weight: 600;
+            color: var(--primary-navy);
+        }
+
+        .detail-value {
+            color: #666;
+        }
+
+        .ceremony-schedule h4 {
+            font-size: 1.1rem;
+            color: var(--primary-navy);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-gold);
+        }
+
+        .schedule-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .schedule-item {
+            display: flex;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .schedule-item:last-child {
+            border-bottom: none;
+        }
+
+        .schedule-time {
+            width: 80px;
+            flex-shrink: 0;
+            font-weight: 600;
+            color: var(--accent-gold);
+        }
+
+        .schedule-content {
+            color: #555;
+        }
+
+        /* Sites */
+        .sites-section {
+            margin-bottom: 60px;
+        }
+
+        .sites-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .sites-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .site-card {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .site-image {
+            height: 180px;
+            background: linear-gradient(135deg, var(--primary-navy), var(--primary-navy-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .site-content {
+            padding: 25px;
+            background: white;
+        }
+
+        .site-name {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            color: var(--primary-navy);
+            margin-bottom: 8px;
+        }
+
+        .site-location {
+            font-size: 0.85rem;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+        }
+
+        .site-desc {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Gallery Preview */
+        .gallery-section {
+            margin-bottom: 60px;
+        }
+
+        .gallery-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(10, 25, 47, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item-text {
+            color: #fff !important;
+            font-size: 0.9rem;
+        }
+
+        /* Participation */
+        .participation-section {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-light));
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 60px;
+        }
+
+        .participation-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .participation-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .participation-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .participation-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .participation-name {
+            font-size: 1.1rem;
+            color: var(--primary-navy);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .participation-desc {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* CTA */
+        .memorial-cta {
+            background: var(--primary-navy);
+            border-radius: 16px;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .memorial-cta-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: #fff !important;
+            margin-bottom: 15px;
+        }
+
+        .memorial-cta-desc {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8) !important;
+            margin-bottom: 25px;
+        }
+
+        .memorial-cta .btn {
+            background: var(--accent-gold);
+            color: var(--primary-navy);
+            padding: 14px 35px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .memorial-cta .btn:hover {
+            background: white;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .events-timeline {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .events-timeline::before {
+                top: 0;
+                bottom: 0;
+                left: 30px;
+                right: auto;
+                width: 3px;
+                height: auto;
+                transform: none;
+            }
+
+            .event-card {
+                width: 100%;
+                margin-left: 60px;
+                text-align: left;
+            }
+
+            .ceremony-content {
+                grid-template-columns: 1fr;
+            }
+
+            .sites-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .participation-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .memorial-hero {
+                padding: 40px 25px;
+            }
+
+            .memorial-hero-title {
+                font-size: 1.5rem;
+            }
+
+            .ceremony-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link -->
+    <a href="#main-content" class="skip-link">본문으로 건너뛰기</a>
+
+    <!-- Header -->
+    <header id="header" class="header">
+        <div class="header-inner">
+            <a href="../index.html" class="logo">
+                <span class="logo-main">유관순정신계승사업회</span>
+                <span class="logo-sub">Yu Gwan-sun Memorial Association</span>
+            </a>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item has-dropdown">
+                        <a href="../about/greeting.html" class="nav-link">사업회 소개</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../about/greeting.html">인사말</a></li>
+                            <li><a href="../about/organization.html">조직도</a></li>
+                            <li><a href="../about/history.html">연혁</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../contest/index.html" class="nav-link">웅변대회</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../contest/index.html">대회 소개</a></li>
+                            <li><a href="../contest/apply.html">참가 신청</a></li>
+                            <li><a href="../contest/guidelines.html">참가 요강</a></li>
+                            <li><a href="../contest/winners.html">역대 수상자</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="honor-upgrade.html" class="nav-link active">핵심 사업</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="honor-upgrade.html">서훈 등급 상향</a></li>
+                            <li><a href="education.html">교육 사업</a></li>
+                            <li><a href="memorial.html" class="active">추모 사업</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../global/network.html" class="nav-link">글로벌</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../global/network.html">해외 네트워크</a></li>
+                            <li><a href="../global/exchange.html">국제 교류</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../archive/notice.html" class="nav-link">아카이브</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../archive/notice.html">공지사항</a></li>
+                            <li><a href="../archive/news.html">보도자료</a></li>
+                            <li><a href="../archive/gallery.html">갤러리</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../join/donation.html" class="nav-link">후원 및 참여</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../join/donation.html">후원 안내</a></li>
+                            <li><a href="../join/volunteer.html">자원봉사</a></li>
+                            <li><a href="../join/membership.html">회원 가입</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-list">
+                <li class="mobile-nav-item"><a href="../about/greeting.html" class="mobile-nav-link">사업회 소개</a></li>
+                <li class="mobile-nav-item"><a href="../contest/index.html" class="mobile-nav-link">웅변대회</a></li>
+                <li class="mobile-nav-item">
+                    <a href="honor-upgrade.html" class="mobile-nav-link active">핵심 사업</a>
+                    <ul class="mobile-dropdown">
+                        <li><a href="honor-upgrade.html">서훈 등급 상향</a></li>
+                        <li><a href="education.html">교육 사업</a></li>
+                        <li><a href="memorial.html" class="active">추모 사업</a></li>
+                    </ul>
+                </li>
+                <li class="mobile-nav-item"><a href="../global/network.html" class="mobile-nav-link">글로벌</a></li>
+                <li class="mobile-nav-item"><a href="../archive/notice.html" class="mobile-nav-link">아카이브</a></li>
+                <li class="mobile-nav-item"><a href="../join/donation.html" class="mobile-nav-link">후원 및 참여</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-bg">
+            <div class="page-hero-overlay"></div>
+        </div>
+        <div class="page-hero-content">
+            <div class="breadcrumb">
+                <a href="../index.html">홈</a>
+                <span class="separator">/</span>
+                <a href="honor-upgrade.html">핵심 사업</a>
+                <span class="separator">/</span>
+                <span class="current">추모 사업</span>
+            </div>
+            <h1 class="page-title">추모 사업</h1>
+            <p class="page-subtitle">열사의 숭고한 희생을 기억합니다</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content" class="sub-page-content">
+        <div class="content-wrapper with-sidebar">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <h3 class="sidebar-title">핵심 사업</h3>
+                    <ul class="sidebar-menu">
+                        <li><a href="honor-upgrade.html">서훈 등급 상향</a></li>
+                        <li><a href="education.html">교육 사업</a></li>
+                        <li><a href="memorial.html" class="active">추모 사업</a></li>
+                    </ul>
+                </nav>
+
+                <div class="sidebar-cta">
+                    <h4>추모 행사 참여</h4>
+                    <p>추모 행사에 참여하고 싶으시다면 문의해 주세요.</p>
+                    <a href="mailto:memorial@yugwansun.or.kr" class="btn btn-gold">참여 문의</a>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <div class="main-content-area">
+                <section class="memorial-section">
+                    <!-- Hero -->
+                    <div class="memorial-hero">
+                        <div class="memorial-hero-icon">🕯️</div>
+                        <h2 class="memorial-hero-title">유관순 열사를 기억합니다</h2>
+                        <p class="memorial-hero-subtitle">1902. 12. 16 ~ 1920. 9. 28</p>
+                        <p class="memorial-hero-dates">열여덟 꽃다운 나이에 조국의 독립을 위해 목숨을 바친 숭고한 희생</p>
+                    </div>
+
+                    <!-- Annual Events -->
+                    <div class="events-section">
+                        <h2 class="events-title">연간 추모 행사</h2>
+                        <div class="events-timeline">
+                            <div class="event-card">
+                                <span class="event-date">3월 1일</span>
+                                <h3 class="event-name">3.1절 기념행사</h3>
+                                <p class="event-desc">3.1운동 기념일을 맞아 전국 및 해외 지부에서 동시 개최하는 기념식</p>
+                            </div>
+                            <div class="event-card">
+                                <span class="event-date">4월 1일</span>
+                                <h3 class="event-name">아우내 장터 만세운동 기념제</h3>
+                                <p class="event-desc">1919년 아우내 장터 만세운동을 기념하는 현장 재현 행사</p>
+                            </div>
+                            <div class="event-card">
+                                <span class="event-date">9월 28일</span>
+                                <h3 class="event-name">유관순 열사 순국 기념일</h3>
+                                <p class="event-desc">열사의 순국을 추모하는 공식 추모제 및 헌화식</p>
+                            </div>
+                            <div class="event-card">
+                                <span class="event-date">12월 16일</span>
+                                <h3 class="event-name">유관순 열사 탄신일</h3>
+                                <p class="event-desc">열사의 탄생을 기념하는 행사 및 기념 강연</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Ceremony -->
+                    <div class="ceremony-section">
+                        <div class="ceremony-header">
+                            <h2 class="ceremony-title">2026년 순국 106주기 추모제</h2>
+                            <p class="ceremony-subtitle">열사의 숭고한 희생정신을 기리는 공식 추모 행사</p>
+                        </div>
+                        <div class="ceremony-content">
+                            <div class="ceremony-info">
+                                <h4>행사 개요</h4>
+                                <ul class="ceremony-details">
+                                    <li>
+                                        <span class="detail-label">일시</span>
+                                        <span class="detail-value">2026년 9월 28일 (월) 오전 10시</span>
+                                    </li>
+                                    <li>
+                                        <span class="detail-label">장소</span>
+                                        <span class="detail-value">천안시 병천면 유관순 열사 사적지</span>
+                                    </li>
+                                    <li>
+                                        <span class="detail-label">주최</span>
+                                        <span class="detail-value">유관순정신계승사업회</span>
+                                    </li>
+                                    <li>
+                                        <span class="detail-label">후원</span>
+                                        <span class="detail-value">국가보훈처, 충청남도, 천안시</span>
+                                    </li>
+                                    <li>
+                                        <span class="detail-label">참석</span>
+                                        <span class="detail-value">유족, 독립유공자 후손, 시민 등 500여 명</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="ceremony-schedule">
+                                <h4>식순</h4>
+                                <ul class="schedule-list">
+                                    <li class="schedule-item">
+                                        <span class="schedule-time">09:30</span>
+                                        <span class="schedule-content">참석자 입장 및 등록</span>
+                                    </li>
+                                    <li class="schedule-item">
+                                        <span class="schedule-time">10:00</span>
+                                        <span class="schedule-content">개식 선언 및 국민의례</span>
+                                    </li>
+                                    <li class="schedule-item">
+                                        <span class="schedule-time">10:10</span>
+                                        <span class="schedule-content">묵념 및 헌화</span>
+                                    </li>
+                                    <li class="schedule-item">
+                                        <span class="schedule-time">10:30</span>
+                                        <span class="schedule-content">추모사 (이사장)</span>
+                                    </li>
+                                    <li class="schedule-item">
+                                        <span class="schedule-time">10:45</span>
+                                        <span class="schedule-content">내빈 축사</span>
+                                    </li>
+                                    <li class="schedule-item">
+                                        <span class="schedule-time">11:00</span>
+                                        <span class="schedule-content">추모 공연 및 폐식</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Memorial Sites -->
+                    <div class="sites-section">
+                        <h2 class="sites-title">추모 사적지</h2>
+                        <div class="sites-grid">
+                            <div class="site-card">
+                                <div class="site-image">🏛️</div>
+                                <div class="site-content">
+                                    <h3 class="site-name">유관순 열사 사적지</h3>
+                                    <p class="site-location">충남 천안시 병천면</p>
+                                    <p class="site-desc">열사의 생가와 기념관이 있는 대표 추모 장소로, 매년 주요 추모 행사가 개최됩니다.</p>
+                                </div>
+                            </div>
+                            <div class="site-card">
+                                <div class="site-image">📍</div>
+                                <div class="site-content">
+                                    <h3 class="site-name">아우내 장터</h3>
+                                    <p class="site-location">충남 천안시 병천면</p>
+                                    <p class="site-desc">1919년 4월 1일 유관순 열사가 만세운동을 주도한 역사적 현장입니다.</p>
+                                </div>
+                            </div>
+                            <div class="site-card">
+                                <div class="site-image">🕊️</div>
+                                <div class="site-content">
+                                    <h3 class="site-name">이화학당 터</h3>
+                                    <p class="site-location">서울 중구</p>
+                                    <p class="site-desc">열사가 학창 시절을 보내며 독립 의식을 키운 모교의 터입니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Preview -->
+                    <div class="gallery-section">
+                        <h2 class="gallery-title">추모 행사 갤러리</h2>
+                        <div class="gallery-grid">
+                            <div class="gallery-item">
+                                <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=400&h=400&fit=crop" alt="추모제">
+                                <div class="gallery-item-overlay">
+                                    <span class="gallery-item-text">2025 순국 추모제</span>
+                                </div>
+                            </div>
+                            <div class="gallery-item">
+                                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop" alt="헌화식">
+                                <div class="gallery-item-overlay">
+                                    <span class="gallery-item-text">헌화식</span>
+                                </div>
+                            </div>
+                            <div class="gallery-item">
+                                <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=400&h=400&fit=crop" alt="3.1절">
+                                <div class="gallery-item-overlay">
+                                    <span class="gallery-item-text">3.1절 기념행사</span>
+                                </div>
+                            </div>
+                            <div class="gallery-item">
+                                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop" alt="사적지">
+                                <div class="gallery-item-overlay">
+                                    <span class="gallery-item-text">사적지 탐방</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Participation -->
+                    <div class="participation-section">
+                        <h2 class="participation-title">추모 행사 참여 방법</h2>
+                        <div class="participation-grid">
+                            <div class="participation-card">
+                                <div class="participation-icon">🌸</div>
+                                <h3 class="participation-name">헌화 참여</h3>
+                                <p class="participation-desc">추모제 당일 현장에서 헌화에 참여하실 수 있습니다. 사전 신청 없이 자유롭게 참석 가능합니다.</p>
+                            </div>
+                            <div class="participation-card">
+                                <div class="participation-icon">🤝</div>
+                                <h3 class="participation-name">자원봉사</h3>
+                                <p class="participation-desc">행사 진행, 안내, 정리 등 자원봉사로 추모 행사에 참여할 수 있습니다.</p>
+                            </div>
+                            <div class="participation-card">
+                                <div class="participation-icon">💝</div>
+                                <h3 class="participation-name">추모 후원</h3>
+                                <p class="participation-desc">추모 행사 운영을 위한 후원금을 통해 열사의 정신 계승에 동참할 수 있습니다.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="memorial-cta">
+                        <h2 class="memorial-cta-title">함께 추모해 주세요</h2>
+                        <p class="memorial-cta-desc">유관순 열사의 숭고한 희생을 함께 기억하고 계승해 주세요.</p>
+                        <a href="mailto:memorial@yugwansun.or.kr" class="btn">참여 문의</a>
+                    </div>
+                </section>
+
+                <!-- Related Links -->
+                <section class="related-links">
+                    <h3>관련 페이지</h3>
+                    <div class="link-cards">
+                        <a href="education.html" class="link-card">
+                            <span class="link-icon">📚</span>
+                            <span class="link-title">교육 사업</span>
+                            <span class="link-desc">역사 교육 프로그램</span>
+                        </a>
+                        <a href="../archive/gallery.html" class="link-card">
+                            <span class="link-icon">📸</span>
+                            <span class="link-title">갤러리</span>
+                            <span class="link-desc">행사 사진 더보기</span>
+                        </a>
+                        <a href="../join/volunteer.html" class="link-card">
+                            <span class="link-icon">🤝</span>
+                            <span class="link-title">자원봉사</span>
+                            <span class="link-desc">봉사 참여하기</span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-info">
+                    <h3 class="footer-logo">유관순정신계승사업회</h3>
+                    <p class="footer-address">
+                        (31232) 충청남도 천안시 동남구 유관순길 38<br>
+                        Tel: 041-564-1919 | Fax: 041-564-1920<br>
+                        Email: yugwansun@memorial.or.kr
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-link-group">
+                        <h4>바로가기</h4>
+                        <ul>
+                            <li><a href="../about/greeting.html">사업회 소개</a></li>
+                            <li><a href="../contest/index.html">웅변대회</a></li>
+                            <li><a href="honor-upgrade.html">핵심 사업</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-link-group">
+                        <h4>참여</h4>
+                        <ul>
+                            <li><a href="../join/donation.html">후원하기</a></li>
+                            <li><a href="../join/volunteer.html">자원봉사</a></li>
+                            <li><a href="../join/membership.html">회원가입</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2026 유관순정신계승사업회. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+</body>
+</html>

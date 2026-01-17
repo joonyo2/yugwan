@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항 - 아카이브 | 유관순정신계승사업회</title>
+    <meta name="description" content="유관순정신계승사업회 공지사항입니다. 사업회 소식, 행사 안내, 웅변대회 관련 공지를 확인하세요.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sub-pages.css">
+
+    <style>
+        /* Notice Page Specific Styles */
+        .notice-section {
+            padding: 60px 0;
+        }
+
+        /* Search & Filter */
+        .notice-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .notice-search {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        .search-btn {
+            padding: 12px 20px;
+            background: var(--primary-navy);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-navy-light);
+        }
+
+        .notice-filter {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            color: #666;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent-gold);
+            color: var(--primary-navy);
+        }
+
+        /* Notice List */
+        .notice-list {
+            border-top: 2px solid var(--primary-navy);
+        }
+
+        .notice-item {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e5e5;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .notice-item:hover {
+            background: #f8f9fa;
+            padding-left: 15px;
+            padding-right: 15px;
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+
+        .notice-item.pinned {
+            background: rgba(197, 160, 89, 0.1);
+        }
+
+        .notice-item.pinned:hover {
+            background: rgba(197, 160, 89, 0.15);
+        }
+
+        .notice-badge {
+            flex-shrink: 0;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 15px;
+        }
+
+        .notice-badge.important {
+            background: var(--accent-gold);
+            color: var(--primary-navy);
+        }
+
+        .notice-badge.event {
+            background: var(--primary-navy);
+            color: white;
+        }
+
+        .notice-badge.general {
+            background: #e5e5e5;
+            color: #666;
+        }
+
+        .notice-badge.contest {
+            background: #e8f4f8;
+            color: #1a6b8a;
+        }
+
+        .notice-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .notice-title {
+            font-size: 1rem;
+            color: var(--primary-navy);
+            font-weight: 500;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .notice-item.pinned .notice-title {
+            font-weight: 600;
+        }
+
+        .notice-title::before {
+            content: '';
+        }
+
+        .notice-item.pinned .notice-title::before {
+            content: '📌 ';
+        }
+
+        .notice-meta {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .notice-meta span {
+            margin-right: 15px;
+        }
+
+        .notice-views {
+            flex-shrink: 0;
+            text-align: right;
+            min-width: 80px;
+        }
+
+        .notice-views-number {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .notice-views-label {
+            font-size: 0.75rem;
+            color: #aaa;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            margin-top: 40px;
+        }
+
+        .pagination-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            background: white;
+            color: #666;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pagination-btn:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .pagination-btn.active {
+            background: var(--primary-navy);
+            border-color: var(--primary-navy);
+            color: white;
+        }
+
+        .pagination-btn.arrow {
+            font-size: 1.1rem;
+        }
+
+        /* Featured Notice */
+        .featured-notice {
+            background: linear-gradient(135deg, var(--primary-navy), var(--primary-navy-light));
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .featured-icon {
+            flex-shrink: 0;
+            width: 80px;
+            height: 80px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .featured-content {
+            flex: 1;
+        }
+
+        .featured-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--accent-gold);
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .featured-title {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .featured-desc {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .featured-link {
+            flex-shrink: 0;
+        }
+
+        .featured-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-gold);
+            color: var(--primary-navy);
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .featured-link a:hover {
+            background: white;
+            transform: translateX(5px);
+        }
+
+        /* Quick Links */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .quick-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .quick-link:hover {
+            background: white;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transform: translateY(-3px);
+        }
+
+        .quick-link-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--accent-gold);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .quick-link-text {
+            font-size: 0.95rem;
+            color: var(--primary-navy);
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .notice-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .notice-search {
+                max-width: none;
+            }
+
+            .notice-filter {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .notice-item {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .notice-badge {
+                margin-right: 0;
+            }
+
+            .notice-content {
+                flex-basis: 100%;
+                order: 2;
+            }
+
+            .notice-views {
+                order: 3;
+            }
+
+            .featured-notice {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .quick-links {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link -->
+    <a href="#main-content" class="skip-link">본문으로 건너뛰기</a>
+
+    <!-- Header -->
+    <header id="header" class="header">
+        <div class="header-inner">
+            <a href="../index.html" class="logo">
+                <span class="logo-main">유관순정신계승사업회</span>
+                <span class="logo-sub">Yu Gwan-sun Memorial Association</span>
+            </a>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item has-dropdown">
+                        <a href="../about/greeting.html" class="nav-link">사업회 소개</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../about/greeting.html">인사말</a></li>
+                            <li><a href="../about/organization.html">조직도</a></li>
+                            <li><a href="../about/history.html">연혁</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../contest/index.html" class="nav-link">웅변대회</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../contest/index.html">대회 소개</a></li>
+                            <li><a href="../contest/apply.html">참가 신청</a></li>
+                            <li><a href="../contest/guidelines.html">참가 요강</a></li>
+                            <li><a href="../contest/winners.html">역대 수상자</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../projects/honor-upgrade.html" class="nav-link">핵심 사업</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../projects/honor-upgrade.html">서훈 등급 상향</a></li>
+                            <li><a href="../projects/education.html">교육 사업</a></li>
+                            <li><a href="../projects/memorial.html">추모 사업</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../global/network.html" class="nav-link">글로벌</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../global/network.html">해외 네트워크</a></li>
+                            <li><a href="../global/exchange.html">국제 교류</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="notice.html" class="nav-link active">아카이브</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="notice.html" class="active">공지사항</a></li>
+                            <li><a href="news.html">보도자료</a></li>
+                            <li><a href="gallery.html">갤러리</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../join/donation.html" class="nav-link">후원 및 참여</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../join/donation.html">후원 안내</a></li>
+                            <li><a href="../join/volunteer.html">자원봉사</a></li>
+                            <li><a href="../join/membership.html">회원 가입</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-list">
+                <li class="mobile-nav-item">
+                    <a href="../about/greeting.html" class="mobile-nav-link">사업회 소개</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../contest/index.html" class="mobile-nav-link">웅변대회</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../projects/honor-upgrade.html" class="mobile-nav-link">핵심 사업</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../global/network.html" class="mobile-nav-link">글로벌</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="notice.html" class="mobile-nav-link active">아카이브</a>
+                    <ul class="mobile-dropdown">
+                        <li><a href="notice.html" class="active">공지사항</a></li>
+                        <li><a href="news.html">보도자료</a></li>
+                        <li><a href="gallery.html">갤러리</a></li>
+                    </ul>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="../join/donation.html" class="mobile-nav-link">후원 및 참여</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-bg">
+            <div class="page-hero-overlay"></div>
+        </div>
+        <div class="page-hero-content">
+            <div class="breadcrumb">
+                <a href="../index.html">홈</a>
+                <span class="separator">/</span>
+                <a href="notice.html">아카이브</a>
+                <span class="separator">/</span>
+                <span class="current">공지사항</span>
+            </div>
+            <h1 class="page-title">공지사항</h1>
+            <p class="page-subtitle">사업회의 새로운 소식을 전합니다</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content" class="sub-page-content">
+        <div class="content-wrapper with-sidebar">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <h3 class="sidebar-title">아카이브</h3>
+                    <ul class="sidebar-menu">
+                        <li><a href="notice.html" class="active">공지사항</a></li>
+                        <li><a href="news.html">보도자료</a></li>
+                        <li><a href="gallery.html">갤러리</a></li>
+                    </ul>
+                </nav>
+
+                <div class="sidebar-cta">
+                    <h4>소식 받기</h4>
+                    <p>사업회의 새로운 소식을 이메일로 받아보세요.</p>
+                    <a href="../join/membership.html" class="btn btn-gold">회원 가입</a>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <div class="main-content-area">
+                <section class="notice-section">
+                    <!-- Featured Notice -->
+                    <div class="featured-notice">
+                        <div class="featured-icon">📢</div>
+                        <div class="featured-content">
+                            <span class="featured-badge">중요 공지</span>
+                            <h2 class="featured-title">제24회 전국 유관순 웅변대회 참가자 모집</h2>
+                            <p class="featured-desc">2026년 웅변대회 참가 신청이 시작되었습니다. 청소년 여러분의 많은 참여 바랍니다.</p>
+                        </div>
+                        <div class="featured-link">
+                            <a href="../contest/apply.html">참가 신청 →</a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="quick-links">
+                        <a href="../contest/apply.html" class="quick-link">
+                            <div class="quick-link-icon">📝</div>
+                            <div class="quick-link-text">웅변대회 참가신청</div>
+                        </a>
+                        <a href="../join/donation.html" class="quick-link">
+                            <div class="quick-link-icon">💝</div>
+                            <div class="quick-link-text">후원 안내</div>
+                        </a>
+                        <a href="../join/membership.html" class="quick-link">
+                            <div class="quick-link-icon">✋</div>
+                            <div class="quick-link-text">회원 가입</div>
+                        </a>
+                    </div>
+
+                    <!-- Search & Filter -->
+                    <div class="notice-controls">
+                        <div class="notice-search">
+                            <input type="text" class="search-input" placeholder="검색어를 입력하세요">
+                            <button class="search-btn">검색</button>
+                        </div>
+                        <div class="notice-filter">
+                            <button class="filter-btn active" data-filter="all">전체</button>
+                            <button class="filter-btn" data-filter="important">중요</button>
+                            <button class="filter-btn" data-filter="contest">웅변대회</button>
+                            <button class="filter-btn" data-filter="event">행사</button>
+                        </div>
+                    </div>
+
+                    <!-- Notice List -->
+                    <div class="notice-list">
+                        <div class="notice-item pinned" data-category="important">
+                            <span class="notice-badge important">중요</span>
+                            <div class="notice-content">
+                                <h3 class="notice-title">제24회 전국 유관순 웅변대회 참가 신청 안내</h3>
+                                <div class="notice-meta">
+                                    <span>2026.01.15</span>
+                                    <span>사무국</span>
+                                </div>
+                            </div>
+                            <div class="notice-views">
+                                <div class="notice-views-number">1,234</div>
+                                <div class="notice-views-label">조회</div>
+                            </div>
+                        </div>
+
+                        <div class="notice-item pinned" data-category="important">
+                            <span class="notice-badge important">중요</span>
+                            <div class="notice-content">
+                                <h3 class="notice-title">2026년 신년 인사 및 사업 계획 안내</h3>
+                                <div class="notice-meta">
+                                    <span>2026.01.02</span>
+                                    <span>사무국</span>
+                                </div>
+                            </div>
+                            <div class="notice-views">
+                                <div class="notice-views-number">892</div>
+                                <div class="notice-views-label">조회</div>
+                            </div>
+                        </div>
+
+                        <div class="notice-item" data-category="event">
+                            <span class="notice-badge event">행사</span>
+                            <div class="notice-content">
+                                <h3 class="notice-title">3.1절 기념 추모 행사 안내</h3>
+                                <div class="notice-meta">
+                                    <span>2026.02.15</span>
+                                    <span>사업국</span>
+                                </div>
+                            </div>
+                            <div class="notice-views">
+                                <div class="notice-views-number">567</div>
+                                <div class="notice-views-label">조회</div>
+                            </div>
+                        </div>
+
+                        <div class="notice-item" data-category="contest">
+                            <span class="notice-badge contest">웅변대회</span>
+                            <div class="notice-content">
+                                <h3 class="notice-title">제24회 웅변대회 심사위원 모집 공고</h3>
+                                <div class="notice-meta">
+                                    <span>2026.01.10</span>
+                                    <span>사업국</span>
+                                </div>
+                            </div>
+                            <div class="notice-views">
+                                <div class="notice-views-number">423</div>
+                                <div class="notice-views-label">조회</div>
+                            </div>
+                        </div>
+
+                        <div class="notice-item" data-category="general">
+                            <span class="notice-badge general">일반</span>
+                            <div class="notice-content">
+                                <h3 class="notice-title">2025년 연간 사업 보고서 공개</h3>
+                                <div class="notice-meta">
+                                    <span>2025.12.28</span>
+                                    <span>총무국</span>
+                                </div>
+                            </div>
+                            <div class="notice-views">
+                                <div class="notice-views-number">312</div>
+                                <div class="notice-views-label">조회</div>
+                            </div>
+                        </div>
+
+                        <div class="notice-item" data-category="event">
+                            <span class="notice-badge event">행사</span>
+                            <div class="notice-content">
+                                <h3 class="notice-title">제23회 웅변대회 시상식 및 송년 행사 결과 보고</h3>
+                                <div class="notice-meta">
+                                    <span>2025.12.20</span>
+                                    <span>사업국</span>
+                                </div>
+                            </div>
+                            <div class="notice-views">
+                                <div class="notice-views-number">756</div>
+                                <div class="notice-views-label">조회</div>
+                            </div>
+                        </div>
+
+                        <div class="notice-item" data-category="general">
+                            <span class="notice-badge general">일반</span>
+                            <div class="notice-content">
+                                <h3 class="notice-title">사무국 연말연시 휴무 안내 (12/30~1/1)</h3>
+                                <div class="notice-meta">
+                                    <span>2025.12.15</span>
+                                    <span>총무국</span>
+                                </div>
+                            </div>
+                            <div class="notice-views">
+                                <div class="notice-views-number">198</div>
+                                <div class="notice-views-label">조회</div>
+                            </div>
+                        </div>
+
+                        <div class="notice-item" data-category="contest">
+                            <span class="notice-badge contest">웅변대회</span>
+                            <div class="notice-content">
+                                <h3 class="notice-title">제23회 웅변대회 본선 진출자 발표</h3>
+                                <div class="notice-meta">
+                                    <span>2025.11.25</span>
+                                    <span>사업국</span>
+                                </div>
+                            </div>
+                            <div class="notice-views">
+                                <div class="notice-views-number">1,892</div>
+                                <div class="notice-views-label">조회</div>
+                            </div>
+                        </div>
+
+                        <div class="notice-item" data-category="general">
+                            <span class="notice-badge general">일반</span>
+                            <div class="notice-content">
+                                <h3 class="notice-title">후원 회원 감사 이벤트 당첨자 발표</h3>
+                                <div class="notice-meta">
+                                    <span>2025.11.15</span>
+                                    <span>총무국</span>
+                                </div>
+                            </div>
+                            <div class="notice-views">
+                                <div class="notice-views-number">534</div>
+                                <div class="notice-views-label">조회</div>
+                            </div>
+                        </div>
+
+                        <div class="notice-item" data-category="event">
+                            <span class="notice-badge event">행사</span>
+                            <div class="notice-content">
+                                <h3 class="notice-title">유관순 열사 순국 기념일 추모 행사 안내</h3>
+                                <div class="notice-meta">
+                                    <span>2025.09.20</span>
+                                    <span>사업국</span>
+                                </div>
+                            </div>
+                            <div class="notice-views">
+                                <div class="notice-views-number">687</div>
+                                <div class="notice-views-label">조회</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <button class="pagination-btn arrow">‹</button>
+                        <button class="pagination-btn active">1</button>
+                        <button class="pagination-btn">2</button>
+                        <button class="pagination-btn">3</button>
+                        <button class="pagination-btn">4</button>
+                        <button class="pagination-btn">5</button>
+                        <button class="pagination-btn arrow">›</button>
+                    </div>
+                </section>
+
+                <!-- Related Links -->
+                <section class="related-links">
+                    <h3>관련 페이지</h3>
+                    <div class="link-cards">
+                        <a href="news.html" class="link-card">
+                            <span class="link-icon">📰</span>
+                            <span class="link-title">보도자료</span>
+                            <span class="link-desc">언론 보도 자료</span>
+                        </a>
+                        <a href="gallery.html" class="link-card">
+                            <span class="link-icon">📸</span>
+                            <span class="link-title">갤러리</span>
+                            <span class="link-desc">행사 사진</span>
+                        </a>
+                        <a href="../contest/index.html" class="link-card">
+                            <span class="link-icon">📢</span>
+                            <span class="link-title">웅변대회</span>
+                            <span class="link-desc">대회 정보</span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-info">
+                    <h3 class="footer-logo">유관순정신계승사업회</h3>
+                    <p class="footer-address">
+                        (31232) 충청남도 천안시 동남구 유관순길 38<br>
+                        Tel: 041-564-1919 | Fax: 041-564-1920<br>
+                        Email: yugwansun@memorial.or.kr
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-link-group">
+                        <h4>바로가기</h4>
+                        <ul>
+                            <li><a href="../about/greeting.html">사업회 소개</a></li>
+                            <li><a href="../contest/index.html">웅변대회</a></li>
+                            <li><a href="../projects/honor-upgrade.html">핵심 사업</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-link-group">
+                        <h4>참여</h4>
+                        <ul>
+                            <li><a href="../join/donation.html">후원하기</a></li>
+                            <li><a href="../join/volunteer.html">자원봉사</a></li>
+                            <li><a href="../join/membership.html">회원가입</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2026 유관순정신계승사업회. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/main.js"></script>
+    <script>
+        // Filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const noticeItems = document.querySelectorAll('.notice-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Update active state
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const filter = this.getAttribute('data-filter');
+
+                    noticeItems.forEach(item => {
+                        if (filter === 'all') {
+                            item.style.display = 'flex';
+                        } else {
+                            const category = item.getAttribute('data-category');
+                            item.style.display = category === filter ? 'flex' : 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

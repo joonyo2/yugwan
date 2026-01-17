@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="유관순정신계승사업회 - 1919년의 외침, 2026년의 울림이 되다. 유관순 열사의 숭고한 희생과 애국정신을 기리고 후대에 계승합니다.">
+    <meta name="keywords" content="유관순, 유관순열사, 유관순정신계승사업회, 독립운동, 3.1운동, 애국, 웅변대회">
+    <meta name="author" content="유관순정신계승사업회">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="유관순정신계승사업회">
+    <meta property="og:description" content="1919년의 외침, 2026년의 울림이 되다">
+    <meta property="og:type" content="website">
+
+    <title>유관순정신계승사업회 - 기억을 넘어 미래로</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                유관순정신계승사업회<span class="logo-dot">.</span>
+            </a>
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li class="nav-item has-dropdown">
+                        <a href="about/greeting.html" class="nav-link">사업회 소개</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="about/greeting.html">인사말</a></li>
+                            <li><a href="about/organization.html">조직도</a></li>
+                            <li><a href="about/history.html">연혁</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="contest/index.html" class="nav-link">웅변대회</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="contest/index.html">대회 소개</a></li>
+                            <li><a href="contest/apply.html">참가 신청</a></li>
+                            <li><a href="contest/guidelines.html">참가 요강</a></li>
+                            <li><a href="contest/winners.html">역대 수상자</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="projects/honor-upgrade.html" class="nav-link">핵심 사업</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="projects/honor-upgrade.html">서훈 등급 상향</a></li>
+                            <li><a href="projects/education.html">교육 사업</a></li>
+                            <li><a href="projects/memorial.html">추모 사업</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="global/network.html" class="nav-link">글로벌</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="global/network.html">해외 네트워크</a></li>
+                            <li><a href="global/exchange.html">국제 교류</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="archive/notice.html" class="nav-link">아카이브</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="archive/notice.html">공지사항</a></li>
+                            <li><a href="archive/news.html">보도자료</a></li>
+                            <li><a href="archive/gallery.html">갤러리</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <a href="join/donation.html" class="btn-donate">후원하기</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul class="mobile-nav-list">
+            <li class="mobile-nav-item">
+                <a href="about/greeting.html" class="mobile-nav-link">사업회 소개</a>
+                <ul class="mobile-dropdown">
+                    <li><a href="about/greeting.html">인사말</a></li>
+                    <li><a href="about/organization.html">조직도</a></li>
+                    <li><a href="about/history.html">연혁</a></li>
+                </ul>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="contest/index.html" class="mobile-nav-link">웅변대회</a>
+                <ul class="mobile-dropdown">
+                    <li><a href="contest/index.html">대회 소개</a></li>
+                    <li><a href="contest/apply.html">참가 신청</a></li>
+                    <li><a href="contest/guidelines.html">참가 요강</a></li>
+                    <li><a href="contest/winners.html">역대 수상자</a></li>
+                </ul>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="projects/honor-upgrade.html" class="mobile-nav-link">핵심 사업</a>
+                <ul class="mobile-dropdown">
+                    <li><a href="projects/honor-upgrade.html">서훈 등급 상향</a></li>
+                    <li><a href="projects/education.html">교육 사업</a></li>
+                    <li><a href="projects/memorial.html">추모 사업</a></li>
+                </ul>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="global/network.html" class="mobile-nav-link">글로벌</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="archive/notice.html" class="mobile-nav-link">아카이브</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="join/donation.html" class="mobile-nav-link btn-donate-mobile">후원하기</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-background">
+            <div class="hero-bg-left">
+                <div class="hero-placeholder">
+                    <div class="placeholder-content">
+                        <div class="placeholder-icon">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                <polyline points="21 15 16 10 5 21"></polyline>
+                            </svg>
+                        </div>
+                        <p class="placeholder-text">유관순 열사 영정</p>
+                        <p class="placeholder-subtext">(별도 제공 예정)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-bg-right"></div>
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <span class="hero-badge">Since 2005</span>
+            <h1 class="hero-title">
+                1919년의 외침,<br>
+                <span class="hero-title-accent">2026년의 울림</span>이 되다.
+            </h1>
+            <p class="hero-description">
+                우리는 과거를 기억하는 것을 넘어, 미래의 리더를 육성하여<br>
+                유관순의 정신을 전 세계로 확장합니다.
+            </p>
+            <div class="hero-cta">
+                <a href="#projects" class="btn btn-primary">주요 사업 보기</a>
+                <a href="#join" class="btn btn-secondary">함께하기</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span class="scroll-text">Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Metrics Section -->
+    <section class="metrics" id="metrics">
+        <div class="metrics-container">
+            <div class="metric-item" data-count="22">
+                <div class="metric-value"><span class="counter">22</span>회</div>
+                <div class="metric-label">전국 웅변대회 개최</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">1등급</div>
+                <div class="metric-label">대한민국장 추서 달성</div>
+            </div>
+            <div class="metric-item" data-count="33">
+                <div class="metric-value"><span class="counter">33</span>인</div>
+                <div class="metric-label">이사회 출범</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">Global</div>
+                <div class="metric-label">뉴욕주지회 설립</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">핵심 목적 사업</h2>
+                <p class="section-subtitle">유관순 정신을 '박제된 과거'가 아닌 '살아있는 현재의 가치'로</p>
+            </div>
+            <div class="bento-grid">
+                <div class="grid-item item-large" data-aos="fade-up">
+                    <div class="grid-item-bg" style="background-image: url('https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&q=80');"></div>
+                    <div class="grid-item-overlay"></div>
+                    <div class="grid-item-content">
+                        <div class="grid-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                <line x1="12" y1="19" x2="12" y2="23"></line>
+                                <line x1="8" y1="23" x2="16" y2="23"></line>
+                            </svg>
+                        </div>
+                        <h3 class="grid-title">전국 유관순 웅변대회</h3>
+                        <p class="grid-description">차세대 리더들의 목소리로 다시 태어나는 독립 정신. 영어 부문 신설로 글로벌 역량을 강화합니다.</p>
+                        <span class="grid-tag">20년+ 지속</span>
+                    </div>
+                </div>
+                <div class="grid-item item-tall" data-aos="fade-up" data-aos-delay="100">
+                    <div class="grid-item-bg medal-bg"></div>
+                    <div class="grid-item-overlay gold-overlay"></div>
+                    <div class="grid-item-content">
+                        <div class="grid-icon gold">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="8" r="7"></circle>
+                                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                            </svg>
+                        </div>
+                        <h3 class="grid-title">서훈 1등급 상향 성과</h3>
+                        <p class="grid-description">오랜 투쟁 끝에 이뤄낸 역사적 쾌거. 서명 운동부터 법 개정 청원까지, 멈추지 않았던 우리의 기록.</p>
+                        <span class="grid-tag gold-tag">대한민국장</span>
+                    </div>
+                </div>
+                <div class="grid-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="grid-item-overlay"></div>
+                    <div class="grid-item-content">
+                        <div class="grid-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <h3 class="grid-title">추모 및 선양</h3>
+                        <p class="grid-description">매년 9월 28일, 그날의 숭고한 희생을 기리는 추모제와 기념 식수.</p>
+                    </div>
+                </div>
+                <div class="grid-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="grid-item-overlay"></div>
+                    <div class="grid-item-content">
+                        <div class="grid-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                            </svg>
+                        </div>
+                        <h3 class="grid-title">장학 및 교육</h3>
+                        <p class="grid-description">유관순의 후예들을 위한 장학금 지원 및 역사 교육 프로그램.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Section -->
+    <section class="global" id="global">
+        <div class="container">
+            <div class="section-header center">
+                <span class="section-badge">Global Network</span>
+                <h2 class="section-title light">천안에서 시작된 불꽃,<br>뉴욕을 넘어 세계로</h2>
+                <p class="section-subtitle light">K-Spirit으로서의 유관순 정신, 로컬리티를 넘어선 보편적 인권과 평화의 가치</p>
+            </div>
+            <div class="map-visual">
+                <div class="map-background"></div>
+                <div class="connection-line"></div>
+                <div class="node node-kr">
+                    <div class="node-pulse"></div>
+                    <div class="node-label">
+                        <strong>KOREA</strong>
+                        <span>Cheonan (본부)</span>
+                    </div>
+                </div>
+                <div class="node node-ny">
+                    <div class="node-pulse"></div>
+                    <div class="node-label">
+                        <strong>USA</strong>
+                        <span>New York (지회)</span>
+                    </div>
+                </div>
+                <div class="node node-future node-eu">
+                    <div class="node-label">
+                        <span class="coming-soon">Coming Soon</span>
+                        <strong>EUROPE</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="global-cards">
+                <div class="global-card" data-aos="fade-up">
+                    <div class="global-card-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="global-card-title">뉴욕주지회</h4>
+                    <p class="global-card-desc">000 지회장과 함께하는 미주 한인 사회 활동</p>
+                </div>
+                <div class="global-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="global-card-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <h4 class="global-card-title">세계화청소년단</h4>
+                    <p class="global-card-desc">미래 세대 중심의 국제 교류 및 홍보 활동</p>
+                </div>
+                <div class="global-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="global-card-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                    </div>
+                    <h4 class="global-card-title">영어 웅변대회</h4>
+                    <p class="global-card-desc">유관순 정신을 세계의 언어로 전파</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Archive Section -->
+    <section class="archive" id="archive">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">소통과 아카이브</h2>
+                <p class="section-subtitle">20년 역사의 깊이를 담은 기록들</p>
+            </div>
+            <div class="archive-grid">
+                <div class="archive-card" data-aos="fade-up">
+                    <div class="archive-card-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                    </div>
+                    <h4 class="archive-card-title">공지사항</h4>
+                    <p class="archive-card-desc">웅변대회 모집, 행사 일정 등 주요 소식</p>
+                    <a href="#" class="archive-link">바로가기 →</a>
+                </div>
+                <div class="archive-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="archive-card-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2z"></path>
+                            <path d="M2 6h4"></path>
+                            <path d="M2 10h4"></path>
+                            <path d="M2 14h4"></path>
+                            <path d="M2 18h4"></path>
+                        </svg>
+                    </div>
+                    <h4 class="archive-card-title">언론보도</h4>
+                    <p class="archive-card-desc">뉴스 클리핑 및 보도자료 아카이빙</p>
+                    <a href="#" class="archive-link">바로가기 →</a>
+                </div>
+                <div class="archive-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="archive-card-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </div>
+                    <h4 class="archive-card-title">활동 갤러리</h4>
+                    <p class="archive-card-desc">사진 및 영상으로 보는 사업회 활동</p>
+                    <a href="#" class="archive-link">바로가기 →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Section -->
+    <section class="join" id="join">
+        <div class="join-background">
+            <div class="join-bg-image" style="background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&q=80');"></div>
+            <div class="join-overlay"></div>
+        </div>
+        <div class="container">
+            <div class="join-content" data-aos="fade-up">
+                <span class="join-badge">Join Us</span>
+                <h2 class="join-title">당신의 참여가<br>역사를 잇습니다</h2>
+                <p class="join-description">
+                    유관순 열사의 정신을 함께 계승하고 전파할 동반자를 찾습니다.<br>
+                    여러분의 작은 관심이 큰 울림이 됩니다.
+                </p>
+                <div class="join-cta">
+                    <a href="#" class="btn btn-gold">함께하기</a>
+                    <a href="#" class="btn btn-outline-light">후원하기</a>
+                </div>
+                <div class="join-info">
+                    <div class="join-info-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        <span>041-564-1226</span>
+                    </div>
+                    <div class="join-info-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        <span>yuks1902@naver.com</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="#" class="footer-logo">유관순정신계승사업회<span class="logo-dot">.</span></a>
+                    <p class="footer-tagline">"1919의 외침, 2026의 목소리로"</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-link-group">
+                        <h5 class="footer-link-title">사업회</h5>
+                        <ul>
+                            <li><a href="#about">인사말</a></li>
+                            <li><a href="#about">조직도</a></li>
+                            <li><a href="#about">연혁</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-link-group">
+                        <h5 class="footer-link-title">사업</h5>
+                        <ul>
+                            <li><a href="#projects">웅변대회</a></li>
+                            <li><a href="#projects">서훈 상향</a></li>
+                            <li><a href="#projects">추모 선양</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-link-group">
+                        <h5 class="footer-link-title">참여</h5>
+                        <ul>
+                            <li><a href="#join">회원가입</a></li>
+                            <li><a href="#join">후원안내</a></li>
+                            <li><a href="#archive">자료실</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-info">
+                    <p class="footer-address">
+                        (31256) 충청남도 천안시 동남구 병천면 유관순길 38<br>
+                        Tel: 041-564-1226 | Email: yuks1902@naver.com
+                    </p>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-link" aria-label="Instagram">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="YouTube">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Blog">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; 2026 유관순정신계승사업회. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Sticky CTA -->
+    <div class="mobile-sticky-cta">
+        <a href="#join" class="sticky-btn sticky-btn-join">함께하기</a>
+        <a href="#" class="sticky-btn sticky-btn-donate">후원하기</a>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>

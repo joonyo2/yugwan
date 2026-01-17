@@ -1,0 +1,31 @@
+# Django Core
+Django>=4.2
+djangorestframework>=3.14
+djangorestframework-simplejwt>=5.3
+django-cors-headers>=4.3
+django-filter>=23.5
+
+# Admin UI
+django-jazzmin>=2.6
+
+# Database
+psycopg2-binary>=2.9
+
+# Image Processing
+Pillow>=10.0
+
+# Excel Export
+openpyxl>=3.1
+
+# PDF Generation
+WeasyPrint>=60.0
+
+# Environment Variables
+python-dotenv>=1.0
+
+# HTTP Requests (Alimtalk API)
+requests>=2.31
+
+# AWS S3 (Optional)
+boto3>=1.28
+django-storages>=1.14
