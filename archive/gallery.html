@@ -1189,7 +1189,90 @@
 
     <!-- Scripts -->
     <script src="../js/main.js"></script>
+    <script src="../js/api.js"></script>
     <script>
+        // Gallery State
+        const GalleryState = {
+            currentPage: 1,
+            currentCategory: 'all'
+        };
+
+        // Render gallery album
+        function renderGalleryAlbum(album) {
+            const categoryMap = {
+                'contest': '웅변대회',
+                'memorial': '추모행사',
+                'education': '교육활동',
+                'global': '국제교류',
+                'meeting': '회의/행사'
+            };
+            const categoryDisplay = categoryMap[album.category] || album.category_display || '기타';
+            const eventDate = new Date(album.event_date).toLocaleDateString('ko-KR', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            }).replace(/\. /g, '.').replace('.', '');
+
+            return `
+                <div class="gallery-item" data-filter="${album.category}" data-id="${album.id}"
+                     data-title="${album.title}" data-date="${eventDate}" data-count="${album.image_count || 0}">
+                    <div class="gallery-item-image">
+                        ${album.cover_image
+                            ? `<img src="${album.cover_image}" alt="${album.title}">`
+                            : `<i class="fas fa-image placeholder-icon"></i>`
+                        }
+                        <div class="gallery-item-overlay">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                    <span class="gallery-item-count"><i class="fas fa-images"></i> ${album.image_count || 0}</span>
+                    <div class="gallery-item-info">
+                        <span class="gallery-item-category">${categoryDisplay}</span>
+                        <h4 class="gallery-item-title">${album.title}</h4>
+                        <p class="gallery-item-date">${eventDate}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Load gallery albums from API
+        async function loadGalleryAlbums() {
+            const params = { page: GalleryState.currentPage };
+            if (GalleryState.currentCategory !== 'all') {
+                params.category = GalleryState.currentCategory;
+            }
+
+            try {
+                const result = await API.archive.getGalleryAlbums(params);
+                const albums = result.data.results || result.data;
+                const galleryGrid = document.querySelector('.gallery-grid');
+
+                if (albums.length === 0) {
+                    galleryGrid.innerHTML = '<div class="no-results">앨범이 없습니다.</div>';
+                    return;
+                }
+
+                galleryGrid.innerHTML = albums.map(renderGalleryAlbum).join('');
+
+                // Re-attach click events
+                attachGalleryItemEvents();
+
+            } catch (error) {
+                console.error('Failed to load gallery:', error);
+            }
+        }
+
+        // Attach gallery item click events
+        function attachGalleryItemEvents() {
+            document.querySelectorAll('.gallery-item').forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    const visibleIndex = Array.from(galleryItems)
+                        .filter(i => i.style.display !== 'none')
+                        .indexOf(item);
+                    openLightbox(visibleIndex >= 0 ? visibleIndex : index);
+                });
+            });
+        }
 
         // Gallery Filter
         const filterBtns = document.querySelectorAll('.filter-btn');

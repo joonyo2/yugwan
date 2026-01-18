@@ -1373,6 +1373,8 @@
         </div>
     </footer>
 
+    <script src="../js/main.js"></script>
+    <script src="../js/api.js"></script>
     <script>
         // Mobile menu toggle
         document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
@@ -1399,18 +1401,49 @@
         });
 
         // Form submission
-        document.getElementById('volunteer-form').addEventListener('submit', function(e) {
+        document.getElementById('volunteer-form').addEventListener('submit', async function(e) {
             e.preventDefault();
 
             // Get checked programs
-            const programs = document.querySelectorAll('input[name="programs"]:checked');
-            if (programs.length === 0) {
+            const programCheckboxes = document.querySelectorAll('input[name="programs"]:checked');
+            if (programCheckboxes.length === 0) {
                 alert('참여 희망 프로그램을 하나 이상 선택해주세요.');
                 return;
             }
 
-            alert('봉사 신청이 완료되었습니다.\n담당자가 확인 후 연락드리겠습니다.\n감사합니다!');
-            this.reset();
+            const programs = Array.from(programCheckboxes).map(cb => cb.value);
+            const dayCheckboxes = document.querySelectorAll('input[name="days"]:checked');
+            const availableDays = Array.from(dayCheckboxes).map(cb => cb.value);
+
+            const formData = {
+                name: document.querySelector('input[name="name"]').value,
+                phone: document.querySelector('input[name="phone"]').value.replace(/[^0-9]/g, ''),
+                email: document.querySelector('input[name="email"]').value,
+                birth_date: document.querySelector('input[name="birth"]').value || null,
+                occupation: document.querySelector('input[name="occupation"]').value,
+                region: document.querySelector('select[name="region"]').value,
+                programs: programs,
+                available_dates: availableDays.join(', '),
+                skills: document.querySelector('textarea[name="skills"]').value,
+                motivation: document.querySelector('textarea[name="motivation"]').value,
+                privacy_agreed: document.getElementById('consent').checked
+            };
+
+            if (typeof API !== 'undefined') {
+                try {
+                    UI.showLoading('봉사 신청 중...');
+                    const result = await API.join.applyVolunteer(formData);
+                    UI.hideLoading();
+                    UI.toast('봉사 신청이 완료되었습니다!', 'success');
+                    this.reset();
+                } catch (error) {
+                    UI.hideLoading();
+                    UI.toast(error.message || '신청 중 오류가 발생했습니다.', 'error');
+                }
+            } else {
+                alert('봉사 신청이 완료되었습니다.\n담당자가 확인 후 연락드리겠습니다.\n감사합니다!');
+                this.reset();
+            }
         });
 
         // Scroll animation

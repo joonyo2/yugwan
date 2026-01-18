@@ -217,19 +217,19 @@
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label class="form-label">이름 <span class="required">*</span></label>
-                                    <input type="text" class="form-input" placeholder="참가자 이름" required>
+                                    <input type="text" name="name" class="form-input" placeholder="참가자 이름" required>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">생년월일 <span class="required">*</span></label>
-                                    <input type="date" class="form-input" required>
+                                    <input type="date" name="birth_date" class="form-input" required>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">학교명 <span class="required">*</span></label>
-                                    <input type="text" class="form-input" placeholder="OO초등학교 / OO중학교 / OO고등학교" required>
+                                    <input type="text" name="school_name" class="form-input" placeholder="OO초등학교 / OO중학교 / OO고등학교" required>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">학년 <span class="required">*</span></label>
-                                    <select class="form-select" required>
+                                    <select name="grade" class="form-select" required>
                                         <option value="">선택해주세요</option>
                                         <optgroup label="초등부">
                                             <option value="초4">초등학교 4학년</option>
@@ -257,7 +257,7 @@
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label class="form-label">참가 부문 <span class="required">*</span></label>
-                                    <select class="form-select" required>
+                                    <select name="division" class="form-select" required>
                                         <option value="">선택해주세요</option>
                                         <option value="korean">한국어 웅변 부문</option>
                                         <option value="english">영어 웅변 부문 (English Speech)</option>
@@ -265,7 +265,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">웅변 제목 <span class="required">*</span></label>
-                                    <input type="text" class="form-input" placeholder="웅변 원고 제목" required>
+                                    <input type="text" name="speech_title" class="form-input" placeholder="웅변 원고 제목" required>
                                 </div>
                             </div>
                         </div>
@@ -276,23 +276,23 @@
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label class="form-label">보호자 성함 <span class="required">*</span></label>
-                                    <input type="text" class="form-input" placeholder="보호자 이름" required>
+                                    <input type="text" name="parent_name" class="form-input" placeholder="보호자 이름" required>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">보호자 연락처 <span class="required">*</span></label>
-                                    <input type="tel" class="form-input" placeholder="010-0000-0000" required>
+                                    <input type="tel" name="contact_parent" class="form-input" placeholder="010-0000-0000" required>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">지도교사 성함</label>
-                                    <input type="text" class="form-input" placeholder="지도교사 이름 (선택)">
+                                    <input type="text" name="teacher_name" class="form-input" placeholder="지도교사 이름 (선택)">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">이메일 <span class="required">*</span></label>
-                                    <input type="email" class="form-input" placeholder="example@email.com" required>
+                                    <input type="email" name="email" class="form-input" placeholder="example@email.com" required>
                                 </div>
                                 <div class="form-group full-width">
                                     <label class="form-label">주소</label>
-                                    <input type="text" class="form-input" placeholder="시/도, 시/군/구">
+                                    <input type="text" name="address" class="form-input" placeholder="시/도, 시/군/구">
                                 </div>
                             </div>
                         </div>
@@ -303,7 +303,7 @@
                             <div class="form-grid">
                                 <div class="form-group full-width">
                                     <label class="form-label">웅변 원고 파일 <span class="required">*</span></label>
-                                    <input type="file" class="form-input" accept=".hwp,.doc,.docx,.pdf" required>
+                                    <input type="file" name="script_file" class="form-input" accept=".hwp,.doc,.docx,.pdf" required>
                                     <p style="font-size: 0.85rem; color: var(--text-grey); margin-top: 8px;">
                                         * 파일 형식: HWP, DOC, DOCX, PDF (최대 10MB)<br>
                                         * 파일명: 참가부문_학교명_이름 (예: 한국어_OO초_홍길동.hwp)
@@ -317,19 +317,19 @@
                             <h3 class="form-section-title">동의 사항</h3>
                             <div class="form-group">
                                 <div class="form-checkbox-group">
-                                    <input type="checkbox" class="form-checkbox" id="agree1" required>
+                                    <input type="checkbox" name="rules_agreed" class="form-checkbox" id="agree1" required>
                                     <label for="agree1">참가 요강을 확인하였으며, 대회 규정을 준수하겠습니다. <span class="required">*</span></label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-checkbox-group">
-                                    <input type="checkbox" class="form-checkbox" id="agree2" required>
+                                    <input type="checkbox" name="privacy_agreed" class="form-checkbox" id="agree2" required>
                                     <label for="agree2">개인정보 수집 및 이용에 동의합니다. <span class="required">*</span></label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-checkbox-group">
-                                    <input type="checkbox" class="form-checkbox" id="agree3">
+                                    <input type="checkbox" name="news_agreed" class="form-checkbox" id="agree3">
                                     <label for="agree3">대회 관련 소식 및 안내 수신에 동의합니다. (선택)</label>
                                 </div>
                             </div>
@@ -442,5 +442,61 @@
     </footer>
 
     <script src="../js/main.js"></script>
+    <script src="../js/api.js"></script>
+    <script>
+        document.getElementById('applyForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            UI.clearFormErrors(form);
+
+            // FormData 생성
+            const formData = new FormData(form);
+
+            // 연락처 하이픈 제거
+            const phone = formData.get('contact_parent');
+            formData.set('contact_parent', UI.formatPhone(phone));
+
+            // 대회연도 자동 설정
+            formData.set('contest_year', new Date().getFullYear());
+
+            // 체크박스 값 변환
+            formData.set('rules_agreed', form.rules_agreed.checked);
+            formData.set('privacy_agreed', form.privacy_agreed.checked);
+            formData.set('news_agreed', form.news_agreed.checked);
+
+            // 파일 크기 검증
+            const file = formData.get('script_file');
+            if (file && file.size > 10 * 1024 * 1024) {
+                UI.toast('파일 크기는 10MB를 초과할 수 없습니다.', 'error');
+                return;
+            }
+
+            UI.showLoading('신청서를 접수하고 있습니다...');
+
+            try {
+                const result = await API.contest.apply(formData);
+
+                UI.hideLoading();
+                UI.toast('참가 신청이 완료되었습니다!', 'success');
+
+                // 성공 모달 표시
+                const receiptNumber = result.data.receipt_number || result.data.id;
+                alert(`접수가 완료되었습니다.\n\n접수번호: ${receiptNumber}\n\n접수 확인 이메일이 발송되었습니다.`);
+
+                // 폼 초기화
+                form.reset();
+
+            } catch (error) {
+                UI.hideLoading();
+
+                if (error.errors && typeof error.errors === 'object') {
+                    UI.showFormErrors(form, error.errors);
+                }
+
+                UI.toast(error.message || '신청 중 오류가 발생했습니다.', 'error');
+            }
+        });
+    </script>
 </body>
 </html>

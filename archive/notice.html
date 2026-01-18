@@ -817,30 +817,143 @@
 
     <!-- Scripts -->
     <script src="../js/main.js"></script>
+    <script src="../js/api.js"></script>
     <script>
+        // Notice Page State
+        const NoticeState = {
+            currentPage: 1,
+            currentCategory: 'all',
+            searchQuery: '',
+            totalPages: 1
+        };
+
+        // Render notice item
+        function renderNoticeItem(notice) {
+            const categoryClass = notice.category || 'general';
+            const categoryDisplay = notice.category_display || '일반';
+            const isPinned = notice.is_pinned ? 'pinned' : '';
+            const date = new Date(notice.created_at).toLocaleDateString('ko-KR', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            }).replace(/\. /g, '.').replace('.', '');
+
+            return `
+                <div class="notice-item ${isPinned}" data-category="${categoryClass}">
+                    <span class="notice-badge ${categoryClass}">${categoryDisplay}</span>
+                    <div class="notice-content">
+                        <h3 class="notice-title">
+                            <a href="notice-detail.html?id=${notice.id}">${notice.title}</a>
+                        </h3>
+                        <div class="notice-meta">
+                            <span>${date}</span>
+                            <span>${notice.author || '사무국'}</span>
+                        </div>
+                    </div>
+                    <div class="notice-views">
+                        <div class="notice-views-number">${notice.views?.toLocaleString() || 0}</div>
+                        <div class="notice-views-label">조회</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render pagination
+        function renderPagination(totalPages, currentPage) {
+            const pagination = document.querySelector('.pagination');
+            let html = `<button class="pagination-btn arrow" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>‹</button>`;
+
+            const startPage = Math.max(1, currentPage - 2);
+            const endPage = Math.min(totalPages, startPage + 4);
+
+            for (let i = startPage; i <= endPage; i++) {
+                html += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+            }
+
+            html += `<button class="pagination-btn arrow" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>›</button>`;
+
+            pagination.innerHTML = html;
+        }
+
+        // Load notices from API
+        async function loadNotices() {
+            const params = {
+                page: NoticeState.currentPage
+            };
+
+            if (NoticeState.currentCategory !== 'all') {
+                params.category = NoticeState.currentCategory;
+            }
+
+            if (NoticeState.searchQuery) {
+                params.search = NoticeState.searchQuery;
+            }
+
+            try {
+                const result = await API.archive.getNotices(params);
+                const notices = result.data.results || result.data;
+                const noticeList = document.querySelector('.notice-list');
+
+                if (notices.length === 0) {
+                    noticeList.innerHTML = '<div class="no-results">검색 결과가 없습니다.</div>';
+                    return;
+                }
+
+                noticeList.innerHTML = notices.map(renderNoticeItem).join('');
+
+                // Update pagination
+                NoticeState.totalPages = Math.ceil((result.data.count || notices.length) / 10);
+                renderPagination(NoticeState.totalPages, NoticeState.currentPage);
+
+            } catch (error) {
+                console.error('Failed to load notices:', error);
+                // Keep static content as fallback
+            }
+        }
+
+        // Change page
+        function changePage(page) {
+            if (page < 1 || page > NoticeState.totalPages) return;
+            NoticeState.currentPage = page;
+            loadNotices();
+            window.scrollTo({ top: 400, behavior: 'smooth' });
+        }
+
         // Filter functionality
         document.addEventListener('DOMContentLoaded', function() {
             const filterBtns = document.querySelectorAll('.filter-btn');
-            const noticeItems = document.querySelectorAll('.notice-item');
+            const searchInput = document.querySelector('.search-input');
+            const searchBtn = document.querySelector('.search-btn');
 
+            // Filter buttons
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
-                    // Update active state
                     filterBtns.forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
 
-                    const filter = this.getAttribute('data-filter');
-
-                    noticeItems.forEach(item => {
-                        if (filter === 'all') {
-                            item.style.display = 'flex';
-                        } else {
-                            const category = item.getAttribute('data-category');
-                            item.style.display = category === filter ? 'flex' : 'none';
-                        }
-                    });
+                    NoticeState.currentCategory = this.getAttribute('data-filter');
+                    NoticeState.currentPage = 1;
+                    loadNotices();
                 });
             });
+
+            // Search
+            searchBtn.addEventListener('click', function() {
+                NoticeState.searchQuery = searchInput.value.trim();
+                NoticeState.currentPage = 1;
+                loadNotices();
+            });
+
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    NoticeState.searchQuery = searchInput.value.trim();
+                    NoticeState.currentPage = 1;
+                    loadNotices();
+                }
+            });
+
+            // Initial load (uncomment when backend is ready)
+            // loadNotices();
         });
     </script>
 </body>

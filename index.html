@@ -490,7 +490,95 @@
         <a href="#" class="sticky-btn sticky-btn-donate">후원하기</a>
     </div>
 
+    <!-- Popup Container -->
+    <div id="popup-container"></div>
+
     <!-- Scripts -->
     <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script>
+        // Popup System
+        async function loadPopups() {
+            // Check if popup was dismissed today
+            const dismissed = localStorage.getItem('popup_dismissed_date');
+            const today = new Date().toDateString();
+            if (dismissed === today) return;
+
+            try {
+                const result = await API.popup.getActive();
+                const popups = result.data.results || result.data || [];
+
+                if (popups.length === 0) return;
+
+                const container = document.getElementById('popup-container');
+                popups.forEach((popup, index) => {
+                    const popupEl = document.createElement('div');
+                    popupEl.className = 'popup-modal';
+                    popupEl.style.cssText = `
+                        position: fixed;
+                        top: 50%;
+                        left: ${50 + (index * 5)}%;
+                        transform: translate(-50%, -50%);
+                        z-index: ${10000 + index};
+                        background: white;
+                        border-radius: 12px;
+                        box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+                        max-width: 400px;
+                        overflow: hidden;
+                    `;
+
+                    popupEl.innerHTML = `
+                        <div class="popup-content">
+                            ${popup.link_url ? `<a href="${popup.link_url}" target="_blank">` : ''}
+                            <img src="${popup.pc_image}" alt="${popup.title}" style="width: 100%; display: block;">
+                            ${popup.link_url ? '</a>' : ''}
+                        </div>
+                        <div class="popup-footer" style="display: flex; justify-content: space-between; padding: 12px 16px; background: #f8f9fa; border-top: 1px solid #eee;">
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #666; font-size: 14px;">
+                                <input type="checkbox" class="popup-dismiss-today" data-id="${popup.id}">
+                                오늘 하루 보지 않기
+                            </label>
+                            <button class="popup-close" style="background: none; border: none; cursor: pointer; font-size: 14px; color: #888;" data-id="${popup.id}">닫기 ✕</button>
+                        </div>
+                    `;
+                    container.appendChild(popupEl);
+                });
+
+                // Add backdrop
+                if (popups.length > 0) {
+                    const backdrop = document.createElement('div');
+                    backdrop.id = 'popup-backdrop';
+                    backdrop.style.cssText = `
+                        position: fixed;
+                        top: 0; left: 0; right: 0; bottom: 0;
+                        background: rgba(0,0,0,0.5);
+                        z-index: 9999;
+                    `;
+                    container.insertBefore(backdrop, container.firstChild);
+                }
+
+                // Event listeners
+                container.querySelectorAll('.popup-close').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const popup = e.target.closest('.popup-modal');
+                        const checkbox = popup.querySelector('.popup-dismiss-today');
+                        if (checkbox && checkbox.checked) {
+                            localStorage.setItem('popup_dismissed_date', today);
+                        }
+                        popup.remove();
+                        if (container.querySelectorAll('.popup-modal').length === 0) {
+                            document.getElementById('popup-backdrop')?.remove();
+                        }
+                    });
+                });
+
+            } catch (error) {
+                console.log('No popups to display');
+            }
+        }
+
+        // Load popups on page load (uncomment when backend is ready)
+        // document.addEventListener('DOMContentLoaded', loadPopups);
+    </script>
 </body>
 </html>
