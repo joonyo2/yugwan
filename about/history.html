@@ -182,7 +182,7 @@
         .milestones-title {
             font-family: var(--font-display);
             font-size: 1.75rem;
-            color: white;
+            color: white !important;
             text-align: center;
             margin-bottom: 50px;
         }
@@ -217,14 +217,14 @@
 
         .milestone-title {
             font-size: 1.1rem;
-            color: white;
+            color: white !important;
             font-weight: 600;
             margin-bottom: 10px;
         }
 
         .milestone-desc {
             font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.85) !important;
             line-height: 1.6;
         }
 
@@ -416,6 +416,11 @@
                     </li>
                 </ul>
             </nav>
+
+            <div class="header-buttons">
+                <a href="../join/login.html" class="btn-login-header" id="btnLoginHeader">로그인</a>
+                <a href="../join/donation.html" class="btn-donate">후원하기</a>
+            </div>
 
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
                 <span></span>
@@ -753,5 +758,6 @@
 
     <!-- Scripts -->
     <script src="../js/main.js"></script>
+    <script src="../js/api.js"></script>
 </body>
 </html>

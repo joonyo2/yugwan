@@ -396,6 +396,73 @@
 /* ----------------------------------------
    3. Sub Page Layout
    ---------------------------------------- */
+/* Sub Content - Light background wrapper for join/membership pages */
+.sub-content {
+    padding: 80px 0;
+    background: #f8f9fa;
+    color: #333;
+    min-height: 60vh;
+}
+
+.sub-content h1,
+.sub-content h2,
+.sub-content h3,
+.sub-content h4,
+.sub-content h5,
+.sub-content h6 {
+    color: var(--primary-navy);
+}
+
+.sub-content p {
+    color: #444;
+}
+
+.sub-content a {
+    color: var(--accent-gold);
+}
+
+.sub-content a:hover {
+    color: var(--accent-gold-dark);
+}
+
+/* Form elements in sub-content */
+.sub-content label {
+    color: var(--primary-navy);
+}
+
+.sub-content input,
+.sub-content select,
+.sub-content textarea {
+    color: #333;
+    background: #fff;
+}
+
+.sub-content input::placeholder {
+    color: #999;
+}
+
+.sub-content .form-options,
+.sub-content .remember-me {
+    color: #555;
+}
+
+.sub-content ul,
+.sub-content ol {
+    color: #444;
+}
+
+.sub-content li {
+    color: #444;
+}
+
+.sub-content strong {
+    color: var(--primary-navy);
+}
+
+.sub-content .checkbox-item label {
+    color: #555;
+}
+
 .sub-page-content {
     padding: 80px 0;
     background: #fff;
@@ -411,8 +478,39 @@
     color: var(--primary-navy);
 }
 
+/* Exception for dark background sections */
+.sub-page-content .featured-notice h2,
+.sub-page-content .featured-notice .featured-title,
+.sub-page-content .sidebar-cta h4,
+.sub-page-content .info-card-title,
+.sub-page-content .category-title,
+.sub-page-content .cta-content h3,
+.sub-page-content .tax-card h3,
+.sub-page-content .tax-card-title,
+.sub-page-content .core-values-title,
+.sub-page-content .org-stat-label,
+.sub-page-content .org-chairman-name,
+.sub-page-content .milestones-title,
+.sub-page-content .milestone-title {
+    color: #fff;
+}
+
 .sub-page-content p {
     color: #444;
+}
+
+/* Exception for dark background sections */
+.sub-page-content .featured-notice p,
+.sub-page-content .featured-notice .featured-desc,
+.sub-page-content .sidebar-cta p,
+.sub-page-content .info-card-text,
+.sub-page-content .category-description,
+.sub-page-content .cta-content p,
+.sub-page-content .tax-card p,
+.sub-page-content .tax-card-desc,
+.sub-page-content .milestone-desc,
+.sub-page-content .org-chairman-role {
+    color: rgba(255, 255, 255, 0.85);
 }
 
 .sub-page-content ul,
@@ -579,6 +677,22 @@
     text-align: center;
 }
 
+.sidebar-cta .btn.btn-gold,
+.sidebar-cta a.btn-gold {
+    background: var(--accent-gold);
+    color: var(--primary-navy) !important;
+    display: block;
+}
+
+/* Sidebar CTA text colors - dark background */
+.sidebar-cta h4 {
+    color: var(--accent-gold) !important;
+}
+
+.sidebar-cta p {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
 /* Common Button Styles for Sub Pages */
 .btn {
     display: inline-block;
@@ -625,6 +739,25 @@
     box-shadow: 0 5px 20px rgba(197, 160, 89, 0.3);
 }
 
+/* Content Header */
+.content-header {
+    margin-bottom: 30px;
+}
+
+.content-header h2 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-navy);
+    margin-bottom: 10px;
+}
+
+.content-header p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
 /* Main Content Area */
 .main-content-area {
     min-width: 0;
@@ -654,13 +787,13 @@
 
 .content-text {
     font-size: 1rem;
-    color: var(--text-light-grey);
+    color: #555;
     line-height: 1.9;
     margin-bottom: 20px;
 }
 
 .content-text strong {
-    color: var(--text-white);
+    color: var(--primary-navy);
 }
 
 /* ----------------------------------------
@@ -877,11 +1010,12 @@
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 5px;
+    color: var(--primary-navy);
 }
 
 .timeline-description {
     font-size: 0.9rem;
-    color: var(--text-grey);
+    color: #666;
 }
 
 /* ----------------------------------------
@@ -1273,8 +1407,8 @@
     display: flex;
     align-items: center;
     padding: 20px 25px;
-    background: var(--secondary-navy);
-    border: 1px solid var(--border-color);
+    background: #fff;
+    border: 1px solid #e5e5e5;
     border-radius: var(--radius-md);
     transition: all var(--transition-fast);
 }
@@ -1304,12 +1438,12 @@
     flex: 1;
     font-size: 1rem;
     font-weight: 500;
-    color: var(--text-white);
+    color: var(--primary-navy);
 }
 
 .notice-date {
     font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.7) !important;
+    color: #666;
     margin-left: 20px;
 }
 
@@ -1327,10 +1461,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--secondary-navy);
-    border: 1px solid var(--border-color);
+    background: #f8f9fa;
+    border: 1px solid #ddd;
     border-radius: var(--radius-sm);
-    color: rgba(255, 255, 255, 0.8) !important;
+    color: #555;
     font-size: 0.9rem;
     cursor: pointer;
     transition: all var(--transition-fast);
@@ -1338,7 +1472,8 @@
 
 .page-btn:hover {
     border-color: var(--accent-gold);
-    color: var(--text-white);
+    color: var(--primary-navy);
+    background: #fff;
 }
 
 .page-btn.active {
@@ -1817,7 +1952,7 @@
 
 .table-note {
     font-size: 0.85rem;
-    color: #888;
+    color: #666;
     font-style: italic;
 }
 

@@ -139,7 +139,7 @@
 
         .donation-type-amount span {
             font-size: 0.9rem;
-            color: #888;
+            color: #666;
             font-weight: 400;
         }
 
@@ -248,7 +248,7 @@
 
         .account-holder {
             font-size: 0.9rem;
-            color: #888;
+            color: #666;
             margin-top: 3px;
         }
 
@@ -304,12 +304,12 @@
             font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 10px;
-            color: var(--accent-gold);
+            color: var(--accent-gold) !important;
         }
 
         .tax-card-desc {
             font-size: 0.9rem;
-            opacity: 0.9;
+            color: rgba(255, 255, 255, 0.9) !important;
             line-height: 1.6;
         }
 
@@ -411,7 +411,7 @@
 
         .contact-item-label {
             font-size: 0.8rem;
-            color: #888;
+            color: #666;
         }
 
         .contact-item-value {
@@ -587,6 +587,11 @@
                 </ul>
             </nav>
 
+            <div class="header-buttons">
+                <a href="login.html" class="btn-login-header" id="btnLoginHeader">로그인</a>
+                <a href="donation.html" class="btn-donate">후원하기</a>
+            </div>
+
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
                 <span></span>
                 <span></span>
@@ -659,7 +664,7 @@
                 <div class="sidebar-cta">
                     <h4>문의하기</h4>
                     <p>후원 관련 문의는 사무국으로 연락주세요.</p>
-                    <p style="font-size: 1.1rem; font-weight: 600; color: var(--primary-navy); margin-top: 10px;">041-564-1919</p>
+                    <p style="font-size: 1.1rem; font-weight: 600; color: #fff !important; margin-top: 10px;">041-564-1919</p>
                 </div>
             </aside>
 
@@ -943,6 +948,7 @@
 
     <!-- Scripts -->
     <script src="../js/main.js"></script>
+    <script src="../js/api.js"></script>
     <script>
         // FAQ Accordion
         document.addEventListener('DOMContentLoaded', function() {

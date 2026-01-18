@@ -98,6 +98,55 @@ button {
 }
 
 /* ----------------------------------------
+   2.5. Focus Styles (Accessibility)
+   ---------------------------------------- */
+/* Remove default focus outline */
+*:focus {
+    outline: none;
+}
+
+/* Keyboard-only focus styles */
+*:focus-visible {
+    outline: 2px solid var(--accent-gold);
+    outline-offset: 2px;
+}
+
+/* Focus styles for specific elements */
+a:focus-visible {
+    outline: 2px solid var(--accent-gold);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--accent-gold);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.2);
+}
+
+/* Skip link for accessibility */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem 2rem;
+    background: var(--accent-gold);
+    color: var(--primary-navy);
+    font-weight: 600;
+    border-radius: 4px;
+    z-index: 10000;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 10px;
+}
+
+/* ----------------------------------------
    3. Utility Classes
    ---------------------------------------- */
 .container {
@@ -208,6 +257,30 @@ button {
 
 .btn-outline-light:hover {
     background: var(--text-white);
+    color: var(--primary-navy);
+}
+
+/* Outline button for light backgrounds */
+.btn-outline {
+    background: transparent;
+    color: var(--primary-navy);
+    border: 2px solid var(--primary-navy);
+}
+
+.btn-outline:hover {
+    background: var(--primary-navy);
+    color: #fff;
+}
+
+/* Outline button gold variant */
+.btn-outline-gold {
+    background: transparent;
+    color: var(--accent-gold);
+    border: 2px solid var(--accent-gold);
+}
+
+.btn-outline-gold:hover {
+    background: var(--accent-gold);
     color: var(--primary-navy);
 }
 
@@ -359,6 +432,30 @@ button {
 }
 
 .mobile-dropdown li a:hover {
+    color: var(--accent-gold);
+}
+
+/* Header Buttons */
+.header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-login-header {
+    padding: 8px 20px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--text-white);
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-normal);
+}
+
+.btn-login-header:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-gold);
     color: var(--accent-gold);
 }
 
@@ -514,36 +611,87 @@ button {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 300px;
-    height: 400px;
-    background: rgba(26, 26, 46, 0.8);
-    border: 2px dashed var(--border-color);
-    border-radius: var(--radius-md);
+    width: 320px;
+    height: 420px;
+    background: linear-gradient(145deg, rgba(17, 34, 64, 0.95), rgba(10, 25, 47, 0.98));
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    border-radius: var(--radius-lg);
     display: flex;
     align-items: center;
     justify-content: center;
-    filter: grayscale(100%);
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+}
+
+.hero-placeholder::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+        from 0deg,
+        transparent,
+        rgba(197, 160, 89, 0.03) 90deg,
+        transparent 180deg,
+        rgba(197, 160, 89, 0.03) 270deg,
+        transparent
+    );
+    animation: heroRotate 20s linear infinite;
+}
+
+@keyframes heroRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 .placeholder-content {
     text-align: center;
     color: var(--text-grey);
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
 }
 
 .placeholder-icon {
-    margin-bottom: 20px;
-    opacity: 0.5;
+    margin-bottom: 24px;
+    color: var(--accent-gold);
+    opacity: 0.8;
+    position: relative;
+}
+
+.placeholder-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    border: 1px solid rgba(197, 160, 89, 0.2);
+    border-radius: 50%;
+}
+
+.placeholder-icon svg {
+    filter: drop-shadow(0 0 10px rgba(197, 160, 89, 0.3));
 }
 
 .placeholder-text {
-    font-size: 1rem;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
     font-weight: 600;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    color: var(--text-white);
+    letter-spacing: 0.5px;
 }
 
 .placeholder-subtext {
     font-size: 0.85rem;
-    opacity: 0.7;
+    opacity: 0.6;
+    color: var(--text-light-grey);
 }
 
 .hero-bg-right {

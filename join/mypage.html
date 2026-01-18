@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지 - 유관순정신계승사업회</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sub-pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Mypage Styles */
+        .mypage-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Profile Header */
+        .profile-header {
+            display: flex;
+            gap: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--primary-navy) 0%, #1a3a5c 100%);
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            color: #fff;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .profile-avatar i {
+            font-size: 3.5rem;
+            color: var(--primary-navy);
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-info .email {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+
+        .tier-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--accent-gold);
+            color: var(--primary-navy);
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .tier-badge.free {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .tier-badge i {
+            font-size: 1rem;
+        }
+
+        .tier-expiry {
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn-profile {
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-profile-primary {
+            background: var(--accent-gold);
+            color: var(--primary-navy);
+        }
+
+        .btn-profile-primary:hover {
+            background: #d4b366;
+        }
+
+        .btn-profile-outline {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+        }
+
+        .btn-profile-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Tab Navigation */
+        .mypage-tabs {
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 2px solid #e5e5e5;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 1rem 1.5rem;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: #666;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary-navy);
+        }
+
+        .tab-btn.active {
+            color: var(--primary-navy);
+            border-bottom-color: var(--accent-gold);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Card Styles */
+        .mypage-card {
+            background: #fff;
+            border-radius: 16px;
+            border: 1px solid #e5e5e5;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .mypage-card h3 {
+            color: var(--primary-navy);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .mypage-card h3 i {
+            color: var(--accent-gold);
+        }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .info-item {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.3rem;
+        }
+
+        .info-value {
+            font-size: 1rem;
+            color: var(--primary-navy);
+            font-weight: 500;
+        }
+
+        /* Upgrade Section */
+        .upgrade-section {
+            background: linear-gradient(135deg, #fffcf5 0%, #fff8e7 100%);
+            border: 2px solid var(--accent-gold);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .upgrade-section h3 {
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+            justify-content: center;
+        }
+
+        .upgrade-section p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .upgrade-tiers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .upgrade-tier {
+            padding: 1.5rem 1rem;
+            background: #fff;
+            border: 2px solid #e5e5e5;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upgrade-tier:hover,
+        .upgrade-tier.selected {
+            border-color: var(--accent-gold);
+        }
+
+        .upgrade-tier.selected {
+            background: #fffcf5;
+        }
+
+        .upgrade-tier.current {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .upgrade-tier h4 {
+            color: var(--primary-navy);
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .upgrade-tier .price {
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .upgrade-tier .price span {
+            font-size: 0.8rem;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .btn-upgrade {
+            padding: 1rem 3rem;
+            background: var(--accent-gold);
+            color: var(--primary-navy);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-upgrade:hover {
+            background: #d4b366;
+            transform: translateY(-2px);
+        }
+
+        .btn-upgrade:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Activity List */
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .activity-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--accent-gold);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .activity-icon i {
+            font-size: 1.2rem;
+            color: var(--primary-navy);
+        }
+
+        .activity-info {
+            flex: 1;
+        }
+
+        .activity-title {
+            color: var(--primary-navy);
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+
+        .activity-date {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .activity-status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .activity-status.pending {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .activity-status.confirmed {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .activity-status.cancelled {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 1rem;
+        }
+
+        /* Form Styles */
+        .edit-form {
+            display: none;
+        }
+
+        .edit-form.active {
+            display: block;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.8rem 1rem;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            background: #fff;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn-save {
+            padding: 0.8rem 2rem;
+            background: var(--accent-gold);
+            color: var(--primary-navy);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-save:hover {
+            background: #d4b366;
+        }
+
+        .btn-cancel {
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 2px solid #ddd;
+            color: #666;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cancel:hover {
+            border-color: var(--primary-navy);
+            color: var(--primary-navy);
+        }
+
+        /* Password Change */
+        .password-section {
+            border-top: 1px solid #e5e5e5;
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Logout Button */
+        .logout-section {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .btn-logout {
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 2px solid #e74c3c;
+            color: #e74c3c;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: #e74c3c;
+            color: #fff;
+        }
+
+        .btn-delete-account {
+            margin-left: 1rem;
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: none;
+            color: #999;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .btn-delete-account:hover {
+            color: #e74c3c;
+            text-decoration: underline;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            color: var(--primary-navy);
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: var(--primary-navy);
+        }
+
+        /* Payment Modal */
+        .payment-details {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .payment-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .payment-row:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            color: var(--accent-gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-avatar {
+                margin: 0 auto;
+            }
+
+            .profile-actions {
+                justify-content: center;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .upgrade-tiers {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .mypage-tabs {
+                gap: 0;
+            }
+
+            .tab-btn {
+                padding: 0.8rem 1rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                유관순정신계승사업회<span class="logo-dot">.</span>
+            </a>
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li class="nav-item has-dropdown">
+                        <a href="../about/greeting.html" class="nav-link">사업회 소개</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../about/greeting.html">인사말</a></li>
+                            <li><a href="../about/organization.html">조직도</a></li>
+                            <li><a href="../about/history.html">연혁</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../contest/index.html" class="nav-link">웅변대회</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../contest/index.html">대회 소개</a></li>
+                            <li><a href="../contest/apply.html">참가 신청</a></li>
+                            <li><a href="../contest/guidelines.html">참가 요강</a></li>
+                            <li><a href="../contest/winners.html">역대 수상자</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../projects/honor-upgrade.html" class="nav-link">핵심 사업</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../projects/honor-upgrade.html">서훈 등급 상향</a></li>
+                            <li><a href="../projects/education.html">교육 사업</a></li>
+                            <li><a href="../projects/memorial.html">추모 사업</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../global/network.html" class="nav-link">글로벌</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../global/network.html">해외 네트워크</a></li>
+                            <li><a href="../global/exchange.html">국제 교류</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../archive/notice.html" class="nav-link">아카이브</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../archive/notice.html">공지사항</a></li>
+                            <li><a href="../archive/news.html">보도자료</a></li>
+                            <li><a href="../archive/gallery.html">갤러리</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-buttons">
+                <a href="mypage.html" class="btn-login-header" id="btnMypage">마이페이지</a>
+                <a href="donation.html" class="btn-donate">후원하기</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <h1>마이페이지</h1>
+            <p>회원 정보 관리 및 활동 내역</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="sub-content">
+        <div class="mypage-container">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-info">
+                    <h2 id="userName">회원님</h2>
+                    <p class="email" id="userEmail">user@email.com</p>
+                    <span class="tier-badge" id="tierBadge">
+                        <i class="fas fa-user"></i>
+                        <span id="tierName">무료 회원</span>
+                    </span>
+                    <span class="tier-expiry" id="tierExpiry"></span>
+                    <div class="profile-actions">
+                        <button class="btn-profile btn-profile-primary" onclick="showUpgradeModal()">
+                            <i class="fas fa-arrow-up"></i> 등급 업그레이드
+                        </button>
+                        <button class="btn-profile btn-profile-outline" onclick="showTab('settings')">
+                            <i class="fas fa-cog"></i> 정보 수정
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="mypage-tabs">
+                <button class="tab-btn active" onclick="showTab('overview')">
+                    <i class="fas fa-home"></i> 대시보드
+                </button>
+                <button class="tab-btn" onclick="showTab('activities')">
+                    <i class="fas fa-history"></i> 활동 내역
+                </button>
+                <button class="tab-btn" onclick="showTab('settings')">
+                    <i class="fas fa-user-edit"></i> 정보 수정
+                </button>
+                <button class="tab-btn" onclick="showTab('security')">
+                    <i class="fas fa-lock"></i> 보안 설정
+                </button>
+            </div>
+
+            <!-- Tab Contents -->
+            <!-- Overview -->
+            <div class="tab-content active" id="tab-overview">
+                <!-- Upgrade Section (무료회원에게만 표시) -->
+                <div class="upgrade-section" id="upgradeSection">
+                    <h3><i class="fas fa-star"></i> 정회원으로 업그레이드하세요</h3>
+                    <p>유료 회원이 되시면 더 많은 혜택을 누리실 수 있습니다.</p>
+                    <div class="upgrade-tiers">
+                        <div class="upgrade-tier" data-tier="L1">
+                            <h4>일반 회원</h4>
+                            <div class="price">30,000원 <span>/ 연</span></div>
+                        </div>
+                        <div class="upgrade-tier" data-tier="L2">
+                            <h4>후원 회원</h4>
+                            <div class="price">100,000원 <span>/ 연</span></div>
+                        </div>
+                        <div class="upgrade-tier" data-tier="L3">
+                            <h4>평생 회원</h4>
+                            <div class="price">500,000원</div>
+                        </div>
+                    </div>
+                    <button class="btn-upgrade" onclick="showUpgradeModal()">
+                        <i class="fas fa-arrow-up"></i> 업그레이드하기
+                    </button>
+                </div>
+
+                <!-- Member Info -->
+                <div class="mypage-card">
+                    <h3><i class="fas fa-id-card"></i> 회원 정보</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">이름</div>
+                            <div class="info-value" id="infoName">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">연락처</div>
+                            <div class="info-value" id="infoPhone">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">가입일</div>
+                            <div class="info-value" id="infoJoinDate">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">가입 경로</div>
+                            <div class="info-value" id="infoSource">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activities -->
+                <div class="mypage-card">
+                    <h3><i class="fas fa-clock"></i> 최근 활동</h3>
+                    <div class="activity-list" id="recentActivities">
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>아직 활동 내역이 없습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activities -->
+            <div class="tab-content" id="tab-activities">
+                <div class="mypage-card">
+                    <h3><i class="fas fa-microphone"></i> 웅변대회 참가 신청</h3>
+                    <div class="activity-list" id="contestApplications">
+                        <div class="empty-state">
+                            <i class="fas fa-microphone-slash"></i>
+                            <p>웅변대회 참가 신청 내역이 없습니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mypage-card">
+                    <h3><i class="fas fa-hands-helping"></i> 자원봉사 신청</h3>
+                    <div class="activity-list" id="volunteerApplications">
+                        <div class="empty-state">
+                            <i class="fas fa-hand-holding-heart"></i>
+                            <p>자원봉사 신청 내역이 없습니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mypage-card">
+                    <h3><i class="fas fa-heart"></i> 후원 내역</h3>
+                    <div class="activity-list" id="donationHistory">
+                        <div class="empty-state">
+                            <i class="fas fa-hand-holding-usd"></i>
+                            <p>후원 내역이 없습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings -->
+            <div class="tab-content" id="tab-settings">
+                <div class="mypage-card">
+                    <h3><i class="fas fa-user-edit"></i> 기본 정보 수정</h3>
+                    <form id="profileForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>이름</label>
+                                <input type="text" name="name" id="editName" required>
+                            </div>
+                            <div class="form-group">
+                                <label>활동명 (닉네임)</label>
+                                <input type="text" name="nickname" id="editNickname">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>연락처</label>
+                                <input type="tel" name="phone" id="editPhone" required>
+                            </div>
+                            <div class="form-group">
+                                <label>생년월일</label>
+                                <input type="date" name="birth" id="editBirth">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <label>주소</label>
+                                <input type="text" name="address" id="editAddress">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>직업/소속</label>
+                                <input type="text" name="occupation" id="editOccupation">
+                            </div>
+                            <div class="form-group">
+                                <label>마케팅 수신 동의</label>
+                                <select name="marketing" id="editMarketing">
+                                    <option value="true">동의함</option>
+                                    <option value="false">동의하지 않음</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-save">저장</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Security -->
+            <div class="tab-content" id="tab-security">
+                <div class="mypage-card">
+                    <h3><i class="fas fa-key"></i> 비밀번호 변경</h3>
+                    <form id="passwordForm">
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <label>현재 비밀번호</label>
+                                <input type="password" name="currentPassword" id="currentPassword" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>새 비밀번호</label>
+                                <input type="password" name="newPassword" id="newPassword" required placeholder="8자 이상, 영문+숫자">
+                            </div>
+                            <div class="form-group">
+                                <label>새 비밀번호 확인</label>
+                                <input type="password" name="confirmPassword" id="confirmPassword" required>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-save">비밀번호 변경</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="mypage-card">
+                    <h3><i class="fas fa-link"></i> 소셜 계정 연동</h3>
+                    <div class="info-grid">
+                        <div class="info-item" style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div class="info-label">카카오</div>
+                                <div class="info-value" id="kakaoStatus">연동 안됨</div>
+                            </div>
+                            <button class="btn-profile btn-profile-outline" onclick="linkSocial('kakao')" id="btnKakaoLink" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">연동</button>
+                        </div>
+                        <div class="info-item" style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div class="info-label">네이버</div>
+                                <div class="info-value" id="naverStatus">연동 안됨</div>
+                            </div>
+                            <button class="btn-profile btn-profile-outline" onclick="linkSocial('naver')" id="btnNaverLink" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">연동</button>
+                        </div>
+                        <div class="info-item" style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div class="info-label">Google</div>
+                                <div class="info-value" id="googleStatus">연동 안됨</div>
+                            </div>
+                            <button class="btn-profile btn-profile-outline" onclick="linkSocial('google')" id="btnGoogleLink" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">연동</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="logout-section">
+                    <button class="btn-logout" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> 로그아웃
+                    </button>
+                    <button class="btn-delete-account" onclick="deleteAccount()">
+                        회원 탈퇴
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Upgrade Modal -->
+    <div class="modal-overlay" id="upgradeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-arrow-up"></i> 회원 등급 업그레이드</h3>
+                <button class="modal-close" onclick="closeUpgradeModal()">&times;</button>
+            </div>
+
+            <div class="upgrade-tiers" style="margin-bottom: 1.5rem;">
+                <div class="upgrade-tier" data-tier="L1" onclick="selectUpgradeTier('L1')">
+                    <h4>일반 회원</h4>
+                    <div class="price">30,000원 <span>/ 연</span></div>
+                </div>
+                <div class="upgrade-tier" data-tier="L2" onclick="selectUpgradeTier('L2')">
+                    <h4>후원 회원</h4>
+                    <div class="price">100,000원 <span>/ 연</span></div>
+                </div>
+                <div class="upgrade-tier" data-tier="L3" onclick="selectUpgradeTier('L3')">
+                    <h4>평생 회원</h4>
+                    <div class="price">500,000원</div>
+                </div>
+            </div>
+
+            <div class="payment-details">
+                <h4 style="margin-bottom: 1rem;">납부 안내</h4>
+                <div class="payment-row">
+                    <span>은행명</span>
+                    <span>농협은행</span>
+                </div>
+                <div class="payment-row">
+                    <span>계좌번호</span>
+                    <span>301-0123-4567-81</span>
+                </div>
+                <div class="payment-row">
+                    <span>예금주</span>
+                    <span>유관순정신계승사업회</span>
+                </div>
+                <div class="payment-row">
+                    <span>납부 금액</span>
+                    <span id="upgradeAmount">0원</span>
+                </div>
+            </div>
+
+            <p style="color: #666; font-size: 0.85rem; margin-bottom: 1.5rem;">
+                * 입금자명을 회원 이름과 동일하게 해주세요.<br>
+                * 입금 확인 후 영업일 기준 1-2일 내에 등급이 변경됩니다.
+            </p>
+
+            <button class="btn-upgrade" style="width: 100%;" onclick="requestUpgrade()">
+                업그레이드 신청
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>유관순정신계승사업회</h3>
+                    <p>사단법인 유관순정신계승사업회</p>
+                    <p>주소: (31256) 충청남도 천안시 동남구 병천면 유관순길 38</p>
+                    <p>전화: 041-564-1226 | 이메일: yuks1902@naver.com</p>
+                </div>
+                <div class="footer-links">
+                    <a href="privacy.html">개인정보처리방침</a>
+                    <a href="terms.html">이용약관</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 유관순정신계승사업회. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/api.js"></script>
+    <script>
+        // Check login status
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof YugwanAPI !== 'undefined' && !YugwanAPI.auth.isLoggedIn()) {
+                window.location.href = 'login.html?redirect=' + encodeURIComponent(window.location.href);
+                return;
+            }
+            loadUserProfile();
+        });
+
+        // Tier information
+        const tierInfo = {
+            'FREE': { name: '무료 회원', icon: 'fa-user', class: 'free' },
+            'L1': { name: '일반 회원', icon: 'fa-user-check', class: '' },
+            'L2': { name: '후원 회원', icon: 'fa-star', class: '' },
+            'L3': { name: '평생 회원', icon: 'fa-crown', class: '' },
+            'SPECIAL': { name: '특별 회원', icon: 'fa-gem', class: '' }
+        };
+
+        const tierPrices = {
+            'L1': 30000,
+            'L2': 100000,
+            'L3': 500000
+        };
+
+        const priceLabels = {
+            'L1': '30,000원',
+            'L2': '100,000원',
+            'L3': '500,000원'
+        };
+
+        const joinSourceLabels = {
+            'search': '인터넷 검색',
+            'sns': 'SNS',
+            'recommend': '지인 추천',
+            'event': '행사 참여',
+            'news': '언론 보도',
+            'other': '기타'
+        };
+
+        let currentUser = null;
+        let selectedUpgradeTier = null;
+
+        // Load user profile
+        async function loadUserProfile() {
+            try {
+                // Try to get cached user first
+                const cachedUser = localStorage.getItem('yugwan_user');
+                if (cachedUser) {
+                    currentUser = JSON.parse(cachedUser);
+                    updateUI();
+                }
+
+                // Fetch fresh data
+                if (typeof YugwanAPI !== 'undefined') {
+                    currentUser = await YugwanAPI.auth.getProfile();
+                    localStorage.setItem('yugwan_user', JSON.stringify(currentUser));
+                    updateUI();
+                }
+            } catch (error) {
+                console.error('Failed to load profile:', error);
+                // Use cached data if fetch fails
+            }
+        }
+
+        // Update UI with user data
+        function updateUI() {
+            if (!currentUser) return;
+
+            // Profile header
+            document.getElementById('userName').textContent = currentUser.first_name || currentUser.username || '회원님';
+            document.getElementById('userEmail').textContent = currentUser.email || '';
+
+            // Tier badge
+            const tier = tierInfo[currentUser.tier] || tierInfo['FREE'];
+            const tierBadge = document.getElementById('tierBadge');
+            tierBadge.innerHTML = `<i class="fas ${tier.icon}"></i><span id="tierName">${tier.name}</span>`;
+            tierBadge.className = `tier-badge ${tier.class}`;
+
+            // Tier expiry
+            const tierExpiry = document.getElementById('tierExpiry');
+            if (currentUser.tier_expires_at && currentUser.tier !== 'FREE' && currentUser.tier !== 'L3') {
+                tierExpiry.textContent = `만료일: ${currentUser.tier_expires_at}`;
+            } else if (currentUser.tier === 'L3') {
+                tierExpiry.textContent = '평생 유효';
+            } else {
+                tierExpiry.textContent = '';
+            }
+
+            // Info grid
+            document.getElementById('infoName').textContent = currentUser.first_name || '-';
+            document.getElementById('infoPhone').textContent = formatPhone(currentUser.phone) || '-';
+            document.getElementById('infoJoinDate').textContent = currentUser.date_joined ? new Date(currentUser.date_joined).toLocaleDateString('ko-KR') : '-';
+            document.getElementById('infoSource').textContent = joinSourceLabels[currentUser.join_source] || '-';
+
+            // Edit form
+            document.getElementById('editName').value = currentUser.first_name || '';
+            document.getElementById('editNickname').value = currentUser.nickname || '';
+            document.getElementById('editPhone').value = currentUser.phone || '';
+            document.getElementById('editBirth').value = currentUser.birth_date || '';
+            document.getElementById('editAddress').value = currentUser.address || '';
+            document.getElementById('editOccupation').value = currentUser.occupation || '';
+            document.getElementById('editMarketing').value = currentUser.marketing_agreed ? 'true' : 'false';
+
+            // Show/hide upgrade section
+            const upgradeSection = document.getElementById('upgradeSection');
+            if (currentUser.tier === 'FREE') {
+                upgradeSection.style.display = 'block';
+            } else {
+                upgradeSection.style.display = 'none';
+            }
+
+            // Mark current tier as unavailable in upgrade modal
+            document.querySelectorAll('.upgrade-tier').forEach(el => {
+                const tier = el.dataset.tier;
+                if (tierPrices[tier] && tierPrices[tier] <= (tierPrices[currentUser.tier] || 0)) {
+                    el.classList.add('current');
+                } else {
+                    el.classList.remove('current');
+                }
+            });
+
+            // Social link status
+            if (currentUser.social_provider) {
+                const providerStatus = document.getElementById(`${currentUser.social_provider}Status`);
+                if (providerStatus) {
+                    providerStatus.textContent = '연동됨';
+                    providerStatus.style.color = '#2ecc71';
+                }
+                const btnLink = document.getElementById(`btn${currentUser.social_provider.charAt(0).toUpperCase() + currentUser.social_provider.slice(1)}Link`);
+                if (btnLink) {
+                    btnLink.textContent = '해제';
+                    btnLink.onclick = () => unlinkSocial(currentUser.social_provider);
+                }
+            }
+
+            // Load activities
+            loadActivities();
+        }
+
+        // Format phone number
+        function formatPhone(phone) {
+            if (!phone) return null;
+            phone = phone.replace(/[^0-9]/g, '');
+            if (phone.length === 11) {
+                return phone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+            } else if (phone.length === 10) {
+                return phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+            }
+            return phone;
+        }
+
+        // Tab navigation
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            document.querySelector(`[onclick="showTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+        }
+
+        // Load activities
+        async function loadActivities() {
+            // TODO: Implement when API endpoints are ready
+        }
+
+        // Upgrade modal
+        function showUpgradeModal() {
+            document.getElementById('upgradeModal').classList.add('active');
+        }
+
+        function closeUpgradeModal() {
+            document.getElementById('upgradeModal').classList.remove('active');
+            selectedUpgradeTier = null;
+            document.querySelectorAll('#upgradeModal .upgrade-tier').forEach(el => el.classList.remove('selected'));
+        }
+
+        function selectUpgradeTier(tier) {
+            const tierEl = document.querySelector(`#upgradeModal .upgrade-tier[data-tier="${tier}"]`);
+            if (tierEl.classList.contains('current')) return;
+
+            document.querySelectorAll('#upgradeModal .upgrade-tier').forEach(el => el.classList.remove('selected'));
+            tierEl.classList.add('selected');
+            selectedUpgradeTier = tier;
+            document.getElementById('upgradeAmount').textContent = priceLabels[tier] || '0원';
+        }
+
+        async function requestUpgrade() {
+            if (!selectedUpgradeTier) {
+                alert('업그레이드할 등급을 선택해주세요.');
+                return;
+            }
+
+            try {
+                if (typeof YugwanAPI !== 'undefined') {
+                    await YugwanAPI.auth.requestUpgrade(selectedUpgradeTier);
+                }
+                alert('업그레이드 신청이 완료되었습니다. 입금 확인 후 등급이 변경됩니다.');
+                closeUpgradeModal();
+            } catch (error) {
+                alert(error.message || '업그레이드 신청 중 오류가 발생했습니다.');
+            }
+        }
+
+        // Profile form
+        document.getElementById('profileForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = {
+                first_name: document.getElementById('editName').value,
+                nickname: document.getElementById('editNickname').value,
+                phone: document.getElementById('editPhone').value.replace(/[^0-9]/g, ''),
+                birth_date: document.getElementById('editBirth').value || null,
+                address: document.getElementById('editAddress').value,
+                occupation: document.getElementById('editOccupation').value,
+                marketing_agreed: document.getElementById('editMarketing').value === 'true'
+            };
+
+            try {
+                if (typeof YugwanAPI !== 'undefined') {
+                    currentUser = await YugwanAPI.auth.updateProfile(formData);
+                    localStorage.setItem('yugwan_user', JSON.stringify(currentUser));
+                }
+                alert('정보가 저장되었습니다.');
+                updateUI();
+            } catch (error) {
+                alert(error.message || '저장 중 오류가 발생했습니다.');
+            }
+        });
+
+        // Password form
+        document.getElementById('passwordForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (newPassword.length < 8) {
+                alert('비밀번호는 8자 이상이어야 합니다.');
+                return;
+            }
+
+            if (!/[A-Za-z]/.test(newPassword) || !/[0-9]/.test(newPassword)) {
+                alert('비밀번호는 영문과 숫자를 포함해야 합니다.');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                alert('새 비밀번호가 일치하지 않습니다.');
+                return;
+            }
+
+            try {
+                if (typeof YugwanAPI !== 'undefined') {
+                    await YugwanAPI.auth.changePassword(currentPassword, newPassword);
+                }
+                alert('비밀번호가 변경되었습니다.');
+                this.reset();
+            } catch (error) {
+                alert(error.message || '비밀번호 변경 중 오류가 발생했습니다.');
+            }
+        });
+
+        // Social link
+        function linkSocial(provider) {
+            const redirectUri = encodeURIComponent(window.location.origin + '/join/social-callback.html?action=link');
+            window.location.href = YugwanAPI.getApiUrl(`/auth/social/${provider}/?redirect_uri=${redirectUri}`);
+        }
+
+        async function unlinkSocial(provider) {
+            if (!confirm('소셜 계정 연동을 해제하시겠습니까?')) return;
+
+            try {
+                if (typeof YugwanAPI !== 'undefined') {
+                    await YugwanAPI.auth.unlinkSocial(provider);
+                }
+                alert('연동이 해제되었습니다.');
+                loadUserProfile();
+            } catch (error) {
+                alert(error.message || '연동 해제 중 오류가 발생했습니다.');
+            }
+        }
+
+        // Logout
+        function logout() {
+            if (typeof YugwanAPI !== 'undefined') {
+                YugwanAPI.auth.logout();
+            }
+            localStorage.removeItem('yugwan_user');
+            localStorage.removeItem('yugwan_token');
+            localStorage.removeItem('yugwan_refresh_token');
+            window.location.href = '../index.html';
+        }
+
+        // Delete account
+        async function deleteAccount() {
+            if (!confirm('정말로 회원 탈퇴하시겠습니까?\n탈퇴 후에는 모든 데이터가 삭제되며 복구할 수 없습니다.')) return;
+
+            const password = prompt('본인 확인을 위해 비밀번호를 입력해주세요.');
+            if (!password) return;
+
+            try {
+                if (typeof YugwanAPI !== 'undefined') {
+                    await YugwanAPI.auth.deleteAccount(password);
+                }
+                alert('회원 탈퇴가 완료되었습니다.');
+                logout();
+            } catch (error) {
+                alert(error.message || '회원 탈퇴 중 오류가 발생했습니다.');
+            }
+        }
+    </script>
+</body>
+</html>

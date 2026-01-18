@@ -113,21 +113,82 @@ const API = {
     // === 인증 API ===
     auth: {
         async login(email, password) {
-            return API.request('/auth/token/', {
+            const result = await API.request('/auth/token/', {
                 method: 'POST',
                 body: JSON.stringify({ email, password })
             });
+            return result.data;
         },
 
         async register(userData) {
-            return API.request('/auth/register/', {
+            const result = await API.request('/auth/register/', {
                 method: 'POST',
                 body: JSON.stringify(userData)
             });
+            return result.data;
         },
 
         async getProfile() {
-            return API.request('/auth/profile/');
+            const result = await API.request('/auth/profile/');
+            return result.data;
+        },
+
+        async updateProfile(data) {
+            const result = await API.request('/auth/profile/', {
+                method: 'PATCH',
+                body: JSON.stringify(data)
+            });
+            return result.data;
+        },
+
+        async changePassword(currentPassword, newPassword) {
+            return API.request('/auth/password/change/', {
+                method: 'POST',
+                body: JSON.stringify({ current_password: currentPassword, new_password: newPassword })
+            });
+        },
+
+        async sendVerificationEmail(email) {
+            return API.request('/auth/email/verify/send/', {
+                method: 'POST',
+                body: JSON.stringify({ email })
+            });
+        },
+
+        async verifyEmail(email, code) {
+            return API.request('/auth/email/verify/', {
+                method: 'POST',
+                body: JSON.stringify({ email, code })
+            });
+        },
+
+        async requestUpgrade(tier) {
+            return API.request('/auth/upgrade/request/', {
+                method: 'POST',
+                body: JSON.stringify({ tier })
+            });
+        },
+
+        async unlinkSocial(provider) {
+            return API.request(`/auth/social/${provider}/unlink/`, {
+                method: 'POST'
+            });
+        },
+
+        async deleteAccount(password) {
+            return API.request('/auth/account/delete/', {
+                method: 'POST',
+                body: JSON.stringify({ password })
+            });
+        },
+
+        isLoggedIn() {
+            return !!API.getToken();
+        },
+
+        logout() {
+            API.clearToken();
+            localStorage.removeItem('yugwan_user');
         }
     },
 
@@ -383,3 +444,70 @@ const UI = {
     `;
     document.head.appendChild(style);
 })();
+
+// YugwanAPI alias (프론트엔드 페이지에서 사용)
+const YugwanAPI = {
+    ...API,
+    getApiUrl(path) {
+        return API.BASE_URL + path;
+    },
+    setToken(token) {
+        localStorage.setItem('access_token', token);
+    },
+    getToken: API.getToken.bind(API),
+    clearToken: API.clearToken.bind(API)
+};
+
+// 헤더 로그인 버튼 동적 업데이트
+document.addEventListener('DOMContentLoaded', function() {
+    updateHeaderAuthButton();
+});
+
+function updateHeaderAuthButton() {
+    const btnLogin = document.getElementById('btnLoginHeader');
+    if (!btnLogin) return;
+
+    if (API.auth.isLoggedIn()) {
+        // 로그인된 상태 - 마이페이지로 변경
+        const cachedUser = localStorage.getItem('yugwan_user');
+        let userName = '마이페이지';
+        if (cachedUser) {
+            try {
+                const user = JSON.parse(cachedUser);
+                userName = user.first_name || user.username || '마이페이지';
+            } catch (e) {}
+        }
+        btnLogin.textContent = userName;
+        btnLogin.href = 'join/mypage.html';
+
+        // 상대경로 조정 (서브 디렉토리에서 접근 시)
+        if (window.location.pathname.includes('/join/') ||
+            window.location.pathname.includes('/about/') ||
+            window.location.pathname.includes('/contest/') ||
+            window.location.pathname.includes('/projects/') ||
+            window.location.pathname.includes('/global/') ||
+            window.location.pathname.includes('/archive/')) {
+            btnLogin.href = 'mypage.html';
+            if (!window.location.pathname.includes('/join/')) {
+                btnLogin.href = '../join/mypage.html';
+            }
+        }
+    } else {
+        // 로그아웃 상태 - 로그인으로 표시
+        btnLogin.textContent = '로그인';
+        btnLogin.href = 'join/login.html';
+
+        // 상대경로 조정
+        if (window.location.pathname.includes('/join/') ||
+            window.location.pathname.includes('/about/') ||
+            window.location.pathname.includes('/contest/') ||
+            window.location.pathname.includes('/projects/') ||
+            window.location.pathname.includes('/global/') ||
+            window.location.pathname.includes('/archive/')) {
+            btnLogin.href = 'login.html';
+            if (!window.location.pathname.includes('/join/')) {
+                btnLogin.href = '../join/login.html';
+            }
+        }
+    }
+}

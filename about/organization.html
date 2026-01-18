@@ -74,7 +74,7 @@
 
         .org-chairman-title {
             font-size: 0.9rem;
-            color: var(--accent-gold);
+            color: var(--accent-gold) !important;
             margin-bottom: 8px;
             font-weight: 500;
         }
@@ -82,13 +82,13 @@
         .org-chairman-name {
             font-family: var(--font-display);
             font-size: 1.5rem;
-            color: white;
+            color: white !important;
             font-weight: 700;
         }
 
         .org-chairman-role {
             font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.85) !important;
             margin-top: 5px;
         }
 
@@ -284,7 +284,7 @@
         .org-stat-number {
             font-family: var(--font-display);
             font-size: 2.5rem;
-            color: var(--accent-gold);
+            color: var(--accent-gold) !important;
             font-weight: 700;
             line-height: 1;
             margin-bottom: 8px;
@@ -292,7 +292,7 @@
 
         .org-stat-label {
             font-size: 0.95rem;
-            color: white;
+            color: white !important;
         }
 
         /* Global Network */
@@ -451,6 +451,11 @@
                     </li>
                 </ul>
             </nav>
+
+            <div class="header-buttons">
+                <a href="../join/login.html" class="btn-login-header" id="btnLoginHeader">로그인</a>
+                <a href="../join/donation.html" class="btn-donate">후원하기</a>
+            </div>
 
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
                 <span></span>
@@ -939,5 +944,6 @@
 
     <!-- Scripts -->
     <script src="../js/main.js"></script>
+    <script src="../js/api.js"></script>
 </body>
 </html>

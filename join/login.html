@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 - 유관순정신계승사업회</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sub-pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Login Page Styles */
+        .login-container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .login-header h2 {
+            font-size: 2rem;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Login Form */
+        .login-form {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid #e5e5e5;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent-gold);
+        }
+
+        .forgot-password {
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-navy);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login:hover {
+            background: #132a4a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(10, 25, 47, 0.3);
+        }
+
+        .btn-login:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Divider */
+        .login-divider {
+            display: flex;
+            align-items: center;
+            margin: 2rem 0;
+            color: #999;
+            font-size: 0.85rem;
+        }
+
+        .login-divider::before,
+        .login-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e5e5e5;
+        }
+
+        .login-divider span {
+            padding: 0 1rem;
+        }
+
+        /* Social Login */
+        .social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .btn-social {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .btn-social img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .btn-kakao {
+            background: #FEE500;
+            color: #000;
+            border-color: #FEE500;
+        }
+
+        .btn-kakao:hover {
+            background: #e6ce00;
+        }
+
+        .btn-naver {
+            background: #03C75A;
+            color: #fff;
+            border-color: #03C75A;
+        }
+
+        .btn-naver:hover {
+            background: #02b351;
+        }
+
+        .btn-google {
+            background: #fff;
+            color: #333;
+        }
+
+        .btn-google:hover {
+            background: #f5f5f5;
+        }
+
+        /* Register Link */
+        .register-link {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e5e5;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .register-link a {
+            color: var(--accent-gold);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Error Message */
+        .error-message {
+            background: #fff5f5;
+            color: #c00;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Loading */
+        .btn-login.loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .btn-login.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin-left: -10px;
+            margin-top: -10px;
+            border: 2px solid #fff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 576px) {
+            .login-container {
+                padding: 2rem 1rem;
+            }
+
+            .login-form {
+                padding: 1.5rem;
+            }
+
+            .form-options {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                유관순정신계승사업회<span class="logo-dot">.</span>
+            </a>
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li class="nav-item has-dropdown">
+                        <a href="../about/greeting.html" class="nav-link">사업회 소개</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../about/greeting.html">인사말</a></li>
+                            <li><a href="../about/organization.html">조직도</a></li>
+                            <li><a href="../about/history.html">연혁</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../contest/index.html" class="nav-link">웅변대회</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../contest/index.html">대회 소개</a></li>
+                            <li><a href="../contest/apply.html">참가 신청</a></li>
+                            <li><a href="../contest/guidelines.html">참가 요강</a></li>
+                            <li><a href="../contest/winners.html">역대 수상자</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../projects/honor-upgrade.html" class="nav-link">핵심 사업</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../projects/honor-upgrade.html">서훈 등급 상향</a></li>
+                            <li><a href="../projects/education.html">교육 사업</a></li>
+                            <li><a href="../projects/memorial.html">추모 사업</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../global/network.html" class="nav-link">글로벌</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../global/network.html">해외 네트워크</a></li>
+                            <li><a href="../global/exchange.html">국제 교류</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../archive/notice.html" class="nav-link">아카이브</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../archive/notice.html">공지사항</a></li>
+                            <li><a href="../archive/news.html">보도자료</a></li>
+                            <li><a href="../archive/gallery.html">갤러리</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-buttons">
+                <a href="login.html" class="btn-login-header">로그인</a>
+                <a href="../join/donation.html" class="btn-donate">후원하기</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <h1>로그인</h1>
+            <p>유관순정신계승사업회 회원 로그인</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="sub-content">
+        <div class="login-container">
+            <div class="login-header">
+                <h2>환영합니다</h2>
+                <p>계정에 로그인하여 다양한 회원 서비스를 이용하세요.</p>
+            </div>
+
+            <div class="login-form">
+                <div class="error-message" id="errorMessage"></div>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">이메일</label>
+                        <input type="email" id="email" name="email" placeholder="이메일 주소를 입력하세요" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">비밀번호</label>
+                        <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="rememberMe">
+                            <span>로그인 상태 유지</span>
+                        </label>
+                        <a href="password-reset.html" class="forgot-password">비밀번호 찾기</a>
+                    </div>
+
+                    <button type="submit" class="btn-login" id="btnLogin">로그인</button>
+                </form>
+
+                <div class="login-divider">
+                    <span>또는 소셜 계정으로 로그인</span>
+                </div>
+
+                <div class="social-login">
+                    <button type="button" class="btn-social btn-kakao" id="btnKakao">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M10 2C5.029 2 1 5.13 1 8.987c0 2.513 1.673 4.723 4.194 5.973-.186.69-.671 2.507-.769 2.89-.12.477.175.47.368.341.152-.1 2.418-1.64 3.404-2.31.262.035.529.058.803.058 4.971 0 9-3.13 9-6.952C18 5.13 14.971 2 10 2z" fill="#000"/>
+                        </svg>
+                        카카오로 시작하기
+                    </button>
+                    <button type="button" class="btn-social btn-naver" id="btnNaver">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M13.356 10.561L6.403 2H2v16h4.644V9.439L13.597 18H18V2h-4.644v8.561z" fill="#fff"/>
+                        </svg>
+                        네이버로 시작하기
+                    </button>
+                    <button type="button" class="btn-social btn-google" id="btnGoogle">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M19.6 10.227c0-.709-.064-1.39-.182-2.045H10v3.868h5.382a4.6 4.6 0 01-1.996 3.018v2.51h3.232c1.891-1.742 2.982-4.305 2.982-7.35z" fill="#4285F4"/>
+                            <path d="M10 20c2.7 0 4.964-.895 6.618-2.423l-3.232-2.509c-.896.6-2.04.955-3.386.955-2.605 0-4.81-1.76-5.595-4.123H1.064v2.59A9.996 9.996 0 0010 20z" fill="#34A853"/>
+                            <path d="M4.405 11.9c-.2-.6-.314-1.24-.314-1.9 0-.66.114-1.3.314-1.9V5.51H1.064A9.996 9.996 0 000 10c0 1.614.386 3.14 1.064 4.49l3.34-2.59z" fill="#FBBC05"/>
+                            <path d="M10 3.977c1.468 0 2.786.505 3.823 1.496l2.868-2.868C14.959.99 12.695 0 10 0 6.09 0 2.71 2.24 1.064 5.51l3.34 2.59C5.192 5.736 7.396 3.977 10 3.977z" fill="#EA4335"/>
+                        </svg>
+                        Google로 시작하기
+                    </button>
+                </div>
+
+                <div class="register-link">
+                    아직 회원이 아니신가요? <a href="membership.html">회원가입</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>유관순정신계승사업회</h3>
+                    <p>사단법인 유관순정신계승사업회</p>
+                    <p>주소: (31256) 충청남도 천안시 동남구 병천면 유관순길 38</p>
+                    <p>전화: 041-564-1226 | 이메일: yuks1902@naver.com</p>
+                </div>
+                <div class="footer-links">
+                    <a href="privacy.html">개인정보처리방침</a>
+                    <a href="terms.html">이용약관</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 유관순정신계승사업회. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const btnLogin = document.getElementById('btnLogin');
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Check if already logged in
+            if (YugwanAPI.auth.isLoggedIn()) {
+                window.location.href = 'mypage.html';
+                return;
+            }
+
+            // Email/Password Login
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+                const rememberMe = document.getElementById('rememberMe').checked;
+
+                if (!email || !password) {
+                    showError('이메일과 비밀번호를 입력해주세요.');
+                    return;
+                }
+
+                btnLogin.classList.add('loading');
+                btnLogin.disabled = true;
+                hideError();
+
+                try {
+                    const response = await YugwanAPI.auth.login(email, password);
+
+                    if (response.access) {
+                        YugwanAPI.setToken(response.access);
+                        if (response.refresh) {
+                            localStorage.setItem('yugwan_refresh_token', response.refresh);
+                        }
+
+                        // Remember me - extend refresh token storage
+                        if (rememberMe) {
+                            localStorage.setItem('yugwan_remember', 'true');
+                        }
+
+                        // Get user info
+                        try {
+                            const user = await YugwanAPI.auth.getProfile();
+                            localStorage.setItem('yugwan_user', JSON.stringify(user));
+                        } catch (e) {
+                            console.error('Failed to get user profile:', e);
+                        }
+
+                        // Redirect
+                        const redirectUrl = new URLSearchParams(window.location.search).get('redirect');
+                        window.location.href = redirectUrl || 'mypage.html';
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
+                    showError(error.message || '로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.');
+                } finally {
+                    btnLogin.classList.remove('loading');
+                    btnLogin.disabled = false;
+                }
+            });
+
+            // Social Login - Kakao
+            document.getElementById('btnKakao').addEventListener('click', function() {
+                const redirectUri = encodeURIComponent(window.location.origin + '/join/social-callback.html');
+                window.location.href = YugwanAPI.getApiUrl(`/auth/social/kakao/?redirect_uri=${redirectUri}`);
+            });
+
+            // Social Login - Naver
+            document.getElementById('btnNaver').addEventListener('click', function() {
+                const redirectUri = encodeURIComponent(window.location.origin + '/join/social-callback.html');
+                window.location.href = YugwanAPI.getApiUrl(`/auth/social/naver/?redirect_uri=${redirectUri}`);
+            });
+
+            // Social Login - Google
+            document.getElementById('btnGoogle').addEventListener('click', function() {
+                const redirectUri = encodeURIComponent(window.location.origin + '/join/social-callback.html');
+                window.location.href = YugwanAPI.getApiUrl(`/auth/social/google/?redirect_uri=${redirectUri}`);
+            });
+
+            function showError(message) {
+                errorMessage.textContent = message;
+                errorMessage.classList.add('show');
+            }
+
+            function hideError() {
+                errorMessage.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
