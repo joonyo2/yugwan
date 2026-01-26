@@ -104,6 +104,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# 프론트엔드 정적 파일 경로 (루트 폴더)
+FRONTEND_DIR = BASE_DIR.parent  # backend의 상위 폴더 = 프로젝트 루트
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
@@ -161,6 +164,7 @@ JAZZMIN_SETTINGS = {
     "copyright": "유관순정신계승사업회",
     "icons": {
         "accounts.User": "fas fa-users",
+        "accounts.BoardPermission": "fas fa-lock",
         "contest.ContestApplication": "fas fa-microphone",
         "archive.Notice": "fas fa-bullhorn",
         "archive.News": "fas fa-newspaper",

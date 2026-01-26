@@ -1,43 +1,31 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .views import (
-    UserRegisterView, UserProfileView, PasswordChangeView,
-    EmailVerificationSendView, EmailVerificationConfirmView,
-    TierUpgradeRequestView, AccountDeleteView,
-    KakaoLoginView, KakaoCallbackView,
-    NaverLoginView, NaverCallbackView,
-    GoogleLoginView, GoogleCallbackView,
-    SocialUnlinkView
-)
+from . import views
+
+app_name = 'accounts'
 
 urlpatterns = [
-    # 기본 인증
-    path('register/', UserRegisterView.as_view(), name='user-register'),
-    path('profile/', UserProfileView.as_view(), name='user-profile'),
-    path('token/', TokenObtainPairView.as_view(), name='token-obtain'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token-refresh'),
+    # JWT 토큰 (로그인)
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
-    # 비밀번호 & 이메일 인증
-    path('password/change/', PasswordChangeView.as_view(), name='password-change'),
-    path('email/verify/send/', EmailVerificationSendView.as_view(), name='email-verify-send'),
-    path('email/verify/', EmailVerificationConfirmView.as_view(), name='email-verify'),
+    # 회원가입/탈퇴
+    path('register/', views.UserRegisterView.as_view(), name='register'),
+    path('delete/', views.AccountDeleteView.as_view(), name='delete'),
 
-    # 등급 업그레이드 & 탈퇴
-    path('upgrade/request/', TierUpgradeRequestView.as_view(), name='tier-upgrade'),
-    path('account/delete/', AccountDeleteView.as_view(), name='account-delete'),
+    # 내 정보
+    path('profile/', views.UserProfileView.as_view(), name='profile'),
+    path('password/change/', views.PasswordChangeView.as_view(), name='password_change'),
 
-    # 소셜 로그인 - 카카오
-    path('social/kakao/', KakaoLoginView.as_view(), name='kakao-login'),
-    path('social/kakao/callback/', KakaoCallbackView.as_view(), name='kakao-callback'),
+    # 관리자: 회원 관리
+    path('users/', views.UserListView.as_view(), name='user_list'),
+    path('users/<int:user_id>/approve-supporter/', views.SupporterApprovalView.as_view(), name='approve_supporter'),
+    path('users/<int:user_id>/revoke-supporter/', views.SupporterRevokeView.as_view(), name='revoke_supporter'),
+    path('users/<int:user_id>/assign-staff/', views.StaffAssignView.as_view(), name='assign_staff'),
+    path('users/<int:user_id>/revoke-staff/', views.StaffRevokeView.as_view(), name='revoke_staff'),
 
-    # 소셜 로그인 - 네이버
-    path('social/naver/', NaverLoginView.as_view(), name='naver-login'),
-    path('social/naver/callback/', NaverCallbackView.as_view(), name='naver-callback'),
-
-    # 소셜 로그인 - 구글
-    path('social/google/', GoogleLoginView.as_view(), name='google-login'),
-    path('social/google/callback/', GoogleCallbackView.as_view(), name='google-callback'),
-
-    # 소셜 연동 해제
-    path('social/<str:provider>/unlink/', SocialUnlinkView.as_view(), name='social-unlink'),
+    # 게시판 권한
+    path('board-permissions/', views.BoardPermissionListView.as_view(), name='board_permissions'),
+    path('board-permissions/<str:board_type>/', views.BoardPermissionUpdateView.as_view(), name='board_permission_update'),
+    path('check-permission/<str:board_type>/', views.CheckBoardPermissionView.as_view(), name='check_permission'),
 ]

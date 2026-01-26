@@ -1,21 +1,18 @@
-import os
-import random
-import string
-import requests
-from django.conf import settings
-from django.shortcuts import redirect
-from django.contrib.auth import get_user_model
+from django.utils import timezone
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework_simplejwt.tokens import RefreshToken
-from .models import User
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
+from .models import User, BoardPermission
 from .serializers import UserSerializer, UserRegisterSerializer
 
 
 class UserRegisterView(generics.CreateAPIView):
-    """회원가입 API"""
+    """
+    회원가입 API
+    - 모든 회원은 무료회원(FREE)으로 가입
+    - 가입 즉시 승인 (is_active=True)
+    """
     queryset = User.objects.all()
     serializer_class = UserRegisterSerializer
     permission_classes = [AllowAny]
@@ -26,7 +23,8 @@ class UserRegisterView(generics.CreateAPIView):
         user = serializer.save()
         return Response({
             'message': '회원가입이 완료되었습니다.',
-            'user_id': user.id
+            'user_id': user.id,
+            'tier': user.tier,
         }, status=status.HTTP_201_CREATED)
 
 
@@ -49,70 +47,14 @@ class PasswordChangeView(APIView):
         new_password = request.data.get('new_password')
 
         if not user.check_password(current_password):
-            return Response({'detail': '현재 비밀번호가 일치하지 않습니다.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {'detail': '현재 비밀번호가 일치하지 않습니다.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
         user.set_password(new_password)
         user.save()
         return Response({'message': '비밀번호가 변경되었습니다.'})
-
-
-class EmailVerificationSendView(APIView):
-    """이메일 인증코드 발송 API"""
-    permission_classes = [AllowAny]
-
-    def post(self, request):
-        email = request.data.get('email')
-        if not email:
-            return Response({'detail': '이메일을 입력해주세요.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        # 인증 코드 생성 (6자리)
-        code = ''.join(random.choices(string.digits, k=6))
-
-        # 세션에 코드 저장 (실제로는 캐시나 DB에 저장)
-        request.session['email_verification_code'] = code
-        request.session['email_verification_email'] = email
-
-        # TODO: 실제 이메일 발송 로직 구현
-        # send_email(email, '인증 코드', f'인증 코드: {code}')
-
-        return Response({'message': '인증 코드가 발송되었습니다.'})
-
-
-class EmailVerificationConfirmView(APIView):
-    """이메일 인증코드 확인 API"""
-    permission_classes = [AllowAny]
-
-    def post(self, request):
-        email = request.data.get('email')
-        code = request.data.get('code')
-
-        saved_code = request.session.get('email_verification_code')
-        saved_email = request.session.get('email_verification_email')
-
-        if saved_email != email or saved_code != code:
-            return Response({'detail': '인증 코드가 일치하지 않습니다.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        # 인증 성공 표시
-        request.session['email_verified'] = email
-
-        return Response({'message': '이메일이 인증되었습니다.'})
-
-
-class TierUpgradeRequestView(APIView):
-    """회원 등급 업그레이드 신청 API"""
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        tier = request.data.get('tier')
-        valid_tiers = ['L1', 'L2', 'L3']
-
-        if tier not in valid_tiers:
-            return Response({'detail': '유효하지 않은 등급입니다.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        # TODO: 업그레이드 신청 내역 저장 (별도 모델 필요)
-        # 실제로는 결제 대기 상태로 저장하고 관리자가 입금 확인 후 등급 변경
-
-        return Response({'message': f'{tier} 등급 업그레이드 신청이 완료되었습니다. 입금 확인 후 등급이 변경됩니다.'})
 
 
 class AccountDeleteView(APIView):
@@ -124,258 +66,248 @@ class AccountDeleteView(APIView):
         user = request.user
 
         if not user.check_password(password):
-            return Response({'detail': '비밀번호가 일치하지 않습니다.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {'detail': '비밀번호가 일치하지 않습니다.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
         user.delete()
         return Response({'message': '회원 탈퇴가 완료되었습니다.'})
 
 
 # ========================================
-# 소셜 로그인 API
+# 관리자 전용 API
 # ========================================
 
-class KakaoLoginView(APIView):
-    """카카오 로그인 시작"""
-    permission_classes = [AllowAny]
+class SupporterApprovalView(APIView):
+    """
+    후원회원 승인 API (관리자 전용)
+    - 운영진이 후원 확인 후 회원을 후원회원으로 승급
+    """
+    permission_classes = [IsAdminUser]
 
-    def get(self, request):
-        redirect_uri = request.query_params.get('redirect_uri', '')
-        client_id = os.getenv('KAKAO_CLIENT_ID', '')
+    def post(self, request, user_id):
+        try:
+            target_user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return Response(
+                {'detail': '회원을 찾을 수 없습니다.'},
+                status=status.HTTP_404_NOT_FOUND
+            )
 
-        kakao_auth_url = (
-            f"https://kauth.kakao.com/oauth/authorize"
-            f"?client_id={client_id}"
-            f"&redirect_uri={redirect_uri}"
-            f"&response_type=code"
-        )
-        return redirect(kakao_auth_url)
+        if target_user.tier == 'SUPPORTER':
+            return Response(
+                {'detail': '이미 후원회원입니다.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
+        target_user.tier = 'SUPPORTER'
+        target_user.tier_approved_at = timezone.now()
+        target_user.tier_approved_by = request.user
+        target_user.save()
 
-class KakaoCallbackView(APIView):
-    """카카오 로그인 콜백"""
-    permission_classes = [AllowAny]
-
-    def get(self, request):
-        code = request.query_params.get('code')
-        redirect_uri = request.query_params.get('redirect_uri', '')
-        client_id = os.getenv('KAKAO_CLIENT_ID', '')
-        client_secret = os.getenv('KAKAO_CLIENT_SECRET', '')
-
-        # 액세스 토큰 요청
-        token_response = requests.post(
-            'https://kauth.kakao.com/oauth/token',
-            data={
-                'grant_type': 'authorization_code',
-                'client_id': client_id,
-                'client_secret': client_secret,
-                'redirect_uri': redirect_uri,
-                'code': code
-            }
-        )
-        token_data = token_response.json()
-        access_token = token_data.get('access_token')
-
-        # 사용자 정보 요청
-        user_response = requests.get(
-            'https://kapi.kakao.com/v2/user/me',
-            headers={'Authorization': f'Bearer {access_token}'}
-        )
-        user_data = user_response.json()
-
-        kakao_id = str(user_data.get('id'))
-        kakao_account = user_data.get('kakao_account', {})
-        email = kakao_account.get('email', f'kakao_{kakao_id}@yugwansun.org')
-        nickname = kakao_account.get('profile', {}).get('nickname', '')
-
-        # 사용자 생성 또는 조회
-        user, created = User.objects.get_or_create(
-            social_provider='kakao',
-            social_id=kakao_id,
-            defaults={
-                'username': f'kakao_{kakao_id}',
-                'email': email,
-                'nickname': nickname,
-                'email_verified': True,
-            }
-        )
-
-        # JWT 토큰 발급
-        refresh = RefreshToken.for_user(user)
         return Response({
-            'access': str(refresh.access_token),
-            'refresh': str(refresh),
-            'user': UserSerializer(user).data
+            'message': f'{target_user.username}님이 후원회원으로 승급되었습니다.',
+            'user_id': target_user.id,
+            'tier': target_user.tier,
+            'approved_at': target_user.tier_approved_at,
         })
 
 
-class NaverLoginView(APIView):
-    """네이버 로그인 시작"""
-    permission_classes = [AllowAny]
+class SupporterRevokeView(APIView):
+    """
+    후원회원 해제 API (관리자 전용)
+    - 후원회원을 무료회원으로 변경
+    """
+    permission_classes = [IsAdminUser]
 
-    def get(self, request):
-        redirect_uri = request.query_params.get('redirect_uri', '')
-        client_id = os.getenv('NAVER_CLIENT_ID', '')
-        state = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
+    def post(self, request, user_id):
+        try:
+            target_user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return Response(
+                {'detail': '회원을 찾을 수 없습니다.'},
+                status=status.HTTP_404_NOT_FOUND
+            )
 
-        naver_auth_url = (
-            f"https://nid.naver.com/oauth2.0/authorize"
-            f"?client_id={client_id}"
-            f"&redirect_uri={redirect_uri}"
-            f"&response_type=code"
-            f"&state={state}"
-        )
-        return redirect(naver_auth_url)
+        if target_user.tier == 'FREE':
+            return Response(
+                {'detail': '이미 무료회원입니다.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
+        target_user.tier = 'FREE'
+        target_user.tier_approved_at = None
+        target_user.tier_approved_by = None
+        target_user.save()
 
-class NaverCallbackView(APIView):
-    """네이버 로그인 콜백"""
-    permission_classes = [AllowAny]
-
-    def get(self, request):
-        code = request.query_params.get('code')
-        state = request.query_params.get('state')
-        client_id = os.getenv('NAVER_CLIENT_ID', '')
-        client_secret = os.getenv('NAVER_CLIENT_SECRET', '')
-
-        # 액세스 토큰 요청
-        token_response = requests.post(
-            'https://nid.naver.com/oauth2.0/token',
-            data={
-                'grant_type': 'authorization_code',
-                'client_id': client_id,
-                'client_secret': client_secret,
-                'code': code,
-                'state': state
-            }
-        )
-        token_data = token_response.json()
-        access_token = token_data.get('access_token')
-
-        # 사용자 정보 요청
-        user_response = requests.get(
-            'https://openapi.naver.com/v1/nid/me',
-            headers={'Authorization': f'Bearer {access_token}'}
-        )
-        user_data = user_response.json().get('response', {})
-
-        naver_id = user_data.get('id')
-        email = user_data.get('email', f'naver_{naver_id}@yugwansun.org')
-        nickname = user_data.get('nickname', '')
-        name = user_data.get('name', '')
-        phone = user_data.get('mobile', '').replace('-', '')
-
-        # 사용자 생성 또는 조회
-        user, created = User.objects.get_or_create(
-            social_provider='naver',
-            social_id=naver_id,
-            defaults={
-                'username': f'naver_{naver_id}',
-                'email': email,
-                'nickname': nickname,
-                'first_name': name,
-                'phone': phone,
-                'email_verified': True,
-            }
-        )
-
-        # JWT 토큰 발급
-        refresh = RefreshToken.for_user(user)
         return Response({
-            'access': str(refresh.access_token),
-            'refresh': str(refresh),
-            'user': UserSerializer(user).data
+            'message': f'{target_user.username}님이 무료회원으로 변경되었습니다.',
+            'user_id': target_user.id,
+            'tier': target_user.tier,
         })
 
 
-class GoogleLoginView(APIView):
-    """구글 로그인 시작"""
-    permission_classes = [AllowAny]
+class UserListView(generics.ListAPIView):
+    """
+    회원 목록 조회 API (관리자 전용)
+    - 전체 회원 목록 조회
+    - 필터: tier, is_staff
+    """
+    serializer_class = UserSerializer
+    permission_classes = [IsAdminUser]
 
-    def get(self, request):
-        redirect_uri = request.query_params.get('redirect_uri', '')
-        client_id = os.getenv('GOOGLE_CLIENT_ID', '')
+    def get_queryset(self):
+        queryset = User.objects.all().order_by('-created_at')
 
-        google_auth_url = (
-            f"https://accounts.google.com/o/oauth2/v2/auth"
-            f"?client_id={client_id}"
-            f"&redirect_uri={redirect_uri}"
-            f"&response_type=code"
-            f"&scope=email%20profile"
-        )
-        return redirect(google_auth_url)
+        # 필터링
+        tier = self.request.query_params.get('tier')
+        if tier:
+            queryset = queryset.filter(tier=tier)
+
+        is_staff = self.request.query_params.get('is_staff')
+        if is_staff:
+            queryset = queryset.filter(is_staff=is_staff.lower() == 'true')
+
+        return queryset
 
 
-class GoogleCallbackView(APIView):
-    """구글 로그인 콜백"""
-    permission_classes = [AllowAny]
+class StaffAssignView(APIView):
+    """
+    운영진 지정 API (최고관리자 전용)
+    """
+    permission_classes = [IsAdminUser]
 
-    def get(self, request):
-        code = request.query_params.get('code')
-        redirect_uri = request.query_params.get('redirect_uri', '')
-        client_id = os.getenv('GOOGLE_CLIENT_ID', '')
-        client_secret = os.getenv('GOOGLE_CLIENT_SECRET', '')
+    def post(self, request, user_id):
+        # 최고관리자만 가능
+        if not request.user.is_superuser:
+            return Response(
+                {'detail': '최고관리자만 운영진을 지정할 수 있습니다.'},
+                status=status.HTTP_403_FORBIDDEN
+            )
 
-        # 액세스 토큰 요청
-        token_response = requests.post(
-            'https://oauth2.googleapis.com/token',
-            data={
-                'grant_type': 'authorization_code',
-                'client_id': client_id,
-                'client_secret': client_secret,
-                'redirect_uri': redirect_uri,
-                'code': code
-            }
-        )
-        token_data = token_response.json()
-        access_token = token_data.get('access_token')
+        try:
+            target_user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return Response(
+                {'detail': '회원을 찾을 수 없습니다.'},
+                status=status.HTTP_404_NOT_FOUND
+            )
 
-        # 사용자 정보 요청
-        user_response = requests.get(
-            'https://www.googleapis.com/oauth2/v2/userinfo',
-            headers={'Authorization': f'Bearer {access_token}'}
-        )
-        user_data = user_response.json()
+        target_user.is_staff = True
+        target_user.save()
 
-        google_id = user_data.get('id')
-        email = user_data.get('email')
-        name = user_data.get('name', '')
-
-        # 사용자 생성 또는 조회
-        user, created = User.objects.get_or_create(
-            social_provider='google',
-            social_id=google_id,
-            defaults={
-                'username': f'google_{google_id}',
-                'email': email,
-                'first_name': name,
-                'email_verified': True,
-            }
-        )
-
-        # JWT 토큰 발급
-        refresh = RefreshToken.for_user(user)
         return Response({
-            'access': str(refresh.access_token),
-            'refresh': str(refresh),
-            'user': UserSerializer(user).data
+            'message': f'{target_user.username}님이 운영진으로 지정되었습니다.',
+            'user_id': target_user.id,
+            'is_staff': target_user.is_staff,
         })
 
 
-class SocialUnlinkView(APIView):
-    """소셜 계정 연동 해제"""
-    permission_classes = [IsAuthenticated]
+class StaffRevokeView(APIView):
+    """
+    운영진 해제 API (최고관리자 전용)
+    """
+    permission_classes = [IsAdminUser]
 
-    def post(self, request, provider):
+    def post(self, request, user_id):
+        # 최고관리자만 가능
+        if not request.user.is_superuser:
+            return Response(
+                {'detail': '최고관리자만 운영진을 해제할 수 있습니다.'},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
+        try:
+            target_user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return Response(
+                {'detail': '회원을 찾을 수 없습니다.'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        if target_user.is_superuser:
+            return Response(
+                {'detail': '최고관리자는 해제할 수 없습니다.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        target_user.is_staff = False
+        target_user.save()
+
+        return Response({
+            'message': f'{target_user.username}님의 운영진 권한이 해제되었습니다.',
+            'user_id': target_user.id,
+            'is_staff': target_user.is_staff,
+        })
+
+
+# ========================================
+# 게시판 권한 API
+# ========================================
+
+class BoardPermissionListView(generics.ListAPIView):
+    """게시판 권한 설정 목록"""
+    permission_classes = [IsAdminUser]
+    queryset = BoardPermission.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        permissions = BoardPermission.objects.all()
+        data = [{
+            'board_type': p.board_type,
+            'board_name': p.get_board_type_display(),
+            'read_permission': p.read_permission,
+            'write_permission': p.write_permission,
+            'is_active': p.is_active,
+        } for p in permissions]
+        return Response(data)
+
+
+class BoardPermissionUpdateView(APIView):
+    """게시판 권한 설정 수정 (관리자 전용)"""
+    permission_classes = [IsAdminUser]
+
+    def post(self, request, board_type):
+        perm, created = BoardPermission.objects.get_or_create(board_type=board_type)
+
+        read_permission = request.data.get('read_permission')
+        write_permission = request.data.get('write_permission')
+        is_active = request.data.get('is_active')
+
+        if read_permission:
+            perm.read_permission = read_permission
+        if write_permission:
+            perm.write_permission = write_permission
+        if is_active is not None:
+            perm.is_active = is_active
+
+        perm.save()
+
+        return Response({
+            'message': f'{perm.get_board_type_display()} 권한이 수정되었습니다.',
+            'board_type': perm.board_type,
+            'read_permission': perm.read_permission,
+            'write_permission': perm.write_permission,
+        })
+
+
+class CheckBoardPermissionView(APIView):
+    """
+    게시판 접근 권한 확인 API
+    - 프론트엔드에서 게시판 접근 전 권한 확인용
+    """
+    permission_classes = [AllowAny]
+
+    def get(self, request, board_type):
         user = request.user
-        if user.social_provider != provider:
-            return Response({'detail': '해당 소셜 계정과 연동되어 있지 않습니다.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # 비밀번호 설정 여부 확인 (비밀번호 없으면 연동 해제 불가)
-        if not user.has_usable_password():
-            return Response({'detail': '소셜 연동 해제 전에 비밀번호를 설정해주세요.'}, status=status.HTTP_400_BAD_REQUEST)
+        can_read = BoardPermission.check_read_permission(board_type, user)
+        can_write = BoardPermission.check_write_permission(board_type, user)
 
-        user.social_provider = ''
-        user.social_id = ''
-        user.save()
-
-        return Response({'message': '소셜 계정 연동이 해제되었습니다.'})
+        return Response({
+            'board_type': board_type,
+            'can_read': can_read,
+            'can_write': can_write,
+            'user_tier': user.tier if user.is_authenticated else None,
+            'is_admin': user.is_admin if user.is_authenticated else False,
+        })

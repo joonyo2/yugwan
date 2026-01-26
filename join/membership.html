@@ -31,153 +31,124 @@
             margin: 0 auto;
         }
 
-        /* Membership Types */
-        .membership-types {
+        /* Membership Info Section */
+        .membership-info-section {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
             margin-bottom: 3rem;
         }
 
-        .membership-card {
-            padding: 1.5rem;
+        .membership-info-card {
+            padding: 2rem;
             background: #fff;
             border-radius: 16px;
             border: 1px solid #e5e5e5;
-            text-align: center;
-            position: relative;
-            transition: all 0.3s ease;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
-        .membership-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-            border-color: var(--accent-gold);
+        .membership-info-card.free {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f0fa 100%);
+            border-color: var(--primary-navy);
         }
 
-        .membership-card.featured {
+        .membership-info-card.supporter {
             background: linear-gradient(135deg, #fffcf5 0%, #fff8e7 100%);
             border-color: var(--accent-gold);
         }
 
-        .membership-card.featured::before {
-            content: '추천';
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 0.4rem 1rem;
-            background: var(--accent-gold);
-            color: var(--primary-navy);
-            font-size: 0.8rem;
-            font-weight: 700;
-            border-radius: 20px;
-        }
-
-        .membership-card.free {
-            background: linear-gradient(135deg, #f0f7ff 0%, #e6f0fa 100%);
-        }
-
-        .membership-icon {
+        .membership-info-card .icon {
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, var(--accent-gold) 0%, #d4b366 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1rem;
+            margin-bottom: 1rem;
         }
 
-        .membership-card.free .membership-icon {
+        .membership-info-card.free .icon {
             background: linear-gradient(135deg, var(--primary-navy) 0%, #1a3a5c 100%);
         }
 
-        .membership-icon i {
+        .membership-info-card.supporter .icon {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #d4b366 100%);
+        }
+
+        .membership-info-card .icon i {
             font-size: 1.8rem;
             color: #fff;
         }
 
-        .membership-card h4 {
-            font-size: 1.2rem;
+        .membership-info-card h4 {
+            font-size: 1.3rem;
             color: var(--primary-navy);
             margin-bottom: 0.5rem;
         }
 
-        .membership-price {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--primary-navy);
-            margin-bottom: 0.5rem;
-        }
-
-        .membership-price span {
-            font-size: 0.9rem;
-            font-weight: 400;
-            color: #666;
-        }
-
-        .membership-desc {
-            color: #666;
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-            min-height: 40px;
-        }
-
-        .membership-features {
-            text-align: left;
-            margin-bottom: 1rem;
-        }
-
-        .membership-features li {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.5rem;
-            padding: 0.4rem 0;
-            border-bottom: 1px solid #e5e5e5;
-            color: #555;
-            font-size: 0.8rem;
-        }
-
-        .membership-features li:last-child {
-            border-bottom: none;
-        }
-
-        .membership-features li i {
-            color: var(--accent-gold);
-            margin-top: 0.15rem;
-            font-size: 0.75rem;
-        }
-
-        .select-btn {
+        .membership-info-card .badge {
             display: inline-block;
-            width: 100%;
-            padding: 0.8rem;
-            background: transparent;
-            border: 2px solid var(--accent-gold);
-            color: var(--primary-navy);
-            font-size: 0.9rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
             font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            margin-bottom: 1rem;
         }
 
-        .select-btn:hover,
-        .membership-card.featured .select-btn {
+        .membership-info-card.free .badge {
+            background: var(--primary-navy);
+            color: #fff;
+        }
+
+        .membership-info-card.supporter .badge {
             background: var(--accent-gold);
             color: var(--primary-navy);
         }
 
-        .membership-card.free .select-btn {
-            border-color: var(--primary-navy);
+        .membership-info-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
         }
 
-        .membership-card.free .select-btn:hover {
-            background: var(--primary-navy);
-            color: #fff;
+        .membership-info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .membership-info-card ul li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .membership-info-card ul li i {
+            color: var(--accent-gold);
+            margin-top: 0.2rem;
+        }
+
+        .upgrade-process {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            border: 1px dashed var(--accent-gold);
+        }
+
+        .upgrade-process h5 {
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .upgrade-process ol {
+            padding-left: 1.2rem;
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.8;
         }
 
         /* Registration Form */
@@ -199,90 +170,6 @@
         .registration-section > p {
             color: #666;
             margin-bottom: 2rem;
-        }
-
-        /* Social Login Section */
-        .social-login-section {
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid #e5e5e5;
-        }
-
-        .social-login-section h4 {
-            color: var(--primary-navy);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .social-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn-social {
-            flex: 1;
-            min-width: 150px;
-            padding: 0.9rem 1rem;
-            border: 1px solid #e5e5e5;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-        }
-
-        .btn-kakao {
-            background: #FEE500;
-            color: #000;
-            border-color: #FEE500;
-        }
-
-        .btn-kakao:hover {
-            background: #e6ce00;
-        }
-
-        .btn-naver {
-            background: #03C75A;
-            color: #fff;
-            border-color: #03C75A;
-        }
-
-        .btn-naver:hover {
-            background: #02b351;
-        }
-
-        .btn-google {
-            background: #fff;
-            color: #333;
-        }
-
-        .btn-google:hover {
-            background: #f5f5f5;
-        }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 2rem 0;
-            color: #999;
-            font-size: 0.9rem;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #e5e5e5;
-        }
-
-        .divider span {
-            padding: 0 1rem;
         }
 
         /* Step Indicator */
@@ -400,182 +287,11 @@
             resize: vertical;
         }
 
-        /* Email Verification */
-        .email-verify-group {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .email-verify-group input {
-            flex: 1;
-        }
-
-        .btn-verify {
-            padding: 0.8rem 1.2rem;
-            background: var(--primary-navy);
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-
-        .btn-verify:hover {
-            background: #132a4a;
-        }
-
-        .btn-verify:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-
-        .verify-code-group {
-            display: none;
-            margin-top: 1rem;
-        }
-
-        .verify-code-group.show {
-            display: block;
-        }
-
-        .verify-status {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
+        /* Password strength indicator */
+        .password-hint {
             font-size: 0.85rem;
-        }
-
-        .verify-status.success {
-            color: #2ecc71;
-        }
-
-        .verify-status.error {
-            color: #e74c3c;
-        }
-
-        /* Membership Type Selection in Form */
-        .membership-select {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .membership-option {
-            padding: 1.2rem;
-            background: #f8f9fa;
-            border: 2px solid #e5e5e5;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .membership-option:hover {
-            border-color: var(--accent-gold);
-        }
-
-        .membership-option.selected {
-            border-color: var(--accent-gold);
-            background: #fffcf5;
-        }
-
-        .membership-option input {
-            display: none;
-        }
-
-        .membership-option h5 {
-            color: var(--primary-navy);
-            margin-bottom: 0.3rem;
-            font-size: 0.95rem;
-        }
-
-        .membership-option .price {
-            color: var(--primary-navy);
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
-
-        .membership-option .price.free-price {
-            color: #2ecc71;
-        }
-
-        /* Payment Info */
-        .payment-info {
-            padding: 1.5rem;
-            background: #f8f9fa;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            border: 1px solid #e5e5e5;
-        }
-
-        .payment-info h4 {
-            color: var(--primary-navy);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .account-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .account-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #e5e5e5;
-        }
-
-        .account-row:last-child {
-            border-bottom: none;
-        }
-
-        .account-label {
             color: #666;
-        }
-
-        .account-value {
-            color: var(--primary-navy);
-            font-weight: 500;
-        }
-
-        .copy-btn {
-            background: none;
-            border: none;
-            color: var(--accent-gold);
-            cursor: pointer;
-            margin-left: 0.5rem;
-        }
-
-        /* Free membership notice */
-        .free-notice {
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            border: 1px solid #a5d6a7;
-            text-align: center;
-        }
-
-        .free-notice i {
-            font-size: 2rem;
-            color: #2ecc71;
-            margin-bottom: 0.5rem;
-        }
-
-        .free-notice h4 {
-            color: #1b5e20;
-            margin-bottom: 0.5rem;
-        }
-
-        .free-notice p {
-            color: #2e7d32;
-            font-size: 0.9rem;
+            margin-top: 0.5rem;
         }
 
         /* Consent */
@@ -714,13 +430,16 @@
         }
 
         .benefit-item {
-            padding: 1.5rem;
+            padding: 2rem 1.5rem;
             background: #fff;
             border-radius: 12px;
             border: 1px solid #e5e5e5;
             text-align: center;
             transition: all 0.3s ease;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .benefit-item:hover {
@@ -729,21 +448,24 @@
         }
 
         .benefit-item i {
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: var(--accent-gold);
             margin-bottom: 1rem;
         }
 
         .benefit-item h4 {
             color: var(--primary-navy);
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            word-break: keep-all;
         }
 
         .benefit-item p {
             color: #666;
-            font-size: 0.85rem;
-            line-height: 1.5;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            word-break: keep-all;
         }
 
         /* FAQ */
@@ -811,25 +533,13 @@
         }
 
         @media (max-width: 1200px) {
-            .membership-types {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .membership-select {
+            .benefits-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 992px) {
-            .membership-types {
-                grid-template-columns: 1fr;
-            }
-
-            .benefits-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .membership-select {
+            .membership-info-section {
                 grid-template-columns: 1fr;
             }
         }
@@ -841,10 +551,6 @@
 
             .benefits-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .social-buttons {
-                flex-direction: column;
             }
 
             .step-indicator {
@@ -1040,7 +746,7 @@
                         </ul>
                     </li>
                     <li class="nav-item has-dropdown">
-                        <a href="../archive/notice.html" class="nav-link">아카이브</a>
+                        <a href="../archive/notice.html" class="nav-link">자료실</a>
                         <ul class="dropdown-menu">
                             <li><a href="../archive/notice.html">공지사항</a></li>
                             <li><a href="../archive/news.html">보도자료</a></li>
@@ -1075,179 +781,100 @@
                 <h3>함께하면 더 큰 힘이 됩니다</h3>
                 <p>
                     유관순정신계승사업회 회원이 되시면 열사의 정신을 계승하고 알리는 다양한 활동에 참여하실 수 있습니다.
-                    무료 회원으로 시작하여 사업회 소식을 받아보시거나, 유료 회원이 되어 더 많은 혜택과 함께 사업회를 후원해주세요.
+                    무료 회원으로 가입하시고, 후원을 통해 후원회원으로 함께해 주세요.
                 </p>
             </div>
 
-            <!-- Membership Types -->
-            <div class="membership-types-section" style="margin-bottom: 3rem;">
-                <h3 style="color: var(--primary-navy); margin-bottom: 1.5rem; font-size: 1.3rem;">
-                    <i class="fas fa-id-card"></i> 회원 유형
-                </h3>
-
-                <div class="membership-types">
-                    <!-- 무료 회원 -->
-                    <div class="membership-card free">
-                        <div class="membership-icon">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h4>무료 회원</h4>
-                        <div class="membership-price" style="color: #2ecc71;">무료</div>
-                        <p class="membership-desc">
-                            누구나 가입할 수 있는 기본 회원
-                        </p>
-                        <ul class="membership-features">
-                            <li><i class="fas fa-check"></i> 이메일 소식지 수신</li>
-                            <li><i class="fas fa-check"></i> 공개 행사 안내</li>
-                            <li><i class="fas fa-check"></i> 기본 자료 열람</li>
-                        </ul>
-                        <button class="select-btn" onclick="selectMembership('FREE')">무료 가입</button>
+            <!-- Membership Info -->
+            <div class="membership-info-section">
+                <!-- 무료회원 -->
+                <div class="membership-info-card free">
+                    <div class="icon">
+                        <i class="fas fa-user"></i>
                     </div>
+                    <h4>무료회원</h4>
+                    <span class="badge">즉시 가입</span>
+                    <p>누구나 가입할 수 있는 기본 회원입니다. 가입 즉시 승인되어 사업회 소식을 받아보실 수 있습니다.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> 이메일 소식지 수신</li>
+                        <li><i class="fas fa-check"></i> 공개 행사 안내</li>
+                        <li><i class="fas fa-check"></i> 기본 자료 열람</li>
+                        <li><i class="fas fa-check"></i> 웅변대회 관련 정보</li>
+                    </ul>
+                </div>
 
-                    <!-- 일반 회원 -->
-                    <div class="membership-card">
-                        <div class="membership-icon">
-                            <i class="fas fa-user-check"></i>
-                        </div>
-                        <h4>일반 회원</h4>
-                        <div class="membership-price">30,000원 <span>/ 연</span></div>
-                        <p class="membership-desc">
-                            정식 회원으로서 다양한 혜택
-                        </p>
-                        <ul class="membership-features">
-                            <li><i class="fas fa-check"></i> 정기 소식지 발송</li>
-                            <li><i class="fas fa-check"></i> 주요 행사 초대</li>
-                            <li><i class="fas fa-check"></i> 회원 전용 자료 열람</li>
-                            <li><i class="fas fa-check"></i> 웅변대회 우선 참관</li>
-                        </ul>
-                        <button class="select-btn" onclick="selectMembership('L1')">가입하기</button>
+                <!-- 후원회원 -->
+                <div class="membership-info-card supporter">
+                    <div class="icon">
+                        <i class="fas fa-star"></i>
                     </div>
-
-                    <!-- 후원 회원 -->
-                    <div class="membership-card featured">
-                        <div class="membership-icon">
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <h4>후원 회원</h4>
-                        <div class="membership-price">100,000원 <span>/ 연</span></div>
-                        <p class="membership-desc">
-                            적극적인 후원과 참여
-                        </p>
-                        <ul class="membership-features">
-                            <li><i class="fas fa-check"></i> 일반 회원 혜택 전체</li>
-                            <li><i class="fas fa-check"></i> 기념품 증정</li>
-                            <li><i class="fas fa-check"></i> VIP 행사 초대</li>
-                            <li><i class="fas fa-check"></i> 이사장 감사장 발급</li>
-                        </ul>
-                        <button class="select-btn" onclick="selectMembership('L2')">가입하기</button>
-                    </div>
-
-                    <!-- 평생 회원 -->
-                    <div class="membership-card">
-                        <div class="membership-icon">
-                            <i class="fas fa-crown"></i>
-                        </div>
-                        <h4>평생 회원</h4>
-                        <div class="membership-price">500,000원 <span>/ 평생</span></div>
-                        <p class="membership-desc">
-                            평생을 함께하는 헌신
-                        </p>
-                        <ul class="membership-features">
-                            <li><i class="fas fa-check"></i> 후원 회원 혜택 전체</li>
-                            <li><i class="fas fa-check"></i> 평생 회원증 발급</li>
-                            <li><i class="fas fa-check"></i> 명예의 전당 등재</li>
-                            <li><i class="fas fa-check"></i> 이사회 참관 권한</li>
-                        </ul>
-                        <button class="select-btn" onclick="selectMembership('L3')">가입하기</button>
+                    <h4>후원회원</h4>
+                    <span class="badge">후원 후 승급</span>
+                    <p>후원금을 납부하신 후 운영진의 확인을 거쳐 후원회원으로 승급됩니다.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> 무료회원 혜택 전체</li>
+                        <li><i class="fas fa-check"></i> 정기 우편 소식지 발송</li>
+                        <li><i class="fas fa-check"></i> VIP 행사 초대</li>
+                        <li><i class="fas fa-check"></i> 회원 전용 자료 열람</li>
+                        <li><i class="fas fa-check"></i> 기부금 영수증 발급</li>
+                    </ul>
+                    <div class="upgrade-process">
+                        <h5><i class="fas fa-arrow-up"></i> 후원회원 승급 절차</h5>
+                        <ol>
+                            <li>무료회원으로 가입</li>
+                            <li>후원하기 페이지에서 후원금 납부</li>
+                            <li>운영진 확인 후 후원회원으로 승급</li>
+                        </ol>
                     </div>
                 </div>
             </div>
 
             <!-- Registration Form -->
             <div class="registration-section" id="registration-form">
-                <h3><i class="fas fa-edit"></i> 회원가입</h3>
-                <p>소셜 계정으로 간편하게 가입하거나, 이메일로 직접 가입하세요.</p>
-
-                <!-- Social Login -->
-                <div class="social-login-section">
-                    <h4>소셜 계정으로 가입</h4>
-                    <div class="social-buttons">
-                        <button type="button" class="btn-social btn-kakao" id="btnKakaoRegister">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M10 2C5.029 2 1 5.13 1 8.987c0 2.513 1.673 4.723 4.194 5.973-.186.69-.671 2.507-.769 2.89-.12.477.175.47.368.341.152-.1 2.418-1.64 3.404-2.31.262.035.529.058.803.058 4.971 0 9-3.13 9-6.952C18 5.13 14.971 2 10 2z" fill="#000"/>
-                            </svg>
-                            카카오로 가입
-                        </button>
-                        <button type="button" class="btn-social btn-naver" id="btnNaverRegister">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M13.356 10.561L6.403 2H2v16h4.644V9.439L13.597 18H18V2h-4.644v8.561z" fill="#fff"/>
-                            </svg>
-                            네이버로 가입
-                        </button>
-                        <button type="button" class="btn-social btn-google" id="btnGoogleRegister">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M19.6 10.227c0-.709-.064-1.39-.182-2.045H10v3.868h5.382a4.6 4.6 0 01-1.996 3.018v2.51h3.232c1.891-1.742 2.982-4.305 2.982-7.35z" fill="#4285F4"/>
-                                <path d="M10 20c2.7 0 4.964-.895 6.618-2.423l-3.232-2.509c-.896.6-2.04.955-3.386.955-2.605 0-4.81-1.76-5.595-4.123H1.064v2.59A9.996 9.996 0 0010 20z" fill="#34A853"/>
-                                <path d="M4.405 11.9c-.2-.6-.314-1.24-.314-1.9 0-.66.114-1.3.314-1.9V5.51H1.064A9.996 9.996 0 000 10c0 1.614.386 3.14 1.064 4.49l3.34-2.59z" fill="#FBBC05"/>
-                                <path d="M10 3.977c1.468 0 2.786.505 3.823 1.496l2.868-2.868C14.959.99 12.695 0 10 0 6.09 0 2.71 2.24 1.064 5.51l3.34 2.59C5.192 5.736 7.396 3.977 10 3.977z" fill="#EA4335"/>
-                            </svg>
-                            Google로 가입
-                        </button>
-                    </div>
-                </div>
-
-                <div class="divider">
-                    <span>또는 이메일로 가입</span>
-                </div>
+                <h3><i class="fas fa-edit"></i> 무료 회원가입</h3>
+                <p>아래 양식을 작성하여 회원가입을 완료하세요. 가입 즉시 무료회원으로 승인됩니다.</p>
 
                 <!-- Step Indicator -->
                 <div class="step-indicator">
                     <div class="step-item active" data-step="1">
                         <div class="step-number">1</div>
-                        <span class="step-label">회원 유형</span>
+                        <span class="step-label">계정 정보</span>
                     </div>
                     <div class="step-connector"></div>
                     <div class="step-item" data-step="2">
                         <div class="step-number">2</div>
-                        <span class="step-label">계정 정보</span>
+                        <span class="step-label">개인 정보</span>
                     </div>
                     <div class="step-connector"></div>
                     <div class="step-item" data-step="3">
                         <div class="step-number">3</div>
-                        <span class="step-label">개인 정보</span>
-                    </div>
-                    <div class="step-connector"></div>
-                    <div class="step-item" data-step="4">
-                        <div class="step-number">4</div>
                         <span class="step-label">가입 완료</span>
                     </div>
                 </div>
 
                 <form id="membership-form">
-                    <!-- Step 1: Membership Type -->
+                    <!-- Step 1: Account Info (Email & Password) -->
                     <div class="form-step active" data-step="1">
-                        <h4 style="color: var(--primary-navy); margin-bottom: 1rem;">회원 유형을 선택해주세요</h4>
-                        <div class="membership-select">
-                            <label class="membership-option selected" data-type="FREE">
-                                <input type="radio" name="membershipType" value="FREE" checked>
-                                <h5>무료 회원</h5>
-                                <div class="price free-price">무료</div>
-                            </label>
-                            <label class="membership-option" data-type="L1">
-                                <input type="radio" name="membershipType" value="L1">
-                                <h5>일반 회원</h5>
-                                <div class="price">연 30,000원</div>
-                            </label>
-                            <label class="membership-option" data-type="L2">
-                                <input type="radio" name="membershipType" value="L2">
-                                <h5>후원 회원</h5>
-                                <div class="price">연 100,000원</div>
-                            </label>
-                            <label class="membership-option" data-type="L3">
-                                <input type="radio" name="membershipType" value="L3">
-                                <h5>평생 회원</h5>
-                                <div class="price">500,000원</div>
-                            </label>
+                        <h4 style="color: var(--primary-navy); margin-bottom: 1rem;">계정 정보를 입력해주세요</h4>
+
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <label>이메일 <span class="required">*</span></label>
+                                <input type="email" name="email" id="email" required placeholder="example@email.com">
+                                <p class="password-hint">로그인에 사용할 이메일 주소를 입력하세요.</p>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>비밀번호 <span class="required">*</span></label>
+                                <input type="password" name="password" id="password" required placeholder="8자 이상, 영문+숫자 조합">
+                                <p class="password-hint">영문과 숫자를 포함한 8자 이상</p>
+                            </div>
+                            <div class="form-group">
+                                <label>비밀번호 확인 <span class="required">*</span></label>
+                                <input type="password" name="passwordConfirm" id="passwordConfirm" required placeholder="비밀번호를 다시 입력">
+                            </div>
                         </div>
 
                         <div class="form-buttons">
@@ -1258,55 +885,10 @@
                         </div>
                     </div>
 
-                    <!-- Step 2: Account Info (Email & Password) -->
+                    <!-- Step 2: Personal Info -->
                     <div class="form-step" data-step="2">
-                        <h4 style="color: var(--primary-navy); margin-bottom: 1rem;">계정 정보를 입력해주세요</h4>
+                        <h4 style="color: var(--primary-navy); margin-bottom: 1rem;">개인 정보를 입력해주세요</h4>
 
-                        <div class="form-row">
-                            <div class="form-group full-width">
-                                <label>이메일 <span class="required">*</span></label>
-                                <div class="email-verify-group">
-                                    <input type="email" name="email" id="email" required placeholder="example@email.com">
-                                    <button type="button" class="btn-verify" id="btnSendCode">인증코드 발송</button>
-                                </div>
-                                <div class="verify-status" id="emailStatus"></div>
-                            </div>
-                        </div>
-
-                        <div class="form-row verify-code-group" id="verifyCodeGroup">
-                            <div class="form-group full-width">
-                                <label>인증코드 <span class="required">*</span></label>
-                                <div class="email-verify-group">
-                                    <input type="text" name="verifyCode" id="verifyCode" placeholder="6자리 인증코드 입력" maxlength="6">
-                                    <button type="button" class="btn-verify" id="btnVerifyCode">확인</button>
-                                </div>
-                                <div class="verify-status" id="codeStatus"></div>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>비밀번호 <span class="required">*</span></label>
-                                <input type="password" name="password" id="password" required placeholder="8자 이상, 영문+숫자 조합">
-                            </div>
-                            <div class="form-group">
-                                <label>비밀번호 확인 <span class="required">*</span></label>
-                                <input type="password" name="passwordConfirm" id="passwordConfirm" required placeholder="비밀번호를 다시 입력">
-                            </div>
-                        </div>
-
-                        <div class="form-buttons">
-                            <button type="button" class="btn-prev" onclick="prevStep()">
-                                <i class="fas fa-arrow-left"></i> 이전
-                            </button>
-                            <button type="button" class="btn-next" onclick="nextStep()">
-                                다음 <i class="fas fa-arrow-right"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Step 3: Personal Info & Payment -->
-                    <div class="form-step" data-step="3">
                         <div class="form-row">
                             <div class="form-group">
                                 <label>이름 <span class="required">*</span></label>
@@ -1360,45 +942,6 @@
                             <textarea name="message" placeholder="가입 동기나 하고 싶은 말을 자유롭게 작성해주세요."></textarea>
                         </div>
 
-                        <!-- Payment Info (유료 회원만 표시) -->
-                        <div class="payment-info" id="paymentInfo" style="display: none;">
-                            <h4><i class="fas fa-university"></i> 회비 납부 안내</h4>
-                            <div class="account-info">
-                                <div class="account-row">
-                                    <span class="account-label">은행명</span>
-                                    <span class="account-value">농협은행</span>
-                                </div>
-                                <div class="account-row">
-                                    <span class="account-label">계좌번호</span>
-                                    <span class="account-value">
-                                        301-0123-4567-81
-                                        <button type="button" class="copy-btn" onclick="copyAccount()">
-                                            <i class="fas fa-copy"></i>
-                                        </button>
-                                    </span>
-                                </div>
-                                <div class="account-row">
-                                    <span class="account-label">예금주</span>
-                                    <span class="account-value">유관순정신계승사업회</span>
-                                </div>
-                                <div class="account-row">
-                                    <span class="account-label">납부 금액</span>
-                                    <span class="account-value" id="payment-amount" style="color: var(--accent-gold); font-weight: 700;">0원</span>
-                                </div>
-                            </div>
-                            <p style="color: #666; font-size: 0.9rem; margin-top: 1rem;">
-                                * 입금 확인 후 회원 등급이 업그레이드됩니다. (영업일 기준 1-2일 소요)<br>
-                                * 입금 시 입금자명을 신청자 이름과 동일하게 해주세요.
-                            </p>
-                        </div>
-
-                        <!-- Free Notice (무료 회원만 표시) -->
-                        <div class="free-notice" id="freeNotice">
-                            <i class="fas fa-check-circle"></i>
-                            <h4>무료 회원으로 가입됩니다</h4>
-                            <p>가입 완료 후 마이페이지에서 언제든지 유료 회원으로 업그레이드할 수 있습니다.</p>
-                        </div>
-
                         <div class="consent-section">
                             <h4><i class="fas fa-shield-alt"></i> 약관 동의</h4>
 
@@ -1441,8 +984,8 @@
                         </div>
                     </div>
 
-                    <!-- Step 4: Complete -->
-                    <div class="form-step" data-step="4">
+                    <!-- Step 3: Complete -->
+                    <div class="form-step" data-step="3">
                         <div style="text-align: center; padding: 3rem 0;">
                             <div style="width: 100px; height: 100px; background: rgba(46, 204, 113, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem;">
                                 <i class="fas fa-check" style="font-size: 3rem; color: #2ecc71;"></i>
@@ -1450,11 +993,15 @@
                             <h3 style="color: var(--primary-navy); margin-bottom: 1rem;">회원가입이 완료되었습니다!</h3>
                             <p style="color: #666; line-height: 1.8; margin-bottom: 2rem;">
                                 유관순정신계승사업회의 회원이 되신 것을 환영합니다.<br>
-                                <span id="completeMessage">이제 로그인하여 다양한 회원 서비스를 이용하실 수 있습니다.</span>
+                                이제 로그인하여 다양한 회원 서비스를 이용하실 수 있습니다.<br>
+                                <strong style="color: var(--accent-gold);">후원하시면 후원회원으로 승급되어 더 많은 혜택을 받으실 수 있습니다.</strong>
                             </p>
                             <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                                 <a href="login.html" class="btn-next" style="text-decoration: none;">
                                     <i class="fas fa-sign-in-alt"></i> 로그인하기
+                                </a>
+                                <a href="donation.html" class="btn-submit" style="text-decoration: none;">
+                                    <i class="fas fa-heart"></i> 후원하기
                                 </a>
                                 <a href="../index.html" class="btn-prev" style="text-decoration: none;">
                                     <i class="fas fa-home"></i> 홈으로
@@ -1491,7 +1038,7 @@
                     <div class="benefit-item">
                         <i class="fas fa-receipt"></i>
                         <h4>기부금 영수증</h4>
-                        <p>유료 회원은 연말정산 소득공제를 위한 기부금 영수증을 받습니다</p>
+                        <p>후원회원은 연말정산 소득공제를 위한 기부금 영수증을 받습니다</p>
                     </div>
                 </div>
             </div>
@@ -1502,13 +1049,13 @@
                 <div class="faq-list">
                     <div class="faq-item">
                         <div class="faq-question">
-                            <span>무료 회원과 유료 회원의 차이는 무엇인가요?</span>
+                            <span>무료회원과 후원회원의 차이는 무엇인가요?</span>
                             <i class="fas fa-chevron-down"></i>
                         </div>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
-                                무료 회원은 이메일 소식지 수신과 공개 행사 안내를 받으실 수 있습니다.
-                                유료 회원(일반/후원/평생)은 이에 더해 정기 우편 소식지, VIP 행사 초대,
+                                무료회원은 이메일 소식지 수신과 공개 행사 안내를 받으실 수 있습니다.
+                                후원회원은 이에 더해 정기 우편 소식지, VIP 행사 초대,
                                 회원 전용 자료 열람, 기부금 영수증 발급 등의 추가 혜택을 받으실 수 있습니다.
                             </div>
                         </div>
@@ -1516,13 +1063,14 @@
 
                     <div class="faq-item">
                         <div class="faq-question">
-                            <span>회원 등급 업그레이드는 어떻게 하나요?</span>
+                            <span>후원회원으로 어떻게 승급하나요?</span>
                             <i class="fas fa-chevron-down"></i>
                         </div>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
-                                로그인 후 마이페이지에서 '등급 업그레이드' 버튼을 클릭하시면 됩니다.
-                                원하시는 등급을 선택하고 해당 금액을 납부하시면 자동으로 등급이 변경됩니다.
+                                무료회원으로 가입하신 후, '후원하기' 페이지에서 후원금을 납부해주세요.
+                                운영진이 입금 확인 후 후원회원으로 승급 처리해 드립니다.
+                                (영업일 기준 1-2일 소요될 수 있습니다)
                             </div>
                         </div>
                     </div>
@@ -1534,7 +1082,7 @@
                         </div>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
-                                네, 유료 회원(일반/후원/평생)에게는 기부금 영수증 발급이 가능합니다.
+                                네, 후원회원에게는 기부금 영수증 발급이 가능합니다.
                                 연말정산 시 소득공제를 받으실 수 있으며, 영수증은 매년 1월 국세청 홈택스에 자동 등록됩니다.
                             </div>
                         </div>
@@ -1542,14 +1090,13 @@
 
                     <div class="faq-item">
                         <div class="faq-question">
-                            <span>소셜 로그인으로 가입하면 비밀번호가 필요한가요?</span>
+                            <span>회원 탈퇴는 어떻게 하나요?</span>
                             <i class="fas fa-chevron-down"></i>
                         </div>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
-                                소셜 로그인(카카오, 네이버, 구글)으로 가입하시면 별도의 비밀번호 설정 없이
-                                해당 소셜 계정으로 로그인하실 수 있습니다. 추후 마이페이지에서 비밀번호를 설정하시면
-                                이메일로도 로그인이 가능합니다.
+                                로그인 후 마이페이지에서 '회원 탈퇴' 메뉴를 통해 탈퇴하실 수 있습니다.
+                                탈퇴 시 모든 개인정보가 삭제되며, 후원 내역은 세금 관련 법률에 따라 일정 기간 보관됩니다.
                             </div>
                         </div>
                     </div>
@@ -1614,132 +1161,13 @@
 
         // Current step
         let currentStep = 1;
-        const totalSteps = 4;
-        let emailVerified = false;
-
-        // Membership prices
-        const prices = {
-            'FREE': 0,
-            'L1': 30000,
-            'L2': 100000,
-            'L3': 500000
-        };
-
-        const priceLabels = {
-            'FREE': '무료',
-            'L1': '30,000원',
-            'L2': '100,000원',
-            'L3': '500,000원'
-        };
-
-        // Membership type selection
-        const membershipOptions = document.querySelectorAll('.membership-option');
-        membershipOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                membershipOptions.forEach(o => o.classList.remove('selected'));
-                option.classList.add('selected');
-                option.querySelector('input').checked = true;
-                updatePaymentDisplay();
-            });
-        });
-
-        function selectMembership(type) {
-            document.getElementById('registration-form').scrollIntoView({ behavior: 'smooth' });
-
-            membershipOptions.forEach(option => {
-                if (option.dataset.type === type) {
-                    option.classList.add('selected');
-                    option.querySelector('input').checked = true;
-                } else {
-                    option.classList.remove('selected');
-                }
-            });
-            updatePaymentDisplay();
-        }
-
-        function updatePaymentDisplay() {
-            const selectedType = document.querySelector('input[name="membershipType"]:checked').value;
-            const paymentInfo = document.getElementById('paymentInfo');
-            const freeNotice = document.getElementById('freeNotice');
-            const paymentAmount = document.getElementById('payment-amount');
-
-            if (selectedType === 'FREE') {
-                paymentInfo.style.display = 'none';
-                freeNotice.style.display = 'block';
-            } else {
-                paymentInfo.style.display = 'block';
-                freeNotice.style.display = 'none';
-                paymentAmount.textContent = priceLabels[selectedType];
-            }
-        }
-
-        // Email verification
-        document.getElementById('btnSendCode').addEventListener('click', async function() {
-            const email = document.getElementById('email').value.trim();
-            if (!email) {
-                showToast('이메일을 입력해주세요.');
-                return;
-            }
-
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                showToast('올바른 이메일 형식을 입력해주세요.');
-                return;
-            }
-
-            this.disabled = true;
-            this.textContent = '발송 중...';
-
-            try {
-                if (typeof YugwanAPI !== 'undefined') {
-                    await YugwanAPI.auth.sendVerificationEmail(email);
-                }
-
-                document.getElementById('verifyCodeGroup').classList.add('show');
-                document.getElementById('emailStatus').innerHTML = '<i class="fas fa-check-circle"></i> 인증코드가 발송되었습니다.';
-                document.getElementById('emailStatus').className = 'verify-status success';
-
-                // 재발송 가능하도록
-                setTimeout(() => {
-                    this.disabled = false;
-                    this.textContent = '재발송';
-                }, 30000);
-            } catch (error) {
-                document.getElementById('emailStatus').innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + (error.message || '발송에 실패했습니다.');
-                document.getElementById('emailStatus').className = 'verify-status error';
-                this.disabled = false;
-                this.textContent = '인증코드 발송';
-            }
-        });
-
-        document.getElementById('btnVerifyCode').addEventListener('click', async function() {
-            const code = document.getElementById('verifyCode').value.trim();
-            if (!code) {
-                showToast('인증코드를 입력해주세요.');
-                return;
-            }
-
-            try {
-                if (typeof YugwanAPI !== 'undefined') {
-                    await YugwanAPI.auth.verifyEmail(document.getElementById('email').value, code);
-                }
-
-                emailVerified = true;
-                document.getElementById('codeStatus').innerHTML = '<i class="fas fa-check-circle"></i> 이메일이 인증되었습니다.';
-                document.getElementById('codeStatus').className = 'verify-status success';
-                document.getElementById('verifyCode').disabled = true;
-                this.disabled = true;
-            } catch (error) {
-                document.getElementById('codeStatus').innerHTML = '<i class="fas fa-exclamation-circle"></i> 인증코드가 일치하지 않습니다.';
-                document.getElementById('codeStatus').className = 'verify-status error';
-            }
-        });
+        const totalSteps = 3;
 
         // Step navigation
         function nextStep() {
             if (currentStep < totalSteps) {
                 // Validate current step
-                if (currentStep === 2) {
+                if (currentStep === 1) {
                     const email = document.getElementById('email').value.trim();
                     const password = document.getElementById('password').value;
                     const passwordConfirm = document.getElementById('passwordConfirm').value;
@@ -1749,8 +1177,9 @@
                         return;
                     }
 
-                    if (!emailVerified) {
-                        showToast('이메일 인증을 완료해주세요.');
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(email)) {
+                        showToast('올바른 이메일 형식을 입력해주세요.');
                         return;
                     }
 
@@ -1774,7 +1203,6 @@
                 currentStep++;
                 document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('active');
                 updateStepIndicator();
-                updatePaymentDisplay();
             }
         }
 
@@ -1831,8 +1259,6 @@
                 return;
             }
 
-            const selectedType = document.querySelector('input[name="membershipType"]:checked').value;
-
             // Prepare form data
             const formData = {
                 email: document.getElementById('email').value,
@@ -1845,7 +1271,6 @@
                 occupation: document.querySelector('input[name="occupation"]').value,
                 join_source: document.querySelector('select[name="source"]').value,
                 join_message: document.querySelector('textarea[name="message"]').value,
-                tier: selectedType,
                 marketing_agreed: document.getElementById('consent3').checked
             };
 
@@ -1858,17 +1283,9 @@
                     await YugwanAPI.auth.register(formData);
                 }
 
-                // Update complete message based on tier
-                const completeMessage = document.getElementById('completeMessage');
-                if (selectedType === 'FREE') {
-                    completeMessage.textContent = '이제 로그인하여 다양한 회원 서비스를 이용하실 수 있습니다.';
-                } else {
-                    completeMessage.textContent = '입금 확인 후 회원 등급이 업그레이드됩니다. 이제 로그인하여 서비스를 이용하실 수 있습니다.';
-                }
-
                 // Move to completion step
                 document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.remove('active');
-                currentStep = 4;
+                currentStep = 3;
                 document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('active');
                 updateStepIndicator();
 
@@ -1885,13 +1302,6 @@
             checkboxes.forEach(cb => cb.checked = this.checked);
         });
 
-        // Copy account number
-        function copyAccount() {
-            navigator.clipboard.writeText('301-0123-4567-81').then(() => {
-                showToast('계좌번호가 복사되었습니다.', 'success');
-            });
-        }
-
         // FAQ Accordion
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', () => {
@@ -1907,25 +1317,6 @@
                 }
             });
         });
-
-        // Social Login
-        document.getElementById('btnKakaoRegister').addEventListener('click', function() {
-            const redirectUri = encodeURIComponent(window.location.origin + '/join/social-callback.html?action=register');
-            window.location.href = YugwanAPI.getApiUrl(`/auth/social/kakao/?redirect_uri=${redirectUri}`);
-        });
-
-        document.getElementById('btnNaverRegister').addEventListener('click', function() {
-            const redirectUri = encodeURIComponent(window.location.origin + '/join/social-callback.html?action=register');
-            window.location.href = YugwanAPI.getApiUrl(`/auth/social/naver/?redirect_uri=${redirectUri}`);
-        });
-
-        document.getElementById('btnGoogleRegister').addEventListener('click', function() {
-            const redirectUri = encodeURIComponent(window.location.origin + '/join/social-callback.html?action=register');
-            window.location.href = YugwanAPI.getApiUrl(`/auth/social/google/?redirect_uri=${redirectUri}`);
-        });
-
-        // Initialize
-        updatePaymentDisplay();
     </script>
 </body>
 </html>

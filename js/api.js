@@ -148,33 +148,6 @@ const API = {
             });
         },
 
-        async sendVerificationEmail(email) {
-            return API.request('/auth/email/verify/send/', {
-                method: 'POST',
-                body: JSON.stringify({ email })
-            });
-        },
-
-        async verifyEmail(email, code) {
-            return API.request('/auth/email/verify/', {
-                method: 'POST',
-                body: JSON.stringify({ email, code })
-            });
-        },
-
-        async requestUpgrade(tier) {
-            return API.request('/auth/upgrade/request/', {
-                method: 'POST',
-                body: JSON.stringify({ tier })
-            });
-        },
-
-        async unlinkSocial(provider) {
-            return API.request(`/auth/social/${provider}/unlink/`, {
-                method: 'POST'
-            });
-        },
-
         async deleteAccount(password) {
             return API.request('/auth/account/delete/', {
                 method: 'POST',
